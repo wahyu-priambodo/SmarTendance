@@ -1,4 +1,5 @@
 # Ignore junk files
 .venv
 .idea
-.cert
+.cert/aws-ubuntu
+.cert/quil-lm

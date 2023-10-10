@@ -10,9 +10,9 @@ MQTTclient.configureEndpoint(
 
 # Certificate with RootCA, Private Key, and Certificate
 MQTTclient.configureCredentials(
-    "./.cert/AmazonRootCA1.crt",
-    "./.cert/private.pem.key",
-    "./.cert/certificate.pem.crt",
+    "./.cert/quil-lm/AmazonRootCA1.crt",
+    "./.cert/quil-lm/private.pem.key",
+    "./.cert/quil-lm/certificate.pem.crt",
 )
 
 MQTTclient.configureOfflinePublishQueueing(-1)  # Infinite offline Publish queueing
