@@ -1,3 +1,4 @@
 # Ignore junk files
 .venv
 .idea
+.cert
