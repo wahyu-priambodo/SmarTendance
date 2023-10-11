@@ -46,7 +46,6 @@
    <li>NodeMCU ESP8266</li>
    <li>RFID sensor (MFRC522)</li>
    <li>Identity card like <strong>e-KTP/SIM</strong> as RFID card</li>
-   <li>Buzzer</li>
    <li>LCD 16x2 I2C</li>
    <li>Mini buzzer</li>
    <li>Fingerprint sensor <em>(futher work)</em></li>
@@ -62,7 +61,7 @@
    <li>phpMyAdmin for managing MySQL databases</li>
    <li>Git</li>
    <li>Arduino IDE</li>
-   <li>Visual Studio Code</li>
+   <li>Visual Studio Code or other code editor that you like</li>
    <li>Web Browser, we recommend to use <strong>Google Chrome/Mozilla Firefox</strong> for compatibility reason</li>
    <li>...</li>
 </ul>
