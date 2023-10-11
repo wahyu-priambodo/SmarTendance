@@ -42,24 +42,27 @@
 # Requirements
 ## Hardware:
 <ul>
-   <li>Arduino Uno board</li>
-   <li>RFID reader sensor</li>
+   <li>Arduino Uno R3</li>
+   <li>NodeMCU ESP8266</li>
+   <li>RFID sensor (MFRC522)</li>
    <li>Identity card like <strong>e-KTP/SIM</strong> as RFID card</li>
    <li>Buzzer</li>
    <li>LCD 16x2 I2C</li>
-   <li>NodeMCU 8266 (Wifi Module)</li>
-   <li>Numpad/Fingerprint sensor module for Arduino (futher work)</li>
-   <li>...</li>
+   <li>Mini buzzer</li>
+   <li>Fingerprint sensor <em>(futher work)</em></li>
+   <li>Jumper cable <strong>(male to male & male to female)</strong></li>
+   <li>Adaptor 5V</li>
 </ul>
 
 ## Softwares:
 <ul>
-   <li>Python 3 ver-3.11 or above</li>
-   <li>Flask framework ver-x (Backend)</li>
-   <li>Kivy framework ver-x (Mobile app)</li>
-   <li>MongoDB ver-x (Database)</li>
+   <li>Python 3 <strong>ver-3.10.12</strong> or above</li>
+   <li>Flask framework <strong>ver-3.0.0</strong> (Backend)</li>
+   <li>MySQL server & client <strong>ver-8.0.34</strong> (Database)</li>
+   <li>phpMyAdmin for managing MySQL databases</li>
    <li>Git</li>
    <li>Arduino IDE</li>
+   <li>Visual Studio Code</li>
    <li>Web Browser, we recommend to use <strong>Google Chrome/Mozilla Firefox</strong> for compatibility reason</li>
    <li>...</li>
 </ul>
@@ -71,7 +74,7 @@
 <p>Soon... You can visit our wiki for the details at <strong>bla bla bla</strong>...</p>
 
 # Contributors
-## We are the 3rd group, consisting of:
+## Members of the 3rd group include:
 <ul>
    <li>Muhammad Khairu Mufid (2207421031)</li>
    <li>Kevin Alonzo Manuel Bakara (2207421032)</li>
@@ -82,9 +85,21 @@
 </ul>
 
 # Todos
-- [ ] Making a simple flowchart
-- [ ] Document requirements</strong> containing of flowchart and the tools that required
-<br>
+- [X] Making a **block diagram** and **simple flowchart**
+<div align="center">
+   <img src="https://github.com/wahyu-priambodo/RFID-Attendance-System/assets/78311798/6054ecb4-650b-4130-992a-01184a24ad63" alt="block-diagram" width="100%">
+   <p>Image 1. Block Diagram</p>
+   <hr>
+   <img src="https://github.com/wahyu-priambodo/RFID-Attendance-System/assets/78311798/685e0448-2d1e-4595-af2a-1fb64be1ed16" alt="flowchart" width="30%">
+   <p>Image 2. Flowchart</p>
+</div>
+<hr>
+
+- [X] **Project Requirements**: https://docs.google.com/document/d/1HgZa5Btvx8v64lG_GeFaTAc-W5RzYUj6E80HYkERNlI/edit?usp=sharing
+- [ ] **Connecting Flask to MySQL Db**
+
+<br><br>
+
 <footer>
-   <p align="right">Copyright &copy;2023 Third Group &mdash; SolidGank</p>
+   <p align="right">Copyright &copy;2023 Developed by 3rd Group</p>
 </footer>
