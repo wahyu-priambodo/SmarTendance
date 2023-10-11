@@ -37,8 +37,9 @@
 				</div>
 				<div class="input-box">
 					<span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-					<input type="text" name="password" id="password" required>
+					<input type="password" name="password" id="password" required>
 					<label>Password</label>
+					<span class="show-password" onclick="togglePasswordVisibility()"><ion-icon name="eye"></ion-icon></span>
 				</div>
 				<button type="submit" class="btn">Login</button>
 				<div class="jenis">
@@ -50,6 +51,20 @@
 
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script>
+		function togglePasswordVisibility() {
+			const passwordInput = document.getElementById("password");
+			const eyeIcon = document.querySelector(".show-password ion-icon");
+		
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				eyeIcon.name = "eye-off";
+			} else {
+				passwordInput.type = "password";
+				eyeIcon.name = "eye";
+			}
+		}
+		</script>
 
 </body>
 </html>
