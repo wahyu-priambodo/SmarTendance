@@ -1,12 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>E-Learning PNJ</title>
-	<link rel="stylesheet" type="text/css" href="dashboard.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning PNJ - Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
 </head>
 <body>
-	
+    <div class="sidebar">
+        <div class="user-profile">
+            <img src="#" alt="Nama Pengguna">
+            <h2>Nama Pengguna</h2>
+        </div>
+        <ul>
+            <li><a href="#">Rekapitulasi Absen</a></li>
+            <li><a href="#">Course</a></li>
+            <li><a href="#">Kontak Dosen</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+
+    <header>
+        <h1>Dashboard Kehadiran</h1>
+        <div id="time-and-day" class="right-align"></div>
+    </header>
+
+    <main>
+        <section class="attendance-list">
+            <h2>Daftar Kehadiran</h2>
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>2023-10-12</td>
+                        <td>Hadir</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>2023-10-12</td>
+                        <td>Absen</td>
+                    </tr>
+                    <!-- Tambahkan baris kehadiran lain sesuai kebutuhan -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="course-list">
+            <h2>Daftar Kursus</h2>
+            <table class="course-table">
+                <thead>
+                    <tr>
+                        <th>Kode Kursus</th>
+                        <th>Nama Kursus</th>
+                        <th>Dosen Pengajar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>COURSE101</td>
+                        <td>Matematika Dasar</td>
+                        <td>Dr. John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>COURSE202</td>
+                        <td>Fisika Dasar</td>
+                        <td>Prof. Jane Smith</td>
+                    </tr>
+                    <!-- Tambahkan baris kursus lain sesuai kebutuhan -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        function updateTimeAndDay() {
+            const timeAndDayElement = document.getElementById("time-and-day");
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+            function update() {
+                const now = new Date();
+                const day = days[now.getDay()];
+                const date = now.getDate();
+                const month = months[now.getMonth()];
+                const year = now.getFullYear();
+                const time = now.toLocaleTimeString();
+
+                const fullDate = `${day}, ${date} ${month} ${year}`;
+                timeAndDayElement.textContent = `${fullDate} | ${time}`;
+            }
+
+            update();
+            setInterval(update, 1000);
+        }
+
+        updateTimeAndDay();
+    </script>
+
+	<script>
+		const sidebar = document.querySelector(".sidebar");
+		const content = document.querySelector("main");
+
+		document.addEventListener("mousemove", function (event) {
+			if (event.clientX < 10) {
+				sidebar.style.left = "0"; // Tampilkan sidebar
+				content.style.marginLeft = "250px"; // Geser konten ke kanan
+			} else if (event.clientX > 260) {
+				sidebar.style.left = "-250px"; // Sembunyikan sidebar
+				content.style.marginLeft = "0"; // Geser konten ke kiri
+			}
+		});
+	</script>
+
 </body>
 </html>
