@@ -9,7 +9,7 @@ const char WIFI_PASSWORD[] = "18072001";
 #define THINGNAME "arduino-esp8266"
 
 // Indonesia, Jakarta Tiimezone
-int8_t TIME_ZONE = +7;
+const int TIME_ZONE = 7;
 
 // MQTT Endpoint
 const char MQTT_endpoint[] = "a2pr7kvz6d0wr2-ats.iot.ap-southeast-2.amazonaws.com";

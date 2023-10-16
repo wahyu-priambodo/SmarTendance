@@ -32,7 +32,7 @@ MQTTclient.configureMQTTOperationTimeout(5)  # 5 sec
 print("Connecting to AWS IoT Broker...")
 MQTTclient.connect()
 MQTTclient.subscribe(
-    "awsiot/test",
+    "awsiot/pub",
     1,
     callback,
 )

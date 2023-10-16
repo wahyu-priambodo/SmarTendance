@@ -4,19 +4,18 @@
 #include <ArduinoJson.h>
 #include <time.h>
 #include "secrets.h"
-#define TIME_ZONE -5
 
-float h;
-float t;
 unsigned long lastMillis = 0;
 unsigned long previousMillis = 0;
 const long interval = 5000;
+bool isNTPConnect = false;
 
-#define AWS_IOT_PUBLISH_TOPIC "awsiot/test"
-#define AWS_IOT_SUBSCRIBE_TOPIC "awsiot/test1"
+#define AWS_IOT_PUBLISH_TOPIC "awsiot/pub"
+#define AWS_IOT_SUBSCRIBE_TOPIC "awsiot/sub"
 
 WiFiClientSecure net;
 
+// Credentials for AWS IoT
 BearSSL::X509List cert(root_ca);
 BearSSL::X509List client_crt(client_cert);
 BearSSL::PrivateKey key(private_key);
@@ -29,7 +28,7 @@ time_t nowish = 1510592825;
 void NTPConnect(void)
 {
   Serial.print("Setting time using SNTP");
-  configTime(TIME_ZONE * 3600, 0 * 3600, "pool.ntp.org", "time.nist.gov");
+  configTime(TIME_ZONE * 3600, 0, "pool.ntp.org", "time.nist.gov");
   now = time(nullptr);
   while (now < nowish)
   {
@@ -39,9 +38,14 @@ void NTPConnect(void)
   }
   Serial.println("done!");
   struct tm timeinfo;
-  gmtime_r(&now, &timeinfo);
+  if (!getLocalTime(&timeinfo))
+  {
+    Serial.print("Failed to obtain time");
+  }
   Serial.print("Current time: ");
   Serial.print(asctime(&timeinfo));
+
+  isNTPConnect = true;
 }
 
 void messageReceived(char *topic, byte *payload, unsigned int length)
@@ -59,10 +63,12 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
 void connectAWS()
 {
   delay(3000);
+
+  // Setting up WiFi connection
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-  Serial.println(String("Attempting to connect to SSID: ") + String(WIFI_SSID));
+  Serial.print(String("Attempting to connect to SSID: ") + String(WIFI_SSID));
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -70,14 +76,21 @@ void connectAWS()
     delay(1000);
   }
 
-  NTPConnect();
+  Serial.println("Connected");
 
+  // Set time via NTP, as required for x.509 validation
+  if (!isNTPConnect)
+    NTPConnect();
+
+  // Setting up certification key
   net.setTrustAnchors(&cert);
   net.setClientRSACert(&client_crt, &key);
 
+  // Setting up connection to AWS MQTT
   client.setServer(MQTT_endpoint, 8883);
   client.setCallback(messageReceived);
 
+  // Connecting to AWS MQTT
   Serial.println("Connecting to AWS IOT");
 
   while (!client.connect(THINGNAME))
@@ -91,18 +104,18 @@ void connectAWS()
     Serial.println("AWS IoT Timeout!");
     return;
   }
+
   // Subscribe to a topic
   client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
 
   Serial.println("AWS IoT Connected!");
 }
 
-void publishMessage()
+void publishMessage(const char rfid_number[])
 {
   StaticJsonDocument<200> doc;
   doc["time"] = millis();
-  doc["humidity"] = h;
-  doc["temperature"] = t;
+  doc["rfid"] = rfid_number;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
@@ -118,13 +131,20 @@ void setup()
 void loop()
 {
   {
+    const char rfid_number[] = "1234567890";
+    struct tm timeinfo;
+    if (!getLocalTime(&timeinfo))
+    {
+      Serial.print("Failed to obtain time");
+    }
+    Serial.print("Current time: ");
+    Serial.print(asctime(&timeinfo));
+
     char h[] = "Hello from ESP8266";
 
     Serial.print(F("Humidity: "));
-    Serial.print(h);
+    Serial.println(h);
     delay(3000);
-
-    now = time(nullptr);
 
     if (!client.connected())
     {
@@ -136,7 +156,8 @@ void loop()
       if (millis() - lastMillis > 5000)
       {
         lastMillis = millis();
-        publishMessage();
+        publishMessage(rfid_number);
+        exit(0);
       }
     }
   }
