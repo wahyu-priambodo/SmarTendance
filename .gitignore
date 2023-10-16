@@ -3,3 +3,10 @@
 .idea
 .cert/aws-ubuntu
 .cert/quil-lm
+.pio
+.browse.c_cpp.db*
+c_cpp_properties.json
+launch.json
+ipch
+.gitignore
+
