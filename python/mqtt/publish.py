@@ -26,7 +26,7 @@ print("Publishing message to AWS IoT Broker...")
 
 # Set topic to 'awsiot/test' and publish a message
 MQTTclient.publish(
-    topic="awsiot/test",
+    topic="awsiot/sub",
     QoS=1,
     payload="Hello from quil-lm",
 )

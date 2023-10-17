@@ -1,5 +1,6 @@
 # Using AWS IOT as MQTT Broker
 import time
+import json
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
 
@@ -7,7 +8,15 @@ from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 def callback(self, params, packet):
     print("Received message from AWS IoT Core")
     print("Topic: " + packet.topic)
-    print("Payload: ", (packet.payload))
+    # print("Payload: ", (packet.payload))
+    get_data(packet.payload)
+
+
+# Decode the JSON byte data to dictionary
+def get_data(data_input):
+    data = json.loads(data_input.decode("utf-8"))
+    print(f"Timestamp: {data['time']}")
+    print(f"RFID: {data['rfid']}")
 
 
 MQTTclient = AWSIoTMQTTClient("LM-key")  # Random Key

@@ -157,7 +157,6 @@ void loop()
       {
         lastMillis = millis();
         publishMessage(rfid_number);
-        exit(0);
       }
     }
   }
