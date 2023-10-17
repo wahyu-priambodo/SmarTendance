@@ -1,6 +1,6 @@
 <div align="center">
    <h1>IoT-Attendance-System (Under Development)</h1>
-   <img src="https://media.giphy.com/media/7NoNw4pMNTvgc/giphy.gif" width="300" height="300" alt="On Progress!"/>
+   <img src="https://media.giphy.com/media/8TweEdaxxfuElKkRxz/giphy-downsized-large.gif" width="300" height="300" alt="On Progress!"/>
    </br>
    <img src="https://img.shields.io/badge/release-under_development-FC929E"/>
    <img src="https://img.shields.io/github/contributors/wahyu-priambodo/IoT-Attendance-System"/>
