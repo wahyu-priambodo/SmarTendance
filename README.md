@@ -9,6 +9,7 @@
 
 # Todos
 - [X] Read UID Card/Tag
+- [X] Add Mini Buzzer as output
 - [ ] Add LCD 16x2 I2C as output
 - [ ] Connecting Python Flask with ESP8266 (display the user UID's at the homepage)
 - [ ] Add fingerprint sensor to validate user uid card/tag
