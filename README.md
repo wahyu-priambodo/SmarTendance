@@ -9,6 +9,6 @@
 
 # Todos
 - [X] Read UID Card/Tag
-- [ ] Belajar fundamental Python Flask
-- [ ] Belajar fundamental MongoDB
-- [ ] Belajar konfigurasi dasar Nginx
+- [ ] Add LCD 16x2 I2C as output
+- [ ] Connecting Python Flask with ESP8266 (display the user UID's at the homepage)
+- [ ] Add fingerprint sensor to validate user uid card/tag
