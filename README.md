@@ -8,6 +8,7 @@
    Dan untuk web security, pastinya saya akan menggunakan <strong>free SSL certificate dari OpenSSL</strong> dan akan <strong>mengimplementasikan JWT + enkripsi XOR untuk autentikasinya</strong>.</p>
 
 # Todos
+- [X] Read UID Card/Tag
 - [ ] Belajar fundamental Python Flask
 - [ ] Belajar fundamental MongoDB
 - [ ] Belajar konfigurasi dasar Nginx
