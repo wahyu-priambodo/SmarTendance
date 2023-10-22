@@ -58,7 +58,7 @@
 	position: relative;
 	width: 100%;
 	height: 100vh;
-	background: rgba(0,0,0,0.6) url('https://1.bp.blogspot.com/-Hd-N3QjAYcM/YBaljAbIA2I/AAAAAAAATbw/d_M-BAUbEJoUxjiNmq7e9j0KD5zD7DjbACLcBGAsYHQ/s1280/0_IMG-20210131-WA0022.jpg') no-repeat;
+	background: rgba(0,0,0,0.6) url('Resource/background.jpg') no-repeat;
 	background-size: cover;
 	background-position: center;
 	background-blend-mode:darken;
