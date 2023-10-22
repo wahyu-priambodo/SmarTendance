@@ -1,45 +1,69 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-#define RST_PIN D1
-#define SDA_PIN D2
-#define BUZZER D8 // Set pin buzzer ke pin D8
+#define RST_PIN D1 // Set pin reset rc522 di pin D1 esp8266
+#define SDA_PIN D2 // Set pin SDA rc522 di pin D2 esp8266
+#define BUZZER D8 // Set pin buzzer di pin D8 esp8266
 
-MFRC522 mfrc522(SDA_PIN, RST_PIN);
+MFRC522 rfid(SDA_PIN, RST_PIN);
+MFRC522::MIFARE_Key key;
+
+String uid = ""; // Untuk menyimpan data UID kartu/tag
+String lastUID = ""; // Untuk menampung UID kartu/tag yang sebelumnya telah digunakan
+bool userLoggedIn = false; // Variabel penanda apakah user sudah login
 
 void setup() {
   Serial.begin(9600); // Mengatur baud rate di 9600
   pinMode(BUZZER, OUTPUT); // Mengatur pin buzzer sebagai output
   SPI.begin();
-  mfrc522.PCD_Init();
+  rfid.PCD_Init();
   Serial.println("Tempel RFID card/tag Anda...");
 }
 
 void loop() {
-  if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
+  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()) {
+    for (byte i = 0; i < 4; i++) {
+      uid += rfid.uid.uidByte[i];
+    }
     Serial.print("UID Kartu: ");
-    String uidStr = "";
-    for (byte i = 0; i < mfrc522.uid.size; i++) {
-      Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-      Serial.print(mfrc522.uid.uidByte[i], HEX);
-      uidStr.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
-      uidStr.concat(String(mfrc522.uid.uidByte[i], HEX));
-    }
-    Serial.println();
-    mfrc522.PICC_HaltA();
-    mfrc522.PCD_StopCrypto1();
+    Serial.println(uid);
 
-    // Memeriksa UID dan menampilkan pesan "login berhasil" jika UID kartu/tag benar
-    uidStr.toUpperCase();
-    if (uidStr.substring(1) == "A7 5A 46 62" || uidStr.substring(1) == "09 8D 53 A3") {
-      Serial.println("Kartu cocok... login berhasil!\n");
-      tone(BUZZER, 500, 500); // Mengaktifkan buzzer
-      delay(1000);
-      noTone(BUZZER); // Menonaktifkan buzzer setelah 1 detik
+    // User belum login
+    if (!userLoggedIn) {
+      // Memeriksa kartu/tag apakah UIDnya sesuai atau tidak. Jika iya, maka login berhasil.
+      if (uid == "167907098" || uid == "914183163") {
+        Serial.println("Kartu cocok... login berhasil!\n");
+        tone(BUZZER, 500, 500); // Membunyikan buzzer selama 5s ketika user pertama kali login
+        userLoggedIn = true; // Set variabel penanda menjadi true.
+        lastUID = uid;
+        Serial.print("lastUID:");
+        Serial.println(lastUID);
+        Serial.print("uid:");
+        Serial.println(uid);
+        delay(500);
+        noTone(BUZZER); // Menonaktifkan buzzer setelah user login.
+      }
+      // Jika UID kartu/tag tidak sesuai, maka login gagal.
+      else {
+        Serial.println("Kartu tidak cocok... Login gagal!\n");
+        delay(1000);
+      }
     }
+    // User sudah login
     else {
-      Serial.println("Kartu tidak cocok... login gagal!\n");
-      delay(1000);
+      if (lastUID == uid) {
+        Serial.println("Anda sudah login!\n");
+        // Membunyikan buzzer 2 kali selama 2s
+        for (int i=1; i<=2; i++) {
+          tone(BUZZER, 500, 200);
+          delay(100);
+          noTone(BUZZER);
+          delay(100);
+        }
+      }
     }
+    uid = ""; // Reset uid value
+    rfid.PICC_HaltA();
+    rfid.PCD_StopCrypto1();
   }
 }
