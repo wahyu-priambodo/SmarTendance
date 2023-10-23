@@ -4,16 +4,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link rel="stylesheet" type="text/css" href="tutorial.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tutorial.css') }}"/>
 	<title>AttenDance</title>
 </head>
 <body>
 	<header class="header">
-		<a href="#" class="logo"><img src=".\Resource\RFID.png" alt="E-learning PNJ Logo" width="70" height="75"> AttenDance</a>
+		<a href="#" class="logo"><img src="{{ url_for('static', filename='assets/RFID.png') }}" alt="E-learning PNJ Logo" width="70" height="75"> AttenDance</a>
 		<nav class="nav">
-			<a href="Tutorial.html">Tutorial</a>
+			<a href="/tutorial">Tutorial</a>
 			<a href="#">Contact</a>
-			<a href="Login_mhsw.html">Login</a>
+			<a href="/">Login</a>
 		</nav>
 	</header>
 
@@ -25,7 +25,7 @@
 		</div>
 		<div class="video">
 			<video controls="true">
-				<source src="..\Resource\Test.mp4" type="video/webm">
+				<source src="{{ url_for('static', filename='assets/Test.mp4') }}" type="video/webm">
 			</video>
 		</div>
 

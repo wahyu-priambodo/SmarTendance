@@ -4,16 +4,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link rel="stylesheet" type="text/css" href="login_dsn.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='portal_utama.css') }}"/>
 	<title>AttenDance</title>
 </head>
 <body>
 	<header class="header">
-		<a href="#" class="logo"><img src=".\Resource\RFID.png" alt="E-learning PNJ Logo" width="70" height="75"> AttenDance</a>
+		<a href="#" class="logo"><img src="{{ url_for('static', filename='assets/RFID.png') }}" alt="E-learning PNJ Logo" width="70" height="75"> AttenDance</a>
 		<nav class="nav">
-			<a href="Tutorial.html">Tutorial</a>
+			<a href="/tutorial">Tutorial</a>
 			<a href="#">Contact</a>
-			<a href="Login_mhsw.html">Login</a>
+			<a href="/">Login</a>
 		</nav>
 	</header>
 
@@ -29,18 +29,18 @@
 			<form action="Dashboard.html" method="get">
 				<div class="input-box">
 					<span class="icon"><ion-icon name="mail"></ion-icon></span>
-					<input type="text" name="NIP" id="NIP" required>
-					<label>NIP</label>
+					<input type="text" name="NIM" id="NIM" required>
+					<label>NIM</label>
 				</div>
 				<div class="input-box">
 					<span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
 					<input type="password" name="password" id="password" required>
-					<span class="show-password" onclick="togglePasswordVisibility()"><ion-icon name="eye"></ion-icon></span>
 					<label>Password</label>
+					<span class="show-password" onclick="togglePasswordVisibility()"><ion-icon name="eye"></ion-icon></span>
 				</div>
 				<button type="submit" class="btn">Login</button>
 				<div class="jenis">
-					<p><a href="Login_dsn.html">Dosen</a> | <a href="Login_mhsw.html">Mahasiswa</a></p>
+					<p><a href="/dosen">Dosen</a> | <a href="/">Mahasiswa</a></p>
 				</div>
 			</form>
 		</div>
