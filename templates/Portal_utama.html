@@ -26,17 +26,17 @@
 
 		<div class="wrapper-login">
 			<h2>Login</h2>
-			<form action="Dashboard.html" method="get">
+			<form action="/dashboard" method="GET">
 				<div class="input-box">
 					<span class="icon"><ion-icon name="mail"></ion-icon></span>
 					<input type="text" name="NIM" id="NIM" required>
-					<label>NIM</label>
+					<label for="NIM">NIM</label>
 				</div>
 				<div class="input-box">
 					<span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-					<input type="password" name="password" id="password" required>
-					<label>Password</label>
+					<input type="password" name="Password" id="Password" required>
 					<span class="show-password" onclick="togglePasswordVisibility()"><ion-icon name="eye"></ion-icon></span>
+					<label for="Password">Password</label>
 				</div>
 				<button type="submit" class="btn">Login</button>
 				<div class="jenis">
@@ -50,7 +50,7 @@
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	<script>
 		function togglePasswordVisibility() {
-			const passwordInput = document.getElementById("password");
+			const passwordInput = document.getElementById("Password");
 			const eyeIcon = document.querySelector(".show-password ion-icon");
 		
 			if (passwordInput.type === "password") {
