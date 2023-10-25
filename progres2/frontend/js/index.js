@@ -118,5 +118,3 @@ document.addEventListener('DOMContentLoaded', function () {
   checkSavedTheme();
   
 });
-
-

@@ -7,8 +7,8 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="./css/rekap_absen.css" />
+    <title>Rekap Absensi</title>
   </head>
 
   <body>
@@ -16,16 +16,16 @@
     <div class="sidebar">
       <a href="#" class="logo">
         <i class="bx bx-font-family"></i>
-        <div class="logo-name"><span>Smart</span>endance</div>
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
-        <li class="active">
+        <li>
           <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
-        <li>
+        <li class="active">
           <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
         </li>
         <li>
@@ -68,108 +68,18 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Dashboard</h1>
+            <h1>Rekap Absensi</h1>
             <ul class="breadcrumb">
-              <li><a href="" class="active">Dashboard</a></li>
+              <li><a href="" class="active">Rekap Absensi</a></li>
               /
             </ul>
           </div>
         </div>
 
-        <!-- Insights -->
-        <ul class="insights">
-          <li>
-            <i class="bx bx-group"></i>
-            <span class="info">
-              <h3>29</h3>
-              <p>Jumlah Mahasiswa Terdaftar</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bxs-graduation"></i>
-            <span class="info">
-              <h3>9</h3>
-              <p>Jumlah Course</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bxs-door-open"></i>
-            <span class="info">
-              <h3>1</h3>
-              <p>Jumlah Kelas</p>
-            </span>
-          </li>
-        </ul>
-        <!-- End of Insights -->
-
-        <!-- Tabel Mahasiswa Terdaftar -->
+        <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bx-table"></i>
-              <h3>Mahasiswa Terdaftar</h3>
-              <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Mahasiswa</th>
-                  <th>NIM</th>
-                  <th>Tanggal daftar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Kevin Alonzo</p>
-                  </td>
-                  <td>2207421032</td>
-                  <td>10-20-2023</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Wahyu Priambodo</p>
-                  </td>
-                  <td>2207421048</td>
-                  <td>10-20-2023</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Shaquille Arriza Hidayat</p>
-                  </td>
-                  <td>2207421057</td>
-                  <td>10-20-2023</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Cornelius Yuli Rusdianto</p>
-                  </td>
-                  <td>2207421059</td>
-                  <td>10-20-2023</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Tabel Kelas Saya -->
-
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-table"></i>
-              <h3>Kelas Saya</h3>
               <i class="bx bx-filter"></i>
               <i class="bx bx-search"></i>
             </div>
@@ -179,6 +89,7 @@
                   <th>Mata Kuliah</th>
                   <th>Kode</th>
                   <th>Kelas</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,21 +97,51 @@
                   <td>Sistem Embedded</td>
                   <td>D82HF</td>
                   <td>TMJ 3B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>Pemrograman Web</td>
                   <td>D82HF</td>
                   <td>TMJ 2B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>Pemrograman Berorientasi Objek</td>
                   <td>D82HF</td>
                   <td>TMJ 1B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>Rekayasa Perangkat Lunak</td>
                   <td>D82HF</td>
                   <td>TMJ 4B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Keamanan Komputer</td>
+                  <td>D82HF</td>
+                  <td>TMJ 5B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -208,7 +149,7 @@
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="./js/index.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");

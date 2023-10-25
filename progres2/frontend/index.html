@@ -7,8 +7,8 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="course.css" />
-    <title>Course</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Dashboard Mahasiswa</title>
   </head>
 
   <body>
@@ -16,13 +16,13 @@
     <div class="sidebar">
       <a href="#" class="logo">
         <i class="bx bx-font-family"></i>
-        <div class="logo-name"><span>Smart</span>endance</div>
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
-        <li>
+        <li class="active">
           <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
+        <li>
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
@@ -68,20 +68,76 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>My Course</h1>
+            <h1>Dashboard</h1>
             <ul class="breadcrumb">
-              <li><a href="" class="active">Course</a></li>
+              <li><a href="" class="active">Dashboard</a></li>
               /
             </ul>
           </div>
         </div>
 
-        <!-- Tabel Course Terdaftar -->
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bx-group"></i>
+            <span class="info">
+              <h3>29</h3>
+              <p>Jumlah Mahasiswa Terdaftar</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-graduation"></i>
+            <span class="info">
+              <h3>9</h3>
+              <p>Jumlah Course</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-door-open"></i>
+            <span class="info">
+              <h3>1</h3>
+              <p>Jumlah Kelas</p>
+            </span>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+
+        <!-- Tabel Mahasiswa Terdaftar -->
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bx-calendar"></i>
-              <h3>Tanggal?</h3>
+              <i class="bx bx-table"></i>
+              <h3>Mahasiswa Terdaftar</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mahasiswa</th>
+                  <th>NIM</th>
+                  <th>Tanggal daftar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="./Resource/profile_logo.png" />
+                    <p id="user-loggedin-name">Muhammad Khairu Mufid</p>
+                  </td>
+                  <td id="user-loggedin-nim">2207421031</td>
+                  <td>10-20-2023</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tabel Kelas Saya -->
+
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-table"></i>
+              <h3>Kelas Saya</h3>
               <i class="bx bx-filter"></i>
               <i class="bx bx-search"></i>
             </div>
@@ -91,8 +147,6 @@
                   <th>Mata Kuliah</th>
                   <th>Kode</th>
                   <th>Kelas</th>
-                  <th>Jumlah Mahasiswa</th>
-                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,56 +154,21 @@
                   <td>Sistem Embedded</td>
                   <td>D82HF</td>
                   <td>TMJ 3B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
                 </tr>
                 <tr>
                   <td>Pemrograman Web</td>
                   <td>D82HF</td>
                   <td>TMJ 2B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
                 </tr>
                 <tr>
                   <td>Pemrograman Berorientasi Objek</td>
                   <td>D82HF</td>
                   <td>TMJ 1B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
                 </tr>
                 <tr>
                   <td>Rekayasa Perangkat Lunak</td>
                   <td>D82HF</td>
                   <td>TMJ 4B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Keamanan Komputer</td>
-                  <td>D82HF</td>
-                  <td>TMJ 5B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
                 </tr>
               </tbody>
             </table>
@@ -157,8 +176,23 @@
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="./js/index.js"></script>
     <script>
+      // Ambil nama dan nim dari URL (query parameter)
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('username');
+      const nim = urlParams.get('nim');
+
+      // Setel nama dan nim ke elemen HTML
+      const usernameElement = document.getElementById('user-loggedin-name');
+      const nimElement = document.getElementById('user-loggedin-nim');
+
+      if (username && nim) {
+        usernameElement.textContent = username;
+        nimElement.textContent = nim;
+      }
+
+
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "dark") {

@@ -7,7 +7,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="data_mhsw.css" />
+    <link rel="stylesheet" href="./css/course.css" />
     <title>Course</title>
   </head>
 
@@ -16,7 +16,7 @@
     <div class="sidebar">
       <a href="#" class="logo">
         <i class="bx bx-font-family"></i>
-        <div class="logo-name"><span>Smart</span>endance</div>
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
@@ -70,9 +70,8 @@
           <div class="left">
             <h1>My Course</h1>
             <ul class="breadcrumb">
-              <a href="course.html"><li>Course</li></a>
+              <li><a href="" class="active">Course</a></li>
               /
-              <li><a href="" class="active">Edit</a></li>
             </ul>
           </div>
         </div>
@@ -81,59 +80,76 @@
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bxs-book-alt"></i>
-              <h3>Sistem Embedded - TMJ 3B</h3>
+              <i class="bx bx-calendar"></i>
+              <h3>Tanggal?</h3>
               <i class="bx bx-filter"></i>
               <i class="bx bx-search"></i>
             </div>
             <table>
               <thead>
                 <tr>
-                  <th>Nama Mahasiswa</th>
-                  <th>NIM</th>
-                  <th>Tanggal daftar</th>
+                  <th>Mata Kuliah</th>
+                  <th>Kode</th>
+                  <th>Kelas</th>
+                  <th>Jumlah Mahasiswa</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
+                  <td>Sistem Embedded</td>
+                  <td>D82HF</td>
+                  <td>TMJ 3B</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
                   </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
+                  <td>Pemrograman Web</td>
+                  <td>D82HF</td>
+                  <td>TMJ 2B</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
                   </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
+                  <td>Pemrograman Berorientasi Objek</td>
+                  <td>D82HF</td>
+                  <td>TMJ 1B</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
                   </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
+                  <td>Rekayasa Perangkat Lunak</td>
+                  <td>D82HF</td>
+                  <td>TMJ 4B</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
                   </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="./Resource/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
+                  <td>Keamanan Komputer</td>
+                  <td>D82HF</td>
+                  <td>TMJ 5B</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed"
+                      ><i class="bx bxs-chevron-right"></i>lihat</a
+                    >
                   </td>
-                  <td>2207421031</td>
-                  <td>10-20-2023</td>
                 </tr>
               </tbody>
             </table>
@@ -141,7 +157,7 @@
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="./js/index.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
