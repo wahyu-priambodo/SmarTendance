@@ -116,17 +116,17 @@
                 <tr>
                   <th>Mahasiswa</th>
                   <th>NIM</th>
-                  <th>Tanggal daftar</th>
+                  <th>Usia</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
                     <img src="./Resource/profile_logo.png" />
-                    <p id="user-loggedin-name">Muhammad Khairu Mufid</p>
+                    <p id="user-loggedin-name"></p>
                   </td>
-                  <td id="user-loggedin-nim">2207421031</td>
-                  <td>10-20-2023</td>
+                  <td id="user-loggedin-nim"></td>
+                  <td id="user-loggedin-age"></td>
                 </tr>
               </tbody>
             </table>
@@ -182,14 +182,17 @@
       const urlParams = new URLSearchParams(window.location.search);
       const username = urlParams.get('username');
       const nim = urlParams.get('nim');
+      const age = urlParams.get('age');
 
       // Setel nama dan nim ke elemen HTML
       const usernameElement = document.getElementById('user-loggedin-name');
       const nimElement = document.getElementById('user-loggedin-nim');
+      const ageElement = document.getElementById('user-loggedin-age');
 
-      if (username && nim) {
+      if (username && nim && age) {
         usernameElement.textContent = username;
         nimElement.textContent = nim;
+        ageElement.textContent = age;
       }
 
 

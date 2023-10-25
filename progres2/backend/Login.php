@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($autentikasi->login()) {
       $user = $autentikasi->login();
-      header("Location: ../frontend/index.html?username=" . $user["nama"] . "&nim=" . $user["nim"]); // Redirect ke halaman dashboard Mahasiswa
+      header("Location: ../frontend/index.html?username=" . $user["nama"] . "&nim=" . $user["nim"] . "&age=" . $user["usia"]); // Redirect ke halaman dashboard Mahasiswa
       exit; // Keluar untuk menghentikan eksekusi selanjutnya
     } else {
       header("Location: ../frontend/Login_mhsw.html?error=NIM atau password Anda salah!");
