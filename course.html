@@ -8,6 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="course.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
     <title>Course</title>
   </head>
 
@@ -15,7 +16,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <i class="bx bx-font-family"></i>
+        <img src="Resource/logo.png" alt="Logo SmarTandance" />
         <div class="logo-name"><span>Smart</span>endance</div>
       </a>
       <ul class="side-menu">
@@ -81,7 +82,7 @@
           <div class="orders">
             <div class="header">
               <i class="bx bx-calendar"></i>
-              <h3>Tanggal?</h3>
+              <h3 id="tanggal"></h3>
               <i class="bx bx-filter"></i>
               <i class="bx bx-search"></i>
             </div>
@@ -165,6 +166,41 @@
           document.body.classList.add("dark");
           toggler.checked = true;
         }
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+
+        // Fungsi untuk memperbarui waktu secara berkala
+        function updateClock() {
+          const tanggalElement = document.getElementById("tanggal");
+          const currentTime = new Date();
+          const hari = currentTime.toLocaleDateString(undefined, { weekday: 'long' });
+          const tanggal = currentTime.getDate();
+          const bulan = currentTime.toLocaleDateString(undefined, { month: 'long' });
+          const tahun = currentTime.getFullYear();
+          const jam = currentTime.getHours().toString().padStart(2, '0');
+          const menit = currentTime.getMinutes().toString().padStart(2, '0');
+          const detik = currentTime.getSeconds().toString().padStart(2, '0');
+
+          // Format waktu
+          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun} (${jam}:${menit}:${detik})`;
+
+          // Tampilkan waktu dalam elemen dengan ID "tanggal"
+          tanggalElement.textContent = formattedTime;
+        }
+
+        // Memperbarui waktu setiap detik
+        setInterval(updateClock, 1000);
+
+        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
+        updateClock();
       });
     </script>
   </body>

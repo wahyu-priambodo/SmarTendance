@@ -73,6 +73,10 @@
 	color: white;
 }
 
+.Tutorial .video {
+	width: 60%;
+}
+
 .content h2 {
 	font-size: 3em;
 	letter-spacing: .03em;
