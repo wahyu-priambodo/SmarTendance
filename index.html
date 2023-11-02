@@ -17,7 +17,7 @@
     <div class="sidebar">
       <a href="#" class="logo">
         <img src="images/logo.png" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smar</span>Tandance</div>
+        <div class="logo-name"><span>Smar</span>Tendance</div>
       </a>
       <ul class="side-menu">
         <li class="active">
@@ -41,10 +41,20 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout">
+          <a href="#" class="logout" id="logout-button">
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -123,13 +133,22 @@
               <i class="bx bx-table"></i>
               <h3>Mahasiswa Terdaftar</h3>
               <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              <input
+                type="search"
+                placeholder="Search..."
+                class="search-input"
+              />
+              <button class="search-btn" type="submit">
+                <i class="bx bx-search"></i>
+              </button>
             </div>
             <table>
               <thead>
                 <tr>
                   <th>Mahasiswa</th>
                   <th>NIM</th>
+                  <th>UID</th>
+                  <th>Jumlah course</th>
                   <th>Tanggal daftar</th>
                 </tr>
               </thead>
@@ -140,6 +159,8 @@
                     <p>Muhammad Khairu Mufid</p>
                   </td>
                   <td>2207421031</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -148,6 +169,8 @@
                     <p>Kevin Alonzo</p>
                   </td>
                   <td>2207421032</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -156,6 +179,8 @@
                     <p>Wahyu Priambodo</p>
                   </td>
                   <td>2207421048</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -164,6 +189,8 @@
                     <p>Brian Azura Nixon</p>
                   </td>
                   <td>2207421056</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -172,6 +199,8 @@
                     <p>Shaquille Arriza Hidayat</p>
                   </td>
                   <td>2207421057</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -180,6 +209,8 @@
                     <p>Cornelius Yuli Rusdianto</p>
                   </td>
                   <td>2207421059</td>
+                  <td>SBifg38r</td>
+                  <td>9</td>
                   <td>10-20-2023</td>
                 </tr>
               </tbody>
@@ -193,13 +224,22 @@
               <i class="bx bx-table"></i>
               <h3>Dosen Terdaftar</h3>
               <i class="bx bx-filter"></i>
-              <i class="bx bx-search"></i>
+              <input
+                type="search"
+                placeholder="Search..."
+                class="search-input"
+              />
+              <button class="search-btn" type="submit">
+                <i class="bx bx-search"></i>
+              </button>
             </div>
             <table>
               <thead>
                 <tr>
                   <th>Dosen</th>
                   <th>NIP</th>
+                  <th>UID</th>
+                  <th>Jumlah course</th>
                   <th>Tanggal daftar</th>
                 </tr>
               </thead>
@@ -210,6 +250,8 @@
                     <p>Prihatin Oktivasari</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -218,6 +260,8 @@
                     <p>Defiana Arnaldy</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -226,6 +270,8 @@
                     <p>Maria Agustin</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -234,6 +280,8 @@
                     <p>Ayu Rosyida</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -242,6 +290,8 @@
                     <p>Ariawan Andi Suhandana</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr>
@@ -250,6 +300,8 @@
                     <p>Susana Dwi Yulianti</p>
                   </td>
                   <td>12345678</td>
+                  <td>J49FJGV9Q</td>
+                  <td>2</td>
                   <td>10-20-2023</td>
                 </tr>
                 <tr></tr>
@@ -267,6 +319,33 @@
           document.body.classList.add("dark");
           toggler.checked = true;
         }
+      });
+
+      const searchButtons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn"
+      );
+      const searchButtonIcons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn .bx"
+      );
+      const searchInputs = document.querySelectorAll(
+        ".bottom-data .orders .header .search-input"
+      );
+
+      searchButtons.forEach((searchButton, index) => {
+        const searchButtonIcon = searchButtonIcons[index];
+        const searchInput = searchInputs[index];
+
+        searchButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          searchInput.classList.toggle("show");
+
+          if (searchInput.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+            searchInput.focus(); // Fokuskan input textfield setelah ditampilkan
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        });
       });
     </script>
   </body>

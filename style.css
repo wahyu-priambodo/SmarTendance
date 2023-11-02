@@ -104,6 +104,9 @@
     margin-top: 24px;
     width: 100%;
     color: var(--dark);
+    flex-direction: column;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .content main .bottom-data>div{
@@ -132,7 +135,8 @@
 
 .content main .bottom-data .orders{
     flex-grow: 1;
-    flex-basis: 500px;
+    flex-basis: auto;
+    margin: 9px 0;
 }
 
 .content main .bottom-data .orders table{
@@ -148,7 +152,7 @@
 }
 
 .content main .bottom-data .orders table td{
-    padding: 16px 0;
+    padding: 16px 7px;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
@@ -197,7 +201,7 @@
 .content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
     text-align: center;
 }
-
+  
 
 @media screen and (max-width: 768px) {
     .content{
@@ -211,17 +215,13 @@
     .content main .insights {
         grid-template-columns: 1fr;
     }
-
+    
     .content main .bottom-data .header{
-        min-width: 340px;
+        min-width: 200px;
     }
 
     .content main .bottom-data .orders table{
-        min-width: 340px;
-    }
-
-    .content main .bottom-data .reminders .task-list{
-        min-width: 340px;
+        min-width: 200px;
     }
 
 }

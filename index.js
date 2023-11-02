@@ -88,7 +88,7 @@ toggler.addEventListener('change', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  const sideLinks = document.querySelectorAll('.sidebar .side-menu li a:not(.logout)');
+  const sideLinks = document.querySelectorAll('.sidebar .side-menu li a');
 
   // Fungsi untuk mengatur tema
   const setTheme = (isDark) => {
@@ -120,3 +120,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// coba
+const logoutButton = document.getElementById('logout-button');
+const confirmationModal = document.getElementById('confirmation-modal');
+const confirmLogoutButton = document.getElementById('confirm-logout');
+const cancelLogoutButton = document.getElementById('cancel-logout');
+
+logoutButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  confirmationModal.classList.add('active');
+});
+
+cancelLogoutButton.addEventListener('click', () => {
+  confirmationModal.classList.remove('active');
+});
+
+confirmLogoutButton.addEventListener('click', () => {
+  // Lakukan logout di sini
+  // window.location.href = '/logout'; 
+
+
+  confirmationModal.classList.remove('active');
+});

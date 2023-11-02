@@ -1,0 +1,157 @@
+.content main{
+    width: 100%;
+    padding: 36px 24px;
+    max-height: calc(100vh - 56px);
+}
+
+.content main .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+}
+
+.content main .header .left h1{
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.content main .header .left .breadcrumb{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+
+.content main .header .left .breadcrumb li{
+    color: var(--dark);
+}
+
+.content main .header .left .breadcrumb li a{
+    color: var(--dark-grey);
+    pointer-events: none;
+}
+
+.content main .header .left .breadcrumb li a.active{
+    color: var(--primary);
+    pointer-events: none;
+}
+
+/* CSS untuk Registration Form */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 900px;
+    margin-top: 55px;
+  }
+  
+  .registration-form {
+    background: var(--light);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    text-align: center;
+    margin-top: -250px; 
+  }
+  
+  .registration-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registration-form .form-group {
+    margin-bottom: 30px; 
+    position: relative;
+  }
+
+  .registration-form h2 {
+    margin-bottom: 50px;
+    color: var(--dark);
+  }
+  
+  .registration-form .form-group label {
+    font-size: 16px;
+    position: absolute;
+    top: 22px; 
+    left: 13px;
+    transition: all 0.3s;
+    color: var(--dark-grey);
+  }
+  
+  .registration-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+  }
+  
+  .registration-form .btn-register {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: var(--light);
+    border: none;
+    border-radius: 6px;
+    font-size: 18px; 
+    cursor: pointer;
+    margin-top: 20px; 
+  }
+  
+  .registration-form .btn-register:hover {
+    background: #0a5cad;
+    transition: 0.3s;
+  }
+  
+  .form-group label.active {
+    transform: translateY(-41px);
+    color: var(--dark);
+  }
+  
+  .form-group input:focus + label {
+    color: var(--dark);
+    transform: translateY(-41px); 
+  }
+  
+  .form-group input:focus {
+    border-color: var(--primary);
+  }
+
+  .show-password {
+    cursor: pointer;
+    position: absolute;
+    top: 66%;
+    right: 16px;
+	  font-size: 1.6em;
+    transform: translateY(-50%);
+	  color: #181a1e;
+}
+
+@media screen and (max-width: 768px) {
+    .content{
+        width: calc(100% - 60px);
+        left: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .content main .bottom-data .header{
+        min-width: 340px;
+    }
+
+    .content main .bottom-data .orders table{
+        min-width: 340px;
+    }
+
+    .content main .bottom-data .reminders .task-list{
+        min-width: 340px;
+    }
+
+}
