@@ -35,10 +35,20 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="Login_mhsw.html" class="logout">
+          <a href="#" class="logout" id="logout-button">
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -181,13 +191,17 @@
         function updateClock() {
           const tanggalElement = document.getElementById("tanggal");
           const currentTime = new Date();
-          const hari = currentTime.toLocaleDateString(undefined, { weekday: 'long' });
+          const hari = currentTime.toLocaleDateString(undefined, {
+            weekday: "long",
+          });
           const tanggal = currentTime.getDate();
-          const bulan = currentTime.toLocaleDateString(undefined, { month: 'long' });
+          const bulan = currentTime.toLocaleDateString(undefined, {
+            month: "long",
+          });
           const tahun = currentTime.getFullYear();
-          const jam = currentTime.getHours().toString().padStart(2, '0');
-          const menit = currentTime.getMinutes().toString().padStart(2, '0');
-          const detik = currentTime.getSeconds().toString().padStart(2, '0');
+          const jam = currentTime.getHours().toString().padStart(2, "0");
+          const menit = currentTime.getMinutes().toString().padStart(2, "0");
+          const detik = currentTime.getSeconds().toString().padStart(2, "0");
 
           // Format waktu
           const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun} (${jam}:${menit}:${detik})`;

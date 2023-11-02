@@ -35,10 +35,20 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="Login_mhsw.html" class="logout">
+          <a href="Login_mhsw.html" class="logout" id="logout-button">
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
