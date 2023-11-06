@@ -33,7 +33,7 @@
           <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
         </li>
         <li>
-          <a href="#"><i class="bx bx-table"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -128,11 +128,18 @@
 
         <!-- Tabel Mahasiswa Terdaftar -->
         <div class="bottom-data">
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-table"></i>
+          <div class="orders" data-table="mahasiswa">
+            <div class="header" data-table="mahasiswa">
+              <i class="bx bx-table" data-table="mahasiswa"></i>
               <h3>Mahasiswa Terdaftar</h3>
-              <i class="bx bx-filter"></i>
+              <div class="filter-dropdown">
+                <select id="mahasiswa-data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter bx-filter-mahasiswa"></i>
+              </div>
               <input
                 type="search"
                 placeholder="Search..."
@@ -142,14 +149,15 @@
                 <i class="bx bx-search"></i>
               </button>
             </div>
+
             <table>
               <thead>
                 <tr>
                   <th>Mahasiswa</th>
-                  <th>NIM</th>
-                  <th>UID</th>
-                  <th>Jumlah course</th>
-                  <th>Tanggal daftar</th>
+                  <th class="data">NIM</th>
+                  <th class="data">UID</th>
+                  <th class="data">Jumlah course</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -161,7 +169,14 @@
                   <td>2207421031</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -171,7 +186,14 @@
                   <td>2207421032</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -181,7 +203,14 @@
                   <td>2207421048</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -191,7 +220,14 @@
                   <td>2207421056</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -201,7 +237,14 @@
                   <td>2207421057</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -211,19 +254,42 @@
                   <td>2207421059</td>
                   <td>SBifg38r</td>
                   <td>9</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
+            <div class="pagination">
+              <button id="mahasiswa-prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="mahasiswa-current-page">Page 1</span>
+              <button id="mahasiswa-next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+            </div>
           </div>
 
           <!-- Tabel Dosen Terdaftar -->
 
-          <div class="orders">
-            <div class="header">
-              <i class="bx bx-table"></i>
+          <div class="orders" data-table="dosen">
+            <div class="header" data-table="dosen">
+              <i class="bx bx-table" data-table="dosen"></i>
               <h3>Dosen Terdaftar</h3>
-              <i class="bx bx-filter"></i>
+              <div class="filter-dropdown">
+                <select id="dosen-data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter bx-filter-dosen"></i>
+              </div>
               <input
                 type="search"
                 placeholder="Search..."
@@ -240,7 +306,7 @@
                   <th>NIP</th>
                   <th>UID</th>
                   <th>Jumlah course</th>
-                  <th>Tanggal daftar</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -252,7 +318,14 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -262,7 +335,14 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -272,7 +352,14 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -282,7 +369,14 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -292,7 +386,14 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -302,11 +403,27 @@
                   <td>12345678</td>
                   <td>J49FJGV9Q</td>
                   <td>2</td>
-                  <td>10-20-2023</td>
+                  <td class="action">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>ubah</a
+                    >
+                    <a href="#" class="status delete"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
                 </tr>
                 <tr></tr>
               </tbody>
             </table>
+            <div class="pagination">
+              <button id="dosen-prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="dosen-current-page">Page 1</span>
+              <button id="dosen-next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+            </div>
           </div>
         </div>
       </main>
@@ -347,6 +464,164 @@
           }
         });
       });
+
+      // Identifikasi elemen-elemen terkait dengan tabel mahasiswa
+      const mahasiswaTable = document.querySelector(
+        ".orders[data-table='mahasiswa']"
+      );
+      const mahasiswaFilterIcon = document.querySelector(
+        ".bx-filter-mahasiswa"
+      );
+      const mahasiswaFilterDropdown =
+        mahasiswaTable.querySelector(".filter-dropdown");
+      const mahasiswaDataFilterSelect = document.getElementById(
+        "mahasiswa-data-filter"
+      );
+      const mahasiswaTableRows =
+        mahasiswaTable.querySelectorAll("table tbody tr");
+      const mahasiswaPrevPageButton = document.getElementById(
+        "mahasiswa-prev-page"
+      );
+      const mahasiswaNextPageButton = document.getElementById(
+        "mahasiswa-next-page"
+      );
+      const mahasiswaCurrentPageSpan = document.getElementById(
+        "mahasiswa-current-page"
+      );
+
+      // Identifikasi elemen-elemen terkait dengan tabel dosen
+      const dosenTable = document.querySelector(".orders[data-table='dosen']");
+      const dosenFilterIcon = document.querySelector(".bx-filter-dosen");
+      const dosenFilterDropdown = dosenTable.querySelector(".filter-dropdown");
+      const dosenDataFilterSelect =
+        document.getElementById("dosen-data-filter");
+      const dosenTableRows = dosenTable.querySelectorAll("table tbody tr");
+      const dosenPrevPageButton = document.getElementById("dosen-prev-page");
+      const dosenNextPageButton = document.getElementById("dosen-next-page");
+      const dosenCurrentPageSpan =
+        document.getElementById("dosen-current-page");
+
+      // Mahasiswa
+      let currentPageMhs = 1;
+      let itemsPerPageMhs = parseInt(mahasiswaDataFilterSelect.value);
+
+      function updatePaginationMahasiswa() {
+        const totalPages = Math.ceil(
+          mahasiswaTableRows.length / itemsPerPageMhs
+        );
+        mahasiswaCurrentPageSpan.textContent = `Page ${currentPageMhs}`;
+
+        if (currentPageMhs === 1) {
+          mahasiswaPrevPageButton.disabled = true;
+        } else {
+          mahasiswaPrevPageButton.disabled = false;
+        }
+
+        if (currentPageMhs === totalPages) {
+          mahasiswaNextPageButton.disabled = true;
+        } else {
+          mahasiswaNextPageButton.disabled = false;
+        }
+
+        mahasiswaTableRows.forEach((row, index) => {
+          if (
+            index >= (currentPageMhs - 1) * itemsPerPageMhs &&
+            index < currentPageMhs * itemsPerPageMhs
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      mahasiswaFilterIcon.addEventListener("click", function () {
+        mahasiswaFilterDropdown.classList.toggle("active");
+      });
+
+      mahasiswaDataFilterSelect.addEventListener("change", function () {
+        itemsPerPageMhs = parseInt(mahasiswaDataFilterSelect.value);
+        currentPageMhs = 1;
+        updatePaginationMahasiswa();
+      });
+
+      mahasiswaPrevPageButton.addEventListener("click", function () {
+        if (currentPageMhs > 1) {
+          currentPageMhs--;
+          updatePaginationMahasiswa();
+        }
+      });
+
+      mahasiswaNextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(
+          mahasiswaTableRows.length / itemsPerPageMhs
+        );
+        if (currentPageMhs < totalPages) {
+          currentPageMhs++;
+          updatePaginationMahasiswa();
+        }
+      });
+
+      updatePaginationMahasiswa();
+
+      // dosen
+      let currentPageDsn = 1;
+      let itemsPerPageDsn = parseInt(dosenDataFilterSelect.value);
+
+      function updatePaginationDosen() {
+        const totalPages = Math.ceil(dosenTableRows.length / itemsPerPageDsn);
+        dosenCurrentPageSpan.textContent = `Page ${currentPageDsn}`;
+
+        if (currentPageDsn === 1) {
+          dosenPrevPageButton.disabled = true;
+        } else {
+          dosenPrevPageButton.disabled = false;
+        }
+
+        if (currentPageDsn === totalPages) {
+          dosenNextPageButton.disabled = true;
+        } else {
+          dosenNextPageButton.disabled = false;
+        }
+
+        dosenTableRows.forEach((row, index) => {
+          if (
+            index >= (currentPageDsn - 1) * itemsPerPageDsn &&
+            index < currentPageDsn * itemsPerPageDsn
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      dosenFilterIcon.addEventListener("click", function () {
+        dosenFilterDropdown.classList.toggle("active");
+      });
+
+      dosenDataFilterSelect.addEventListener("change", function () {
+        itemsPerPageDsn = parseInt(dosenDataFilterSelect.value);
+        currentPageDsn = 1;
+        updatePaginationDosen();
+      });
+
+      dosenPrevPageButton.addEventListener("click", function () {
+        if (currentPageDsn > 1) {
+          currentPageDsn--;
+          updatePaginationDosen();
+        }
+      });
+
+      dosenNextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(dosenTableRows.length / itemsPerPageDsn);
+        if (currentPageDsn < totalPages) {
+          currentPageDsn++;
+          updatePaginationDosen();
+        }
+      });
+
+      updatePaginationDosen();
     </script>
   </body>
 </html>

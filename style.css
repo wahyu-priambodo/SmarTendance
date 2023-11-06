@@ -136,7 +136,7 @@
 .content main .bottom-data .orders{
     flex-grow: 1;
     flex-basis: auto;
-    margin: 9px 0;
+    margin-bottom: 10px;
 }
 
 .content main .bottom-data .orders table{
@@ -170,7 +170,6 @@
 }
 
 .content main .bottom-data .orders table tbody tr{
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -178,30 +177,111 @@
     background: var(--grey);
 }
 
+.action{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .content main .bottom-data .orders table tr td .status{
-    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
     padding: 6px 16px;
-    color: var(--light);
+    color: #fbfbfb;
     border-radius: 20px;
     font-weight: 700;
+    margin: 0 4%;
+}
+
+.content main .bottom-data .orders table tr td .status .bx {
+    font-size: 1.4rem;
+    margin-right: 4px;
 }
 
 .content main .bottom-data .orders table tr td .status.completed{
     background: var(--success);
 }
 
-.content main .bottom-data .orders table tr td .status.process{
-    background: var(--primary);
-}
-
-.content main .bottom-data .orders table tr td .status.pending{
-    background: var(--warning);
+.content main .bottom-data .orders table tr td .status.delete{
+    background: var(--danger);
 }
 
 .content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
     text-align: center;
 }
-  
+
+/* filter */
+.content main .bottom-data .header .filter-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.content main .bottom-data .header .filter-dropdown select {
+    background: var(--grey);
+    border: none;
+    font-size: 17px;
+    color: var(--dark);
+    cursor: pointer;
+    width: 75px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+/* Filter untuk tabel mahasiswa dan tabel dosen */
+.content .orders .header .filter-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.content .orders .header .filter-dropdown select {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.content .orders .header .filter-dropdown select {
+    display: none;
+}
+
+.content .orders .header .filter-dropdown.active select {
+    display: block;
+    margin-right: 5px;
+}
+
+.content .pagination {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    align-items: center;
+    justify-content: left;
+}
+
+.content .pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 5px;
+    color: var(--light-grey);
+    margin: 0 10px;
+}
+
+.content .pagination button:disabled {
+    color: var(--dark-grey);
+    cursor: not-allowed;
+}
+
+#mahasiswa-prev-page, #mahasiswa-next-page, #dosen-prev-page, #dosen-next-page {
+    background-color: var(--grey);
+    padding: 5px;
+    border-radius: 4px;
+}
+
 
 @media screen and (max-width: 768px) {
     .content{
@@ -223,5 +303,4 @@
     .content main .bottom-data .orders table{
         min-width: 200px;
     }
-
 }

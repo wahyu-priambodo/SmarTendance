@@ -46,9 +46,6 @@
     margin-top: 24px;
     width: 100%;
     color: var(--dark);
-    flex-direction: column;
-    overflow-x: auto;
-    white-space: nowrap;
 }
 
 .content main .bottom-data>div{
@@ -77,7 +74,8 @@
 
 .content main .bottom-data .orders{
     flex-grow: 1;
-    flex-basis: auto;
+    flex-basis: 500px;
+    
 }
 
 .content main .bottom-data .orders table{
@@ -95,7 +93,7 @@
 }
 
 .content main .bottom-data .orders table td{
-    padding: 16px 7px;
+    padding: 16px 0;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
@@ -134,81 +132,51 @@
 
 .edit {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center; 
+    justify-content: center; 
 }
 
-.edit .status{
+.edit .status,
+.edit .export-button {
     display: flex;
     align-items: center;
+    padding: 6px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px; 
 }
 
-.edit .bx {
-    font-size: 1.5rem;
+.export-button {
+    color: var(--dark);
+    background-color: var(--primary); 
+    margin-left: 10px;
+    border-radius: 20px;
+}
+
+.export-button i {
     margin-right: 4px;
 }
 
-/* filter & pagination */
-
-.content main .bottom-data .header .filter-dropdown {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+.export-button:hover {
+    background-color: #125ba4; 
+    transition: 0.3s;
 }
-
-.content main .bottom-data .header .filter-dropdown select {
-    background: var(--grey);
-    border: none;
-    font-size: 17px;
-    color: var(--dark);
-    cursor: pointer;
-    width: 75px;
-    text-align: center;
-    border-radius: 6px;
-}
-
-.content .orders .header .filter-dropdown select {
-    display: none;
-}
-
-.content .orders .header .filter-dropdown.active select {
-    display: block;
-    margin-right: 5px;
-}
-
-.content .pagination {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    align-items: center;
-    justify-content: left;
-}
-
-.content .pagination button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 5px;
-    color: var(--light-grey);
-    margin: 0 10px;
-}
-
-.content .pagination button:disabled {
-    color: var(--dark-grey);
-    cursor: not-allowed;
-}
-
-#prev-page, #next-page {
-    background-color: var(--grey);
-    padding: 5px;
-    border-radius: 4px;
-}
-
 
 @media screen and (max-width: 768px) {
     .content{
         width: calc(100% - 60px);
         left: 200px;
+    }
+
+    .export-button {
+        color: white;
+        background-color: red; 
+        margin-left: 0px; 
+        margin: 10px 0; 
+        display: block;
+        border-radius: 20px;
     }
 }
 
@@ -229,4 +197,12 @@
         width: 100vw;
     }
 
+    .export-button {
+        color: white;
+        background-color: red; 
+        margin-left: 10px; 
+        margin: 10px 0; 
+        display: block;
+        border-radius: 20px;
+    }
 }

@@ -33,7 +33,7 @@
           <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
         </li>
         <li>
-          <a href="#"><i class="bx bx-table"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -100,7 +100,7 @@
         <!-- Registration Form -->
         <div class="container">
           <div class="registration-form">
-            <form id="registration-form">
+            <form action="" method="" id="registration-form">
               <h2>Registrasi Dosen</h2>
               <div class="form-group">
                 <label for="nama">Nama Dosen</label>
@@ -116,7 +116,7 @@
                 <span
                   class="show-password"
                   onclick="togglePasswordVisibility('password')"
-                  ><ion-icon name="eye-off-outline"></ion-icon
+                  ><ion-icon name="eye-off-outline" id="hide"></ion-icon
                 ></span>
               </div>
               <div class="form-group">
@@ -125,7 +125,7 @@
                 <span
                   class="show-password"
                   onclick="togglePasswordVisibility('confirm-pass')"
-                  ><ion-icon name="eye-off-outline"></ion-icon
+                  ><ion-icon name="eye-off-outline" id="hide"></ion-icon
                 ></span>
               </div>
               <button type="submit" class="btn-register">Register</button>

@@ -33,7 +33,7 @@
           <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
         </li>
         <li>
-          <a href="#"><i class="bx bx-table"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -97,9 +97,16 @@
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bx-table"></i>
-              <h3>Course Terdaftar - TMJ 3B</h3>
-              <i class="bx bx-filter"></i>
+              <i class="bx bx-calendar"></i>
+              <h3 id="tanggal"></h3>
+              <div class="filter-dropdown">
+                <select id="data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter"></i>
+              </div>
               <input
                 type="search"
                 placeholder="Search..."
@@ -177,6 +184,15 @@
                 </tr>
               </tbody>
             </table>
+            <div class="pagination">
+              <button id="prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="current-page">Page 1</span>
+              <button id="next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+            </div>
           </div>
         </div>
       </main>
@@ -217,6 +233,114 @@
           }
         });
       });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+
+        // Fungsi untuk memperbarui waktu secara berkala
+        function updateClock() {
+          const tanggalElement = document.getElementById("tanggal");
+          const currentTime = new Date();
+          const hari = currentTime.toLocaleDateString(undefined, {
+            weekday: "long",
+          });
+          const tanggal = currentTime.getDate();
+          const bulan = currentTime.toLocaleDateString(undefined, {
+            month: "long",
+          });
+          const tahun = currentTime.getFullYear();
+          const jam = currentTime.getHours().toString().padStart(2, "0");
+          const menit = currentTime.getMinutes().toString().padStart(2, "0");
+          const detik = currentTime.getSeconds().toString().padStart(2, "0");
+
+          // Format waktu
+          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun} (${jam}:${menit}:${detik})`;
+
+          // Tampilkan waktu dalam elemen dengan ID "tanggal"
+          tanggalElement.textContent = formattedTime;
+        }
+
+        // Memperbarui waktu setiap detik
+        setInterval(updateClock, 1000);
+
+        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
+        updateClock();
+      });
+
+      // filter & pagination
+      const filterIcon = document.querySelector(".header .filter-dropdown i");
+      const filterDropdown = document.querySelector(".header .filter-dropdown");
+      const dataFilterSelect = document.getElementById("data-filter");
+      const tableRows = document.querySelectorAll(
+        ".bottom-data .orders table tbody tr"
+      );
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
+      const currentPageSpan = document.getElementById("current-page");
+
+      let currentPage = 1;
+      let itemsPerPage = parseInt(dataFilterSelect.value);
+
+      function updatePagination() {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        currentPageSpan.textContent = `Page ${currentPage}`;
+
+        if (currentPage === 1) {
+          prevPageButton.disabled = true;
+        } else {
+          prevPageButton.disabled = false;
+        }
+
+        if (currentPage === totalPages) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+
+        tableRows.forEach((row, index) => {
+          if (
+            index >= (currentPage - 1) * itemsPerPage &&
+            index < currentPage * itemsPerPage
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      filterIcon.addEventListener("click", function () {
+        filterDropdown.classList.toggle("active");
+      });
+
+      dataFilterSelect.addEventListener("change", function () {
+        itemsPerPage = parseInt(dataFilterSelect.value);
+        currentPage = 1;
+        updatePagination();
+      });
+
+      prevPageButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+        }
+      });
+
+      nextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+        }
+      });
+
+      updatePagination();
     </script>
   </body>
 </html>

@@ -119,8 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
   
 });
 
-
-// coba
 const logoutButton = document.getElementById('logout-button');
 const confirmationModal = document.getElementById('confirmation-modal');
 const confirmLogoutButton = document.getElementById('confirm-logout');

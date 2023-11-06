@@ -13,6 +13,7 @@
     --light-warning: #FFF2C6;
     --success: #388E3C;
     --light-success: #BBF7D0;
+    --dark-select: #2f3640;
 }
 
 *{
@@ -42,11 +43,13 @@ body.dark{
     --light: #f6f6f9;
     --grey: #eee;
     --dark: #363949;
+    --dark-select: #b7bcc3;
 }
 
 body{
     background: var(--grey);
     overflow-x: hidden;
+    
 }
 
 .sidebar{
