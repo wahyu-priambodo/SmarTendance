@@ -14,6 +14,7 @@
     --success: #388E3C;
     --light-success: #BBF7D0;
     --dark-select: #2f3640;
+    --select-hover: #414b57;
 }
 
 *{
@@ -43,7 +44,8 @@ body.dark{
     --light: #f6f6f9;
     --grey: #eee;
     --dark: #363949;
-    --dark-select: #b7bcc3;
+    --dark-select: #c4c2c2;
+    --select-hover: #a2a1a1;
 }
 
 body{

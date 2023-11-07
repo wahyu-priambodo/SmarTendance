@@ -104,11 +104,11 @@
               <h2>Registrasi Mahasiswa</h2>
               <div class="form-group">
                 <label for="nama">Nama Mahasiswa</label>
-                <input type="text" id="nama" required />
+                <input type="text" id="nama" name="nama" required />
               </div>
               <div class="form-group">
                 <label for="nim">NIM</label>
-                <input type="text" id="nim" required />
+                <input type="text" id="nim" name="nim" required />
               </div>
 
               <!-- COBA DROPDOWN -->
@@ -226,7 +226,7 @@
               <!-- END -->
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" required />
+                <input type="password" id="password" name="password" required />
                 <span
                   class="show-password"
                   onclick="togglePasswordVisibility('password')"
@@ -261,6 +261,9 @@
                   <i class="bx bxs-trash"></i>
                   <span>Hapus UID</span>
                 </button>
+                <div class="form-group">
+                  <input type="hidden" id="uid-hidden" name="uid" />
+                </div>
               </div>
               <button type="submit" class="btn-register">Register</button>
             </form>
@@ -384,6 +387,7 @@
       const registerUidButton = document.getElementById("register-uid-button");
       const labelUid = document.getElementById("label-uid");
       const uidInputField = document.getElementById("uid-input");
+      const hiddenInput = document.getElementById("uid-hidden");
 
       showUidButton.addEventListener("click", () => {
         popup.style.display = "flex";
@@ -391,7 +395,7 @@
 
       closePopupButton.addEventListener("click", () => {
         popup.style.display = "none";
-        uidInputField.value = "";
+        uidInputField.value = ""; // Reset value input UID
         wifiLoader.style.display = "flex";
         completeMark.style.display = "none";
         scanSuccess.style.display = "none";
@@ -410,11 +414,21 @@
 
         if (uidInputValue.trim() === "") {
           const uidInputVal = uidInput.value;
+          // Set value untuk input dengan id "uid"
+          uidInput.value = uidInputValue;
+
+          // Set value untuk input dengan id "uid-hidden"
+          hiddenInput.value = uidInputValue;
+          // const uidHiddenVal = hiddenInput.value;
           if (uidInputVal.trim() !== "") {
-            uidInputVal = uidInput.value;
+            uidInput.value = uidInputValue;
+
+            // Set value untuk input dengan id "uid-hidden"
+            hiddenInput.value = uidInputValue;
           }
         } else {
           uidInput.value = uidInputValue;
+          hiddenInput.value = uidInputValue;
         }
 
         if (uidInputValue) {
@@ -488,6 +502,24 @@
 
       // END
 
+      // cek konfirmasi password
+
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-pass");
+
+      confirmPasswordInput.addEventListener("input", function () {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (password === confirmPassword) {
+          confirmPasswordInput.setCustomValidity(""); // Password cocok, hapus pesan kesalahan
+        } else {
+          confirmPasswordInput.setCustomValidity(
+            "Konfirmasi password harus sama dengan password"
+          ); // Password tidak cocok, atur pesan kesalahan
+        }
+      });
+
       const wifiLoader = document.getElementById("wifi-loader");
       const completeMark = document.querySelector(".complete-mark");
       const scanSuccess = document.querySelector(".scan-success");
@@ -530,7 +562,11 @@
           "input[name='kelas']:checked"
         );
 
-        if (selectedRadio && isRFIDDataReceived()) {
+        if (
+          selectedRadio &&
+          isRFIDDataReceived() &&
+          registrationForm.checkValidity()
+        ) {
           registrationForm.submit();
           return true;
         } else {
