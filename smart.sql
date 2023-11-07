@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Nov 2023 pada 06.31
+-- Waktu pembuatan: 07 Nov 2023 pada 08.02
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_absen`
+--
+
+CREATE TABLE `tbl_absen` (
+  `date time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'rincian/log waktu ketika mahasiswa melakukan tap/absensi',
+  `NIM` varchar(10) NOT NULL COMMENT 'NIM dari mahasiswa yang melakukan absensi',
+  `id_matkul` int(8) NOT NULL COMMENT 'id dari matakuliah'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_admin`
+--
+
+CREATE TABLE `tbl_admin` (
+  `id_admin` varchar(20) NOT NULL COMMENT 'nomor id dari admin',
+  `password` varchar(50) NOT NULL COMMENT 'password akun admin'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_course`
 --
 
@@ -32,16 +55,18 @@ CREATE TABLE `tbl_course` (
   `nama_matkul` varchar(50) NOT NULL COMMENT 'Nama mata kuliah',
   `enroll_code` varchar(8) NOT NULL COMMENT 'Kode untuk enroll course',
   `NIP` varchar(18) NOT NULL COMMENT 'Nomor Identitas Pegawai Negeri Sipil yang dimiliki dosen',
-  `deskripsi` varchar(100) DEFAULT NULL COMMENT 'Deskripsi mengenai matakuliah atau cource'
+  `deskripsi` varchar(100) DEFAULT NULL COMMENT 'Deskripsi mengenai matakuliah atau cource',
+  `jam_mulai` time NOT NULL COMMENT 'Jam matakuliah dimulai',
+  `jam_selesai` time NOT NULL COMMENT 'Jam matakuliah selesai'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tbl_course`
 --
 
-INSERT INTO `tbl_course` (`id_matkul`, `nama_matkul`, `enroll_code`, `NIP`, `deskripsi`) VALUES
-(1, 'Sistem Embedded', 'D82HF	', '197910062003122001', 'Bisa kan ya, kalian bisa kan?'),
-(2, 'Pemrograman Berorientasi Objek', 'D82HF	', '198501292010121003', 'Coba kamu present dulu');
+INSERT INTO `tbl_course` (`id_matkul`, `nama_matkul`, `enroll_code`, `NIP`, `deskripsi`, `jam_mulai`, `jam_selesai`) VALUES
+(1, 'Sistem Embedded', 'D82HF	', '197910062003122001', 'Bisa kan ya, kalian bisa kan?', '00:00:00', '00:00:00'),
+(2, 'Pemrograman Berorientasi Objek', 'D82HF	', '198501292010121003', 'Coba kamu present dulu', '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -117,6 +142,20 @@ INSERT INTO `tbl_mhsw` (`NIM`, `nama_mhsw`, `password`, `kelas`, `uuid`) VALUES
 --
 
 --
+-- Indeks untuk tabel `tbl_absen`
+--
+ALTER TABLE `tbl_absen`
+  ADD PRIMARY KEY (`date time`),
+  ADD KEY `tbl_absen_FK` (`NIM`),
+  ADD KEY `tbl_absen_FK_1` (`id_matkul`);
+
+--
+-- Indeks untuk tabel `tbl_admin`
+--
+ALTER TABLE `tbl_admin`
+  ADD PRIMARY KEY (`id_admin`);
+
+--
 -- Indeks untuk tabel `tbl_course`
 --
 ALTER TABLE `tbl_course`
@@ -155,6 +194,13 @@ ALTER TABLE `tbl_course`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_absen`
+--
+ALTER TABLE `tbl_absen`
+  ADD CONSTRAINT `tbl_absen_FK` FOREIGN KEY (`NIM`) REFERENCES `tbl_mhsw` (`NIM`),
+  ADD CONSTRAINT `tbl_absen_FK_1` FOREIGN KEY (`id_matkul`) REFERENCES `tbl_course` (`id_matkul`);
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_course`
