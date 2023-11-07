@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --light: #f6f6f9;
+    --light: #181a1e;
+    --grey: #25252c;
     --primary: #1976D2;
     --light-primary: #CFE8FF;
-    --grey: #eee;
     --dark-grey: #AAAAAA;
-    --dark: #363949;
+    --dark: #fbfbfb;
     --danger: #D32F2F;
 	--light-danger: #FECDD3;
     --warning: #FBC02D;
@@ -39,9 +39,9 @@ html{
 }
 
 body.dark{
-    --light: #181a1e;
-    --grey: #25252c;
-    --dark: #fbfbfb
+    --light: #f6f6f9;
+    --grey: #eee;
+    --dark: #363949;
 }
 
 body{
@@ -275,11 +275,6 @@ body{
     cursor: pointer;
 }
 
-/* .content nav form .form-input button:hover{
-    background-color: #0f569d;
-    transition: 0.4s;
-} */
-
 .content nav .profile img{
     width: 36px;
     height: 36px;
@@ -312,6 +307,73 @@ body{
 .content nav #theme-toggle:checked+.theme-toggle::before{
     left: calc(100% - (25px - 4px) - 2px);
 }
+
+.confirmation-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+  }
+  
+  .modal-content {
+    background: var(--light);
+    color: var(--dark);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+  }
+
+  .modal-content p {
+    margin-bottom: 10px;
+  }
+
+  .modal-buttons button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+
+  #confirm-logout {
+    background-color: var(--success);
+    transition: 0.3s;
+  }
+
+  #confirm-logout:hover {
+    background-color: #29722d;
+  }
+
+  #cancel-logout {
+    background-color: var(--danger);
+    transition: 0.3s;
+  }
+
+  #cancel-logout:hover {
+    background-color: #b12121;
+  }
+  
+  .confirmation-modal.active {
+    display: flex;
+  }
+  
+  .confirmation-modal.active .modal-content {
+    transform: scale(1.3);
+    opacity: 1;
+  }
 
 @media screen and (max-width: 768px) {
     .sidebar{

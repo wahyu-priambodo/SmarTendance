@@ -117,6 +117,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // Memanggil fungsi untuk memeriksa tema yang disimpan di localStorage
   checkSavedTheme();
   
+
+  
+  
+});
+
+const logoutButton = document.getElementById('logout-button');
+const confirmationModal = document.getElementById('confirmation-modal');
+const confirmLogoutButton = document.getElementById('confirm-logout');
+const cancelLogoutButton = document.getElementById('cancel-logout');
+
+logoutButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  confirmationModal.classList.add('active');
+});
+
+cancelLogoutButton.addEventListener('click', () => {
+  confirmationModal.classList.remove('active');
+});
+
+confirmLogoutButton.addEventListener('click', () => {
+  // Lakukan logout di sini
+  window.location.href = 'login_mhsw.html'; 
+
+
+  confirmationModal.classList.remove('active');
 });
 
 
