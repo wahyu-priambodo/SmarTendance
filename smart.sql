@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Nov 2023 pada 08.02
+-- Waktu pembuatan: 09 Nov 2023 pada 14.52
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_absen` (
-  `date time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'rincian/log waktu ketika mahasiswa melakukan tap/absensi',
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'rincian/log waktu ketika mahasiswa melakukan tap/absensi',
   `NIM` varchar(10) NOT NULL COMMENT 'NIM dari mahasiswa yang melakukan absensi',
   `id_matkul` int(8) NOT NULL COMMENT 'id dari matakuliah'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,6 +44,13 @@ CREATE TABLE `tbl_admin` (
   `password` varchar(50) NOT NULL COMMENT 'password akun admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `tbl_admin`
+--
+
+INSERT INTO `tbl_admin` (`id_admin`, `password`) VALUES
+('1092', '1092password');
+
 -- --------------------------------------------------------
 
 --
@@ -57,16 +64,17 @@ CREATE TABLE `tbl_course` (
   `NIP` varchar(18) NOT NULL COMMENT 'Nomor Identitas Pegawai Negeri Sipil yang dimiliki dosen',
   `deskripsi` varchar(100) DEFAULT NULL COMMENT 'Deskripsi mengenai matakuliah atau cource',
   `jam_mulai` time NOT NULL COMMENT 'Jam matakuliah dimulai',
-  `jam_selesai` time NOT NULL COMMENT 'Jam matakuliah selesai'
+  `jam_selesai` time NOT NULL COMMENT 'Jam matakuliah selesai',
+  `id_admin` varchar(20) NOT NULL COMMENT 'ID Admin yang membuat course'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tbl_course`
 --
 
-INSERT INTO `tbl_course` (`id_matkul`, `nama_matkul`, `enroll_code`, `NIP`, `deskripsi`, `jam_mulai`, `jam_selesai`) VALUES
-(1, 'Sistem Embedded', 'D82HF	', '197910062003122001', 'Bisa kan ya, kalian bisa kan?', '00:00:00', '00:00:00'),
-(2, 'Pemrograman Berorientasi Objek', 'D82HF	', '198501292010121003', 'Coba kamu present dulu', '00:00:00', '00:00:00');
+INSERT INTO `tbl_course` (`id_matkul`, `nama_matkul`, `enroll_code`, `NIP`, `deskripsi`, `jam_mulai`, `jam_selesai`, `id_admin`) VALUES
+(1, 'Sistem Embedded', 'D82HF	', '197910062003122001', '', '00:00:00', '00:00:00', '1092'),
+(2, 'Pemrograman Berorientasi Objek', 'D82HF	', '198501292010121003', '', '00:00:00', '00:00:00', '1092');
 
 -- --------------------------------------------------------
 
@@ -125,17 +133,18 @@ CREATE TABLE `tbl_mhsw` (
   `nama_mhsw` varchar(50) NOT NULL COMMENT 'Nama mahasiswa (akun)',
   `password` varchar(255) NOT NULL COMMENT 'Password akun website absensi',
   `kelas` enum('TMJ-3A','TMJ-3B') NOT NULL COMMENT 'Kelas dari mahasiswa',
-  `uuid` varchar(50) NOT NULL COMMENT 'Nomor unik dari kartu RFID'
+  `uuid` varchar(50) NOT NULL COMMENT 'Nomor unik dari kartu RFID',
+  `id_admin` varchar(20) NOT NULL COMMENT 'Id admin yang mendaftarkan mahasiswa (hapus aja klo ribet)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tbl_mhsw`
 --
 
-INSERT INTO `tbl_mhsw` (`NIM`, `nama_mhsw`, `password`, `kelas`, `uuid`) VALUES
-('2207421031', 'Muhammad Khairu Mufid', '2207421031	', 'TMJ-3B', 'SBifg38r'),
-('2207421032', 'Kevin Alonzo Manuel Bakara', '2207421032', 'TMJ-3B', 'SBifg38r'),
-('2207421048', 'Wahyu Priambodo', '2207421048', 'TMJ-3B', 'SBifg38r');
+INSERT INTO `tbl_mhsw` (`NIM`, `nama_mhsw`, `password`, `kelas`, `uuid`, `id_admin`) VALUES
+('2207421031', 'Muhammad Khairu Mufid', '2207421031	', 'TMJ-3B', 'SBifg38r', '1092'),
+('2207421032', 'Kevin Alonzo Manuel Bakara', '2207421032', 'TMJ-3B', 'SBifg38r', '1092'),
+('2207421048', 'Wahyu Priambodo', '2207421048', 'TMJ-3B', 'SBifg38r', '1092');
 
 --
 -- Indexes for dumped tables
@@ -145,7 +154,7 @@ INSERT INTO `tbl_mhsw` (`NIM`, `nama_mhsw`, `password`, `kelas`, `uuid`) VALUES
 -- Indeks untuk tabel `tbl_absen`
 --
 ALTER TABLE `tbl_absen`
-  ADD PRIMARY KEY (`date time`),
+  ADD PRIMARY KEY (`datetime`),
   ADD KEY `tbl_absen_FK` (`NIM`),
   ADD KEY `tbl_absen_FK_1` (`id_matkul`);
 
@@ -160,6 +169,7 @@ ALTER TABLE `tbl_admin`
 --
 ALTER TABLE `tbl_course`
   ADD PRIMARY KEY (`id_matkul`),
+  ADD KEY `tbl_course_FK_1` (`id_admin`),
   ADD KEY `tbl_course_FK` (`NIP`);
 
 --
@@ -179,7 +189,8 @@ ALTER TABLE `tbl_enroll`
 -- Indeks untuk tabel `tbl_mhsw`
 --
 ALTER TABLE `tbl_mhsw`
-  ADD PRIMARY KEY (`NIM`);
+  ADD PRIMARY KEY (`NIM`),
+  ADD KEY `tbl_mhsw_FK` (`id_admin`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -206,7 +217,8 @@ ALTER TABLE `tbl_absen`
 -- Ketidakleluasaan untuk tabel `tbl_course`
 --
 ALTER TABLE `tbl_course`
-  ADD CONSTRAINT `tbl_course_FK` FOREIGN KEY (`NIP`) REFERENCES `tbl_dosen` (`NIP`);
+  ADD CONSTRAINT `tbl_course_FK` FOREIGN KEY (`NIP`) REFERENCES `tbl_dosen` (`NIP`),
+  ADD CONSTRAINT `tbl_course_FK_1` FOREIGN KEY (`id_admin`) REFERENCES `tbl_admin` (`id_admin`);
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_enroll`
@@ -214,6 +226,12 @@ ALTER TABLE `tbl_course`
 ALTER TABLE `tbl_enroll`
   ADD CONSTRAINT `tbl_enroll_FK` FOREIGN KEY (`NIM`) REFERENCES `tbl_mhsw` (`NIM`),
   ADD CONSTRAINT `tbl_enroll_FK_1` FOREIGN KEY (`id_matkul`) REFERENCES `tbl_course` (`id_matkul`);
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_mhsw`
+--
+ALTER TABLE `tbl_mhsw`
+  ADD CONSTRAINT `tbl_mhsw_FK` FOREIGN KEY (`id_admin`) REFERENCES `tbl_admin` (`id_admin`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
