@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Smartendance</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="Resource/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smart</span>endance</div>
+      </a>
+      <ul class="side-menu">
+        <li class="active">
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="Login_mhsw.html" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <h3 id="tanggal"></h3>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"> </label>
+        <a href="#" class="profile">
+          <img src="./Resource/profile_logo.png" />
+        </a>
+      </nav>
+
+      <!-- End of Navbar -->
+
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Selamat Datang, User</h1>
+            <ul class="breadcrumb">
+              <li><a href="" class="active">Dashboard</a></li>
+              /
+            </ul>
+          </div>
+        </div>
+
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class="bx bxs-graduation"></i>
+            <span class="info">
+              <h3>9</h3>
+              <p>Jumlah Course</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-door-open"></i>
+            <span class="info">
+              <h3>1</h3>
+              <p>Jumlah Kelas</p>
+            </span>
+          </li>
+        </ul>
+        <!-- End of Insights -->
+
+        <!-- Tabel Kelas Saya -->
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-table"></i>
+              <h3>Kelas Saya</h3>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mata Kuliah</th>
+                  <th>Kode</th>
+                  <th>Kelas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sistem Embedded</td>
+                  <td>D82HF</td>
+                  <td>TMJ 3B</td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Web</td>
+                  <td>D82HF</td>
+                  <td>TMJ 2B</td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Berorientasi Objek</td>
+                  <td>D82HF</td>
+                  <td>TMJ 1B</td>
+                </tr>
+                <tr>
+                  <td>Rekayasa Perangkat Lunak</td>
+                  <td>D82HF</td>
+                  <td>TMJ 4B</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+
+        // Fungsi untuk memperbarui waktu secara berkala
+        function updateClock() {
+          const tanggalElement = document.getElementById("tanggal");
+          const currentTime = new Date();
+          const hari = currentTime.toLocaleDateString(undefined, {
+            weekday: "long",
+          });
+          const tanggal = currentTime.getDate();
+          const bulan = currentTime.toLocaleDateString(undefined, {
+            month: "long",
+          });
+          const tahun = currentTime.getFullYear();
+
+          // Format waktu
+          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun}`;
+
+          // Tampilkan waktu dalam elemen dengan ID "tanggal"
+          tanggalElement.textContent = formattedTime;
+        }
+
+        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
+        updateClock();
+      });
+    </script>
+  </body>
+</html>
