@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="login_dsn.css" />
+    <title>AttenDance</title>
+  </head>
+  <body>
+    <header class="header">
+      <a href="#" class="logo"
+        ><img
+          src="images/logo.png"
+          alt="E-learning PNJ Logo"
+          width="125"
+          height="75"
+        />
+        <p>Smartendance</p></a
+      >
+      <i class="bx bx-menu menu-icon" id="mobile-menu"></i>
+      <nav class="nav" id="main-nav">
+        <a href="#">Contact</a>
+        <a href="Tutorial.html">Tutorial</a>
+        <a href="Login_mhsw.html">Login</a>
+      </nav>
+    </header>
+
+    <section class="Login">
+      <div class="content">
+        <h2>Selamat datang di portal Smartendance</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos error
+          sed asperiores tempore obcaecati magni vitae, quasi eveniet? Libero,
+          hic!
+        </p>
+        <a href="#">Get Started</a>
+      </div>
+
+      <div class="wrapper-login">
+        <h2>Login</h2>
+        <form action="Dashboard.html" method="get">
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+            <input type="text" name="NIP" id="NIP" required />
+            <label>NIP</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+            <input type="password" name="password" id="password" required />
+            <span class="show-password" onclick="togglePasswordVisibility()"
+              ><ion-icon name="eye"></ion-icon
+            ></span>
+            <label>Password</label>
+          </div>
+          <button type="submit" class="btn">Login</button>
+          <div class="jenis">
+            <p>
+              <a href="Login_dsn.html">Dosen</a> |
+              <a href="Login_mhsw.html">Mahasiswa</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".show-password ion-icon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.name = "eye-off";
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.name = "eye";
+        }
+      }
+
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mainNav = document.getElementById("main-nav");
+      mobileMenu.addEventListener("click", () => {
+        mainNav.classList.toggle("show-menu");
+      });
+    </script>
+  </body>
+</html>

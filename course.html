@@ -93,6 +93,116 @@
           </div>
         </div>
 
+        <div class="select-box">
+          <label for="options-container" id="class">Kelas</label>
+          <div class="options-container" id="options-container">
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 1A"
+                name="kelas"
+                value="TMJ 1A"
+              />
+              <label for="TMJ 1A">TMJ 1A</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 1B"
+                name="kelas"
+                value="TMJ 1B"
+              />
+              <label for="TMJ 1B">TMJ 1B</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMD 1A"
+                name="kelas"
+                value="TMD 1A"
+              />
+              <label for="TMD 1A">TMD 1A</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMD 1B"
+                name="kelas"
+                value="TMD 1B"
+              />
+              <label for="TMD 1B">TMD 1B</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TKJ 1"
+                value="TKJ 1"
+                name="kelas"
+              />
+              <label for="TKJ 1">TKJ 1</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 3A"
+                value="TMJ 3A"
+                name="kelas"
+              />
+              <label for="TMJ 3A">TMJ 3A</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 3B"
+                value="TMJ 3B"
+                name="kelas"
+              />
+              <label for="TMJ 3B">TMJ 3B</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 5"
+                value="TMJ 5"
+                name="kelas"
+              />
+              <label for="TMJ 5">TMJ 5</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="TMJ 7A"
+                value="TMJ 7A"
+                name="kelas"
+              />
+              <label for="TMJ 7A">TMJ 7A</label>
+            </div>
+          </div>
+
+          <div class="selected">Pilih Kelas</div>
+
+          <div class="search-box">
+            <input type="text" placeholder="Cari Kelas..." />
+          </div>
+        </div>
+
         <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
           <div class="orders">
@@ -272,6 +382,65 @@
         // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
         updateClock();
       });
+
+      // dropdown radio
+      const selected = document.querySelector(".selected");
+      const optionsContainer = document.querySelector(".options-container");
+      const searchBox = document.querySelector(".search-box input");
+      const label = document.querySelector("#class");
+
+      const optionsList = document.querySelectorAll(".option");
+
+      selected.addEventListener("click", () => {
+        optionsContainer.classList.toggle("active");
+
+        if (optionsContainer.classList.contains("active")) {
+          searchBox.style.display = "block"; // Tampilkan input search saat options aktif
+          searchBox.focus();
+          label.style.display = "block";
+        } else {
+          searchBox.style.display = "none"; // Sembunyikan input search saat options tidak aktif
+          searchBox.value = ""; // Hapus nilai input search
+          filterList(""); // Hapus filter
+          const selectedRadio = document.querySelector(
+            "input[name='kelas']:checked"
+          );
+          if (selectedRadio) {
+            label.style.display = "block";
+          } else {
+            label.style.display = "none";
+          }
+        }
+      });
+
+      optionsList.forEach((o) => {
+        o.addEventListener("click", () => {
+          selected.innerHTML = o.querySelector("label").innerHTML; // Mengganti teks yang ditampilkan di dropdown
+          const radioInput = o.querySelector("input[type=radio]"); // Mendapatkan elemen radio terkait
+          radioInput.checked = true; // Menandai elemen radio sebagai terpilih
+          optionsContainer.classList.remove("active");
+          searchBox.style.display = "none";
+          searchBox.value = "";
+          filterList("");
+        });
+      });
+
+      searchBox.addEventListener("keyup", function (e) {
+        filterList(e.target.value);
+      });
+
+      const filterList = (searchTerm) => {
+        searchTerm = searchTerm.toLowerCase();
+        optionsList.forEach((option) => {
+          let label =
+            option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+          if (label.indexOf(searchTerm) != -1) {
+            option.style.display = "block";
+          } else {
+            option.style.display = "none";
+          }
+        });
+      };
 
       // filter & pagination
       const filterIcon = document.querySelector(".header .filter-dropdown i");
