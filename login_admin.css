@@ -207,23 +207,7 @@
 	cursor: pointer;
 	font-size: 1em;
 	font-weight: 500;
-}
-
-.wrapper-login .jenis {
-	font-size: .9em;
-	color: white;
-	text-align: center;
-	padding: 20px;
-}
-
-.jenis p a {
-	color: white;
-	text-decoration: none;
-	font-weight: 600;
-}
-
-.jenis p a:hover {
-	text-decoration: underline;
+	margin-bottom: 30px;
 }
 
 @media screen and (max-width: 1115px) {

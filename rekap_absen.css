@@ -39,6 +39,131 @@
     pointer-events: none;
 }
 
+/* Dropdown radio */
+.select-box {
+    position: relative;
+    display: flex;
+    max-width: 500px;
+    min-width: 300px;
+    flex-direction: column;
+    margin-bottom: 22px;
+    text-align: left;
+    margin-top: 40px; 
+  }
+  
+  .select-box #class {
+    display: none;
+    margin-top: -21px;
+    margin-left: 10px;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+  
+  .select-box .options-container {
+    background: var(--dark-select); /* --dark-select */
+    color: var(--dark);
+    max-height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.4s;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    order: 1;
+  }
+  
+  .selected {
+    background: var(--dark-select); /* --dark-select */
+    border-radius: 8px;
+    margin-bottom: 8px;
+    color: var(--dark);
+    position: relative;
+  
+    order: 0;
+  }
+  
+  .selected::after {
+    content: "";
+    background: url("images/arrow-down.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    position: absolute;
+    height: 100%;
+    width: 32px;
+    right: 10px;
+    top: 5px;
+  
+    transition: all 0.4s;
+  }
+  
+  .select-box .options-container.active {
+    max-height: 240px;
+    opacity: 1;
+    overflow-y: scroll;
+  }
+  
+  .select-box .options-container.active + .selected::after {
+    transform: rotateX(180deg);
+    top: -6px;
+  }
+  
+  .select-box .options-container::-webkit-scrollbar {
+    width: 8px;
+    background: var(--dark-select); /* --dark-select */
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .select-box .options-container::-webkit-scrollbar-thumb {
+    background: #525861;
+    border-radius: 8x;
+    transition: all 0.4s;
+  }
+  
+  .select-box .option,
+  .selected {
+    padding: 12px 24px;
+    cursor: pointer;
+  }
+  
+  .select-box .option:hover {
+    background: var(--select-hover); /* --select-hover */
+  }
+  
+  .select-box label {
+    cursor: pointer;
+  }
+  
+  .select-box .option .radio {
+    display: none;
+  }
+  
+  /* Searchbox */
+  
+  .search-box input {
+    display: none;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+    z-index: 100;
+    border: 8px solid var(--dark-select); /* --dark-select */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s;
+  }
+  
+  .search-box input:focus {
+    outline: none;
+  }
+  
+  .select-box .options-container.active ~ .search-box input {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* end */
+
 .content main .bottom-data{
     display: flex;
     flex-wrap: wrap;
@@ -46,6 +171,9 @@
     margin-top: 24px;
     width: 100%;
     color: var(--dark);
+    flex-direction: column;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .content main .bottom-data>div{
@@ -74,8 +202,7 @@
 
 .content main .bottom-data .orders{
     flex-grow: 1;
-    flex-basis: 500px;
-    
+    flex-basis: auto;
 }
 
 .content main .bottom-data .orders table{
@@ -93,7 +220,7 @@
 }
 
 .content main .bottom-data .orders table td{
-    padding: 16px 0;
+    padding: 16px 7px;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
@@ -120,10 +247,9 @@
 .content main .bottom-data .orders table tr td .status{
     font-size: 15px;
     padding: 6px 16px;
-    color: var(--dark);
+    color: #fff;
     border-radius: 20px;
     font-weight: 700;
-    background-color: #4da452;
 }
 
 .content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
@@ -132,51 +258,90 @@
 
 .edit {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
 }
 
-.edit .status,
-.edit .export-button {
+.edit .status{
     display: flex;
     align-items: center;
-    padding: 6px 16px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    margin: 10px; 
+    margin: 0 7px;
 }
 
-.export-button {
-    color: var(--dark);
-    background-color: var(--primary); 
-    margin-left: 10px;
-    border-radius: 20px;
+.edit .ekspor {
+    background-color: var(--primary);
 }
 
-.export-button i {
+.edit .view {
+    background-color: var(--success);
+}
+
+.edit .bx {
+    font-size: 1.5rem;
     margin-right: 4px;
 }
 
-.export-button:hover {
-    background-color: #125ba4; 
-    transition: 0.3s;
+/* filter & pagination */
+
+.content main .bottom-data .header .filter-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
 }
+
+.content main .bottom-data .header .filter-dropdown select {
+    background: var(--grey);
+    border: none;
+    font-size: 17px;
+    color: var(--dark);
+    cursor: pointer;
+    width: 75px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.content .orders .header .filter-dropdown select {
+    display: none;
+}
+
+.content .orders .header .filter-dropdown.active select {
+    display: block;
+    margin-right: 5px;
+}
+
+.content .pagination {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    align-items: center;
+    justify-content: left;
+}
+
+.content .pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 5px;
+    color: var(--light-grey);
+    margin: 0 10px;
+}
+
+.content .pagination button:disabled {
+    color: var(--dark-grey);
+    cursor: not-allowed;
+}
+
+#prev-page, #next-page {
+    background-color: var(--grey);
+    padding: 5px;
+    border-radius: 4px;
+}
+
 
 @media screen and (max-width: 768px) {
     .content{
         width: calc(100% - 60px);
         left: 200px;
-    }
-
-    .export-button {
-        color: white;
-        background-color: red; 
-        margin-left: 0px; 
-        margin: 10px 0; 
-        display: block;
-        border-radius: 20px;
     }
 }
 
@@ -197,12 +362,4 @@
         width: 100vw;
     }
 
-    .export-button {
-        color: white;
-        background-color: red; 
-        margin-left: 10px; 
-        margin: 10px 0; 
-        display: block;
-        border-radius: 20px;
-    }
 }

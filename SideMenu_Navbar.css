@@ -42,7 +42,7 @@ html{
 
 body.dark{
     --light: #f6f6f9;
-    --grey: #eee;
+    --grey: #e4e4e4;
     --dark: #363949;
     --dark-select: #c4c2c2;
     --select-hover: #a2a1a1;

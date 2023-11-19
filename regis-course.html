@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="regis-form.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Registrasi Course</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smar</span>Tendance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+        <li class="active">
+          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+        </li>
+        <li>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"></label>
+        <a href="#" class="profile">
+          <img src="images/profile_logo.png" />
+        </a>
+      </nav>
+      <!-- End of Navbar -->
+
+      <!-- Main Content -->
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Registrasi Course</h1>
+            <ul class="breadcrumb">
+              <a href="registrasi.html"><li>Registrasi</li></a>
+              /
+              <li>
+                <a href="regis-course.html" class="active">Registrasi Course</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="container">
+          <div class="registration-form">
+            <form action="" method="" id="registration-form">
+              <h2>Registrasi Course</h2>
+              <div class="form-group kursus">
+                <label for="nama-course">Nama Course</label>
+                <input
+                  type="text"
+                  id="nama-course"
+                  name="nama-course"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="enroll">Enrollment Key</label>
+                <input
+                  type="text"
+                  id="enroll"
+                  name="enroll"
+                  readonly
+                  required
+                />
+              </div>
+
+              <!-- pilih kelas -->
+              <div class="select-box">
+                <label for="options-container" id="class">Kelas</label>
+                <div class="options-container" id="options-container">
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 1A"
+                      name="kelas"
+                      value="TMJ 1A"
+                    />
+                    <label for="TMJ 1A">TMJ 1A</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 1B"
+                      name="kelas"
+                      value="TMJ 1B"
+                    />
+                    <label for="TMJ 1B">TMJ 1B</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMD 1A"
+                      name="kelas"
+                      value="TMD 1A"
+                    />
+                    <label for="TMD 1A">TMD 1A</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMD 1B"
+                      name="kelas"
+                      value="TMD 1B"
+                    />
+                    <label for="TMD 1B">TMD 1B</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TKJ 1"
+                      value="TKJ 1"
+                      name="kelas"
+                    />
+                    <label for="TKJ 1">TKJ 1</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 3A"
+                      value="TMJ 3A"
+                      name="kelas"
+                    />
+                    <label for="TMJ 3A">TMJ 3A</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 3B"
+                      value="TMJ 3B"
+                      name="kelas"
+                    />
+                    <label for="TMJ 3B">TMJ 3B</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 5"
+                      value="TMJ 5"
+                      name="kelas"
+                    />
+                    <label for="TMJ 5">TMJ 5</label>
+                  </div>
+
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="TMJ 7A"
+                      value="TMJ 7A"
+                      name="kelas"
+                    />
+                    <label for="TMJ 7A">TMJ 7A</label>
+                  </div>
+                </div>
+
+                <div class="selected">Pilih Kelas</div>
+
+                <div class="search-box">
+                  <input type="text" placeholder="Cari Kelas..." />
+                </div>
+              </div>
+              <!-- end -->
+              <div class="form-group kursus">
+                <label for="kode-course">Kode Course</label>
+                <input
+                  type="text"
+                  id="kode-course"
+                  name="kode-course"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="durasi-course">Durasi Course</label>
+                <input
+                  type="text"
+                  id="durasi-course"
+                  name="durasi-course"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="start-course">Waktu Mulai</label>
+                <input
+                  type="time"
+                  id="start-course"
+                  name="start-course"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="enroll">Waktu Selesai</label>
+                <input type="time" id="end-course" name="end-course" required />
+              </div>
+
+              <button type="submit" class="btn-register">Register</button>
+            </form>
+          </div>
+        </div>
+        <!-- End of Registration Form -->
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+
+      // DROPDOWN
+
+      const selected = document.querySelector(".selected");
+      const optionsContainer = document.querySelector(".options-container");
+      const searchBox = document.querySelector(".search-box input");
+      const label = document.querySelector("#class");
+
+      const optionsList = document.querySelectorAll(".option");
+
+      selected.addEventListener("click", () => {
+        optionsContainer.classList.toggle("active");
+
+        if (optionsContainer.classList.contains("active")) {
+          searchBox.style.display = "block";
+          searchBox.focus();
+          label.style.display = "block";
+        } else {
+          searchBox.style.display = "none";
+          searchBox.value = "";
+          filterList("");
+          const selectedRadio = document.querySelector(
+            "input[name='kelas']:checked"
+          );
+          if (selectedRadio) {
+            label.style.display = "block";
+          } else {
+            label.style.display = "none";
+          }
+        }
+      });
+
+      optionsList.forEach((o) => {
+        o.addEventListener("click", () => {
+          selected.innerHTML = o.querySelector("label").innerHTML;
+          const radioInput = o.querySelector("input[type=radio]");
+          radioInput.checked = true;
+          optionsContainer.classList.remove("active");
+          searchBox.style.display = "none";
+          searchBox.value = "";
+          filterList("");
+        });
+      });
+
+      searchBox.addEventListener("keyup", function (e) {
+        filterList(e.target.value);
+      });
+
+      const filterList = (searchTerm) => {
+        searchTerm = searchTerm.toLowerCase();
+        optionsList.forEach((option) => {
+          let label =
+            option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+          if (label.indexOf(searchTerm) != -1) {
+            option.style.display = "block";
+          } else {
+            option.style.display = "none";
+          }
+        });
+      };
+
+      // END
+    </script>
+  </body>
+</html>

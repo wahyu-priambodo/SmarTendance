@@ -96,20 +96,6 @@
     padding: 16px 10px;
 }
 
-.content main .bottom-data .orders table tr td:first-child{
-    display: flex;
-    align-items: center;
-    grid-gap: 12px;
-    padding-left: 6px;
-}
-
-.content main .bottom-data .orders table td img{
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
 .content main .bottom-data .orders table tbody tr{
     
     transition: all 0.3s ease;
@@ -120,29 +106,25 @@
 }
 
 .tambah {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--success);
+    background: var(--primary);
     padding: 6px 16px;
-    color: var(--dark);
+    color: #fff;
     border-radius: 24px;
     font-weight: 700;
 }
 
 .tambah i {
-    margin-right: 5px;
+    margin-right: 7px;
+    font-size: 1.2rem;
 }
 .tambah a {
-    color: var(--dark);
+    color: #fff;
 }
 
 .content main .bottom-data .order .header .tambah .plus {
-    font-size: 15px;
-    padding: 6px 16px;
-    color: var(--dark);
-    border-radius: 20px;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .content main .bottom-data .order .header .tambah .plus.completed {
@@ -152,12 +134,12 @@
 .content main .bottom-data .orders table tr td .status{
     font-size: 15px;
     padding: 6px 16px;
-    color: var(--dark);
+    color: #fff;
     border-radius: 20px;
     font-weight: 700;
 }
 .content main .bottom-data .orders table tr td .status.completed{
-    background-color: rgb(255, 85, 85);
+    background-color: var(--success);
 }
 
 .content main .bottom-data .orders table tr td .status.process{
@@ -189,8 +171,74 @@
 }
 
 .edit .bx {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-right: 4px;
+}
+
+.keterangan.terlaksana {
+    font-weight: 700;
+    color: var(--success);
+}
+
+.keterangan.terjadwal {
+    font-weight: 700;
+    color: #d59e12;
+}
+
+/* Filter dropdown */
+
+.content main .bottom-data .header .filter-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
+.content main .bottom-data .header .filter-dropdown select {
+    background: var(--grey);
+    border: none;
+    font-size: 17px;
+    color: var(--dark);
+    cursor: pointer;
+    width: 75px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.content .orders .header .filter-dropdown select {
+    display: none;
+}
+
+.content .orders .header .filter-dropdown.active select {
+    display: block;
+    margin-right: 5px;
+}
+
+.content .pagination {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    align-items: center;
+    justify-content: left;
+}
+
+.content .pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 5px;
+    color: var(--light-grey);
+    margin: 0 10px;
+}
+
+.content .pagination button:disabled {
+    color: var(--dark-grey);
+    cursor: not-allowed;
+}
+
+#prev-page, #next-page {
+    background-color: var(--grey);
+    padding: 5px;
+    border-radius: 4px;
 }
 
 @media screen and (max-width: 1075px) {

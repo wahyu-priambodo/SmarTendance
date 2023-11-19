@@ -82,6 +82,12 @@
     transition: all 0.3s;
     color: var(--dark-grey);
   }
+
+  .registration-form .form-group.kursus label {
+    top: -16px;
+    left: 10px;
+    color: var(--dark);
+  }
   
   .registration-form .form-group input {
     width: 100%;
@@ -92,6 +98,17 @@
     font-family: 'Poppins', sans-serif;
     margin-top: 10px;
   }
+
+  /* #start-course, #end-course {
+    color: var(--dark);
+  } */
+
+  /* CSS untuk mengubah warna simbol jam */
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-clear-button {
+    filter: invert(50%) 
+}
+
 
   /* CSS untuk mengubah tampilan dropdown list */
 
@@ -115,7 +132,7 @@
 }
 
 .select-box .options-container {
-  background: var(--dark-select); /* --dark-select */
+  background: var(--dark-select); 
   color: var(--dark);
   max-height: 0;
   width: 100%;
@@ -127,7 +144,7 @@
 }
 
 .selected {
-  background: var(--dark-select); /* --dark-select */
+  background: var(--dark-select); 
   border-radius: 8px;
   margin-bottom: 8px;
   color: var(--dark);

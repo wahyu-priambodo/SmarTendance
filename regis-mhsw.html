@@ -253,7 +253,8 @@
                   type="text"
                   id="uid"
                   placeholder="UID e-KTP Mahasiswa"
-                  disabled
+                  name="uid"
+                  readonly
                 />
               </div>
               <div class="delete">
@@ -261,9 +262,6 @@
                   <i class="bx bxs-trash"></i>
                   <span>Hapus UID</span>
                 </button>
-                <div class="form-group">
-                  <input type="hidden" id="uid-hidden" name="uid" />
-                </div>
               </div>
               <button type="submit" class="btn-register">Register</button>
             </form>
@@ -387,7 +385,6 @@
       const registerUidButton = document.getElementById("register-uid-button");
       const labelUid = document.getElementById("label-uid");
       const uidInputField = document.getElementById("uid-input");
-      const hiddenInput = document.getElementById("uid-hidden");
 
       showUidButton.addEventListener("click", () => {
         popup.style.display = "flex";
@@ -417,18 +414,12 @@
           // Set value untuk input dengan id "uid"
           uidInput.value = uidInputValue;
 
-          // Set value untuk input dengan id "uid-hidden"
-          hiddenInput.value = uidInputValue;
           // const uidHiddenVal = hiddenInput.value;
           if (uidInputVal.trim() !== "") {
             uidInput.value = uidInputValue;
-
-            // Set value untuk input dengan id "uid-hidden"
-            hiddenInput.value = uidInputValue;
           }
         } else {
           uidInput.value = uidInputValue;
-          hiddenInput.value = uidInputValue;
         }
 
         if (uidInputValue) {
@@ -440,7 +431,7 @@
         popup.style.display = "none";
       });
 
-      // COBA DROPDOWN
+      // DROPDOWN
 
       const selected = document.querySelector(".selected");
       const optionsContainer = document.querySelector(".options-container");
@@ -453,13 +444,13 @@
         optionsContainer.classList.toggle("active");
 
         if (optionsContainer.classList.contains("active")) {
-          searchBox.style.display = "block"; // Tampilkan input search saat options aktif
+          searchBox.style.display = "block";
           searchBox.focus();
           label.style.display = "block";
         } else {
-          searchBox.style.display = "none"; // Sembunyikan input search saat options tidak aktif
-          searchBox.value = ""; // Hapus nilai input search
-          filterList(""); // Hapus filter
+          searchBox.style.display = "none";
+          searchBox.value = "";
+          filterList("");
           const selectedRadio = document.querySelector(
             "input[name='kelas']:checked"
           );
@@ -473,9 +464,9 @@
 
       optionsList.forEach((o) => {
         o.addEventListener("click", () => {
-          selected.innerHTML = o.querySelector("label").innerHTML; // Mengganti teks yang ditampilkan di dropdown
-          const radioInput = o.querySelector("input[type=radio]"); // Mendapatkan elemen radio terkait
-          radioInput.checked = true; // Menandai elemen radio sebagai terpilih
+          selected.innerHTML = o.querySelector("label").innerHTML;
+          const radioInput = o.querySelector("input[type=radio]");
+          radioInput.checked = true;
           optionsContainer.classList.remove("active");
           searchBox.style.display = "none";
           searchBox.value = "";

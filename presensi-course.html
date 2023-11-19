@@ -7,9 +7,9 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="embedded.css" />
+    <link rel="stylesheet" href="presensi-course.css" />
     <link rel="stylesheet" href="SideMenu_Navbar.css" />
-    <title>Course-Sistem Embedded</title>
+    <title>Presensi Course</title>
   </head>
 
   <body>
@@ -23,8 +23,8 @@
         <li>
           <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
-        <li class="active">
-          <a href="#"><i class="bx bxs-graduation"></i>Course</a>
+        <li>
+          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
           <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
@@ -32,8 +32,10 @@
         <li>
           <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
         </li>
-        <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        <li class="active">
+          <a href="presensi-course.html"
+            ><i class="bx bx-data"></i>Rekap Absensi</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -85,11 +87,11 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Course</h1>
+            <h1>Rekap Absensi</h1>
             <ul class="breadcrumb">
-              <a href="course.html"><li>Course</li></a>
+              <a href="rekap_absen.html"><li>Rekap Absensi</li></a>
               /
-              <li><a href="" class="active">Edit</a></li>
+              <li><a href="" class="active">Lihat</a></li>
             </ul>
           </div>
         </div>
@@ -101,10 +103,19 @@
               <i class="bx bx-table"></i>
               <h3>Sistem Embedded - TMJ 3B</h3>
               <div class="tambah">
-                <i class="bx bxs-user-plus"></i>
-                <a href="#" class="plus completed">Tambah Mahasiswa</a>
+                <a href="view-mhsw.html" class="plus completed"
+                  ><i class="bx bxs-user"></i
+                  ><span>Mahasiswa Tergabung</span></a
+                >
               </div>
-              <i class="bx bx-filter"></i>
+              <div class="filter-dropdown">
+                <select id="data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter"></i>
+              </div>
               <input
                 type="search"
                 placeholder="Search..."
@@ -117,86 +128,80 @@
             <table>
               <thead>
                 <tr>
-                  <th>Mahasiswa</th>
-                  <th>NIM</th>
-                  <th>UID</th>
-                  <th>Tanggal Daftar</th>
+                  <th>Tanggal</th>
+                  <th>Jam Kuliah</th>
+                  <th>Dosen</th>
+                  <th>Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    <img src="images/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>C98uA7yY7tp</td>
-                  <td>10-20-2023</td>
+                  <td>Kamis, 21 Sep 2023</td>
+                  <td>12.30 - 17.45</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td class="keterangan terlaksana">Terlaksana</td>
                   <td class="edit">
                     <a href="#" class="status completed"
-                      ><i class="bx bxs-edit ed"></i>hapus</a
+                      ><i class="bx bx-detail"></i>Detail</a
                     >
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="images/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>C98uA7yY7tp</td>
-                  <td>10-20-2023</td>
+                  <td>Kamis, 28 Sep 2023</td>
+                  <td>12.30 - 17.45</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td class="keterangan terlaksana">Terlaksana</td>
                   <td class="edit">
                     <a href="#" class="status completed"
-                      ><i class="bx bxs-edit ed"></i>hapus</a
+                      ><i class="bx bx-detail"></i>Detail</a
                     >
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="images/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>C98uA7yY7tp</td>
-                  <td>10-20-2023</td>
+                  <td>Kamis, 5 Okt 2023</td>
+                  <td>12.30 - 17.45</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td class="keterangan terlaksana">Terlaksana</td>
                   <td class="edit">
                     <a href="#" class="status completed"
-                      ><i class="bx bxs-edit ed"></i>hapus</a
+                      ><i class="bx bx-detail"></i>Detail</a
                     >
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="images/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>C98uA7yY7tp</td>
-                  <td>10-20-2023</td>
+                  <td>Kamis, 12 Okt 2023</td>
+                  <td>12.30 - 17.45</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td class="keterangan terjadwal">Terjadwal</td>
                   <td class="edit">
                     <a href="#" class="status completed"
-                      ><i class="bx bxs-edit ed"></i>hapus</a
+                      ><i class="bx bx-detail"></i>Detail</a
                     >
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <img src="images/profile_logo.png" />
-                    <p>Muhammad Khairu Mufid</p>
-                  </td>
-                  <td>2207421031</td>
-                  <td>C98uA7yY7tp</td>
-                  <td>10-20-2023</td>
+                  <td>Kamis, 19 Okt 2023</td>
+                  <td>12.30 - 17.45</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td class="keterangan terjadwal">Terjadwal</td>
                   <td class="edit">
                     <a href="#" class="status completed"
-                      ><i class="bx bxs-edit ed"></i>hapus</a
+                      ><i class="bx bx-detail"></i>Detail</a
                     >
                   </td>
                 </tr>
               </tbody>
             </table>
+            <div class="pagination">
+              <button id="prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="current-page">Page 1</span>
+              <button id="next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+            </div>
           </div>
         </div>
       </main>
@@ -237,6 +242,75 @@
           }
         });
       });
+
+      // filter & pagination
+      const filterIcon = document.querySelector(".header .filter-dropdown i");
+      const filterDropdown = document.querySelector(".header .filter-dropdown");
+      const dataFilterSelect = document.getElementById("data-filter");
+      const tableRows = document.querySelectorAll(
+        ".bottom-data .orders table tbody tr"
+      );
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
+      const currentPageSpan = document.getElementById("current-page");
+
+      let currentPage = 1;
+      let itemsPerPage = parseInt(dataFilterSelect.value);
+
+      function updatePagination() {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        currentPageSpan.textContent = `Page ${currentPage}`;
+
+        if (currentPage === 1) {
+          prevPageButton.disabled = true;
+        } else {
+          prevPageButton.disabled = false;
+        }
+
+        if (currentPage === totalPages) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+
+        tableRows.forEach((row, index) => {
+          if (
+            index >= (currentPage - 1) * itemsPerPage &&
+            index < currentPage * itemsPerPage
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      filterIcon.addEventListener("click", function () {
+        filterDropdown.classList.toggle("active");
+      });
+
+      dataFilterSelect.addEventListener("change", function () {
+        itemsPerPage = parseInt(dataFilterSelect.value);
+        currentPage = 1;
+        updatePagination();
+      });
+
+      prevPageButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+        }
+      });
+
+      nextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+        }
+      });
+
+      updatePagination();
     </script>
   </body>
 </html>

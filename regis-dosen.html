@@ -196,6 +196,23 @@
           eyeIcon.name = "eye-off-outline";
         }
       }
+      // cek konfirmasi password
+
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-pass");
+
+      confirmPasswordInput.addEventListener("input", function () {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (password === confirmPassword) {
+          confirmPasswordInput.setCustomValidity(""); // Password cocok, hapus pesan kesalahan
+        } else {
+          confirmPasswordInput.setCustomValidity(
+            "Konfirmasi password harus sama dengan password"
+          ); // Password tidak cocok, atur pesan kesalahan
+        }
+      });
     </script>
   </body>
 </html>

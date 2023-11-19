@@ -39,131 +39,6 @@
     pointer-events: none;
 }
 
-/* Dropdown radio */
-.select-box {
-    position: relative;
-    display: flex;
-    max-width: 500px;
-    min-width: 300px;
-    flex-direction: column;
-    margin-bottom: 22px;
-    text-align: left;
-    margin-top: 40px; 
-  }
-  
-  .select-box #class {
-    display: none;
-    margin-top: -21px;
-    margin-left: 10px;
-    margin-bottom: 4px;
-    color: var(--dark);
-  }
-  
-  .select-box .options-container {
-    background: var(--dark-select); /* --dark-select */
-    color: var(--dark);
-    max-height: 0;
-    width: 100%;
-    opacity: 0;
-    transition: all 0.4s;
-    border-radius: 0 0 8px 8px;
-    overflow: hidden;
-    order: 1;
-  }
-  
-  .selected {
-    background: var(--dark-select); /* --dark-select */
-    border-radius: 8px;
-    margin-bottom: 8px;
-    color: var(--dark);
-    position: relative;
-  
-    order: 0;
-  }
-  
-  .selected::after {
-    content: "";
-    background: url("images/arrow-down.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-  
-    position: absolute;
-    height: 100%;
-    width: 32px;
-    right: 10px;
-    top: 5px;
-  
-    transition: all 0.4s;
-  }
-  
-  .select-box .options-container.active {
-    max-height: 240px;
-    opacity: 1;
-    overflow-y: scroll;
-  }
-  
-  .select-box .options-container.active + .selected::after {
-    transform: rotateX(180deg);
-    top: -6px;
-  }
-  
-  .select-box .options-container::-webkit-scrollbar {
-    width: 8px;
-    background: var(--dark-select); /* --dark-select */
-    border-radius: 0 8px 8px 0;
-  }
-  
-  .select-box .options-container::-webkit-scrollbar-thumb {
-    background: #525861;
-    border-radius: 8x;
-    transition: all 0.4s;
-  }
-  
-  .select-box .option,
-  .selected {
-    padding: 12px 24px;
-    cursor: pointer;
-  }
-  
-  .select-box .option:hover {
-    background: var(--select-hover); /* --select-hover */
-  }
-  
-  .select-box label {
-    cursor: pointer;
-  }
-  
-  .select-box .option .radio {
-    display: none;
-  }
-  
-  /* Searchbox */
-  
-  .search-box input {
-    display: none;
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    position: relative;
-    border-radius: 8px 8px 0 0;
-    z-index: 100;
-    border: 8px solid var(--dark-select); /* --dark-select */
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s;
-  }
-  
-  .search-box input:focus {
-    outline: none;
-  }
-  
-  .select-box .options-container.active ~ .search-box input {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* end */
-
 .content main .bottom-data{
     display: flex;
     flex-wrap: wrap;
@@ -208,7 +83,6 @@
 .content main .bottom-data .orders table{
     width: 100%;
     border-collapse: collapse;
-    
 }
 
 .content main .bottom-data .orders table th{
@@ -216,16 +90,17 @@
     font-size: 13px;
     text-align: left;
     border-bottom: 1px solid var(--grey);
-    
 }
 
 .content main .bottom-data .orders table td{
-    padding: 16px 7px;
+    padding: 16px 10px;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
-    text-align: left;
-    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
 }
 
 .content main .bottom-data .orders table td img{
@@ -244,14 +119,59 @@
     background: var(--grey);
 }
 
+.tambah {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--success);
+    padding: 6px 16px;
+    color: #eee;
+    border-radius: 24px;
+    font-weight: 700;
+}
+
+.tambah i {
+    margin-right: 5px;
+}
+.tambah a {
+    color: #eee;
+}
+
+.content main .bottom-data .order .header .tambah .plus {
+    font-size: 15px;
+    padding: 6px 16px;
+    color: #fff;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.content main .bottom-data .order .header .tambah .plus.completed {
+    background: var(--primary)
+}
+
 .content main .bottom-data .orders table tr td .status{
     font-size: 15px;
     padding: 6px 16px;
     color: #fff;
     border-radius: 20px;
     font-weight: 700;
-    background-color: var(--success);
 }
+.content main .bottom-data .orders table tr td .status.completed{
+    background-color: var(--danger);
+}
+
+.content main .bottom-data .orders table tr td .status.process{
+    background: var(--primary);
+}
+
+.content main .bottom-data .orders table tr td .status.pending{
+    background: var(--warning);
+}
+
+.content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
+    text-align: center;
+}
+
 
 .content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
     text-align: center;
@@ -273,12 +193,12 @@
     margin-right: 4px;
 }
 
-/* filter & pagination */
+/* Filter dropdown */
 
 .content main .bottom-data .header .filter-dropdown {
     display: flex;
     align-items: center;
-    margin-left: auto;
+    margin-left: 0;
 }
 
 .content main .bottom-data .header .filter-dropdown select {
@@ -329,15 +249,26 @@
     border-radius: 4px;
 }
 
+@media screen and (max-width: 1075px) {
+    .content main .bottom-data .orders table{
+        width: 80vw;
+    }
+
+}
 
 @media screen and (max-width: 768px) {
     .content{
         width: calc(100% - 60px);
         left: 200px;
     }
+
 }
 
 @media screen and (max-width: 576px) {
+    .content main .insights {
+        grid-template-columns: 1fr;
+    }
+
     .content main .bottom-data .header{
         min-width: 340px;
     }
@@ -349,9 +280,4 @@
     .content main .bottom-data .reminders .task-list{
         min-width: 340px;
     }
-
-    .content main .bottom-data .orders table{
-        width: 100vw;
-    }
-
 }
