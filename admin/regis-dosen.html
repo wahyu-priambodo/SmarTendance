@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="regis-form.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Registrasi Dosen</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smar</span>Tendance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+        <li class="active">
+          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+        </li>
+        <li>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"></label>
+        <a href="#" class="profile">
+          <img src="images/profile_logo.png" />
+        </a>
+      </nav>
+      <!-- End of Navbar -->
+
+      <!-- Main Content -->
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Registrasi Akun Dosen</h1>
+            <ul class="breadcrumb">
+              <a href="registrasi.html"><li>Registrasi</li></a>
+              /
+              <li>
+                <a href="regis-dosen.html" class="active"
+                  >Registrasi Akun Dosen</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="container">
+          <div class="registration-form">
+            <form action="" method="" id="registration-form">
+              <h2>Registrasi Dosen</h2>
+              <div class="form-group">
+                <label for="nama">Nama Dosen</label>
+                <input type="text" id="nama" name="nama" required />
+              </div>
+              <div class="form-group">
+                <label for="nip">NIP</label>
+                <input type="text" id="nip" name="nip" required />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+                <span
+                  class="show-password"
+                  onclick="togglePasswordVisibility('password')"
+                  ><ion-icon name="eye-off-outline" id="hide"></ion-icon
+                ></span>
+              </div>
+              <div class="form-group">
+                <label for="confirm-pass">Konfirmasi Password</label>
+                <input type="password" id="confirm-pass" required />
+                <span
+                  class="show-password"
+                  onclick="togglePasswordVisibility('confirm-pass')"
+                  ><ion-icon name="eye-off-outline" id="hide"></ion-icon
+                ></span>
+              </div>
+              <button type="submit" class="btn-register">Register</button>
+            </form>
+          </div>
+        </div>
+        <!-- End of Registration Form -->
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      const formGroups = document.querySelectorAll(".form-group input");
+
+      formGroups.forEach((input) => {
+        input.addEventListener("focus", (event) => {
+          const label = event.target.previousElementSibling;
+          label.classList.add("active");
+        });
+
+        input.addEventListener("blur", (event) => {
+          if (event.target.value === "") {
+            const label = event.target.previousElementSibling;
+            label.classList.remove("active");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".show-password ion-icon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.name = "eye-off";
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.name = "eye";
+        }
+      }
+
+      function togglePasswordVisibility(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const eyeIcon = document.querySelector(
+          `#${inputId} + .show-password ion-icon`
+        );
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.name = "eye";
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.name = "eye-off-outline";
+        }
+      }
+    </script>
+  </body>
+</html>

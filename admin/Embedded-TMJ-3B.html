@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="embedded.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Course-Sistem Embedded</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smar</span>Tendance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="#"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+        <li>
+          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+        </li>
+        <li>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"> </label>
+        <a href="#" class="profile">
+          <img src="images/profile_logo.png" />
+        </a>
+      </nav>
+
+      <!-- End of Navbar -->
+
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Course</h1>
+            <ul class="breadcrumb">
+              <a href="course.html"><li>Course</li></a>
+              /
+              <li><a href="" class="active">Edit</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabel Course Terdaftar -->
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-table"></i>
+              <h3>Sistem Embedded - TMJ 3B</h3>
+              <div class="tambah">
+                <i class="bx bxs-user-plus"></i>
+                <a href="#" class="plus completed">Tambah Mahasiswa</a>
+              </div>
+              <i class="bx bx-filter"></i>
+              <input
+                type="search"
+                placeholder="Search..."
+                class="search-input"
+              />
+              <button class="search-btn" type="submit">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mahasiswa</th>
+                  <th>NIM</th>
+                  <th>UID</th>
+                  <th>Tanggal Daftar</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="images/profile_logo.png" />
+                    <p>Muhammad Khairu Mufid</p>
+                  </td>
+                  <td>2207421031</td>
+                  <td>C98uA7yY7tp</td>
+                  <td>10-20-2023</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="images/profile_logo.png" />
+                    <p>Muhammad Khairu Mufid</p>
+                  </td>
+                  <td>2207421031</td>
+                  <td>C98uA7yY7tp</td>
+                  <td>10-20-2023</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="images/profile_logo.png" />
+                    <p>Muhammad Khairu Mufid</p>
+                  </td>
+                  <td>2207421031</td>
+                  <td>C98uA7yY7tp</td>
+                  <td>10-20-2023</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="images/profile_logo.png" />
+                    <p>Muhammad Khairu Mufid</p>
+                  </td>
+                  <td>2207421031</td>
+                  <td>C98uA7yY7tp</td>
+                  <td>10-20-2023</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="images/profile_logo.png" />
+                    <p>Muhammad Khairu Mufid</p>
+                  </td>
+                  <td>2207421031</td>
+                  <td>C98uA7yY7tp</td>
+                  <td>10-20-2023</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>hapus</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+
+      const searchButtons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn"
+      );
+      const searchButtonIcons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn .bx"
+      );
+      const searchInputs = document.querySelectorAll(
+        ".bottom-data .orders .header .search-input"
+      );
+
+      searchButtons.forEach((searchButton, index) => {
+        const searchButtonIcon = searchButtonIcons[index];
+        const searchInput = searchInputs[index];
+
+        searchButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          searchInput.classList.toggle("show");
+
+          if (searchInput.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+            searchInput.focus(); // Fokuskan input textfield setelah ditampilkan
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

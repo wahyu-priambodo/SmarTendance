@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="course.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Course</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smar</span>Tendance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="#"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+        <li>
+          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+        </li>
+        <li>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"> </label>
+        <a href="#" class="profile">
+          <img src="images/profile_logo.png" />
+        </a>
+      </nav>
+
+      <!-- End of Navbar -->
+
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Course</h1>
+            <ul class="breadcrumb">
+              <li><a href="" class="active">Course</a></li>
+              /
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabel Course Terdaftar -->
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-calendar"></i>
+              <h3 id="tanggal"></h3>
+              <div class="filter-dropdown">
+                <select id="data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter"></i>
+              </div>
+              <input
+                type="search"
+                placeholder="Search..."
+                class="search-input"
+              />
+              <button class="search-btn" type="submit">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mata Kuliah</th>
+                  <th>Kode</th>
+                  <th>Dosen Pengampu</th>
+                  <th>Jumlah Mahasiswa</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sistem Embedded</td>
+                  <td>D82HF</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="Embedded-TMJ-3B.html" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>edit</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Web</td>
+                  <td>D82HF</td>
+                  <td>Maria Agustin</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>edit</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Berorientasi Objek</td>
+                  <td>D82HF</td>
+                  <td>Ariawan Andi Suhandana</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>edit</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Rekayasa Perangkat Lunak</td>
+                  <td>D82HF</td>
+                  <td>Susana Dwi Yulianti</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>edit</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>Keamanan Komputer</td>
+                  <td>D82HF</td>
+                  <td>Defiana Arnaldy</td>
+                  <td>29</td>
+                  <td class="edit">
+                    <a href="#" class="status completed"
+                      ><i class="bx bxs-edit ed"></i>edit</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <button id="prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="current-page">Page 1</span>
+              <button id="next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+
+      const searchButtons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn"
+      );
+      const searchButtonIcons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn .bx"
+      );
+      const searchInputs = document.querySelectorAll(
+        ".bottom-data .orders .header .search-input"
+      );
+
+      searchButtons.forEach((searchButton, index) => {
+        const searchButtonIcon = searchButtonIcons[index];
+        const searchInput = searchInputs[index];
+
+        searchButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          searchInput.classList.toggle("show");
+
+          if (searchInput.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+            searchInput.focus(); // Fokuskan input textfield setelah ditampilkan
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+
+        // Fungsi untuk memperbarui waktu secara berkala
+        function updateClock() {
+          const tanggalElement = document.getElementById("tanggal");
+          const currentTime = new Date();
+          const hari = currentTime.toLocaleDateString(undefined, {
+            weekday: "long",
+          });
+          const tanggal = currentTime.getDate();
+          const bulan = currentTime.toLocaleDateString(undefined, {
+            month: "long",
+          });
+          const tahun = currentTime.getFullYear();
+          const jam = currentTime.getHours().toString().padStart(2, "0");
+          const menit = currentTime.getMinutes().toString().padStart(2, "0");
+          const detik = currentTime.getSeconds().toString().padStart(2, "0");
+
+          // Format waktu
+          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun} (${jam}:${menit}:${detik})`;
+
+          // Tampilkan waktu dalam elemen dengan ID "tanggal"
+          tanggalElement.textContent = formattedTime;
+        }
+
+        // Memperbarui waktu setiap detik
+        setInterval(updateClock, 1000);
+
+        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
+        updateClock();
+      });
+
+      // filter & pagination
+      const filterIcon = document.querySelector(".header .filter-dropdown i");
+      const filterDropdown = document.querySelector(".header .filter-dropdown");
+      const dataFilterSelect = document.getElementById("data-filter");
+      const tableRows = document.querySelectorAll(
+        ".bottom-data .orders table tbody tr"
+      );
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
+      const currentPageSpan = document.getElementById("current-page");
+
+      let currentPage = 1;
+      let itemsPerPage = parseInt(dataFilterSelect.value);
+
+      function updatePagination() {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        currentPageSpan.textContent = `Page ${currentPage}`;
+
+        if (currentPage === 1) {
+          prevPageButton.disabled = true;
+        } else {
+          prevPageButton.disabled = false;
+        }
+
+        if (currentPage === totalPages) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+
+        tableRows.forEach((row, index) => {
+          if (
+            index >= (currentPage - 1) * itemsPerPage &&
+            index < currentPage * itemsPerPage
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      filterIcon.addEventListener("click", function () {
+        filterDropdown.classList.toggle("active");
+      });
+
+      dataFilterSelect.addEventListener("change", function () {
+        itemsPerPage = parseInt(dataFilterSelect.value);
+        currentPage = 1;
+        updatePagination();
+      });
+
+      prevPageButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+        }
+      });
+
+      nextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+        }
+      });
+
+      updatePagination();
+    </script>
+  </body>
+</html>

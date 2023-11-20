@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="rekap_absen.css" />
+    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <title>Rekap Absensi</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smart</span>endance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+        </li>
+        <li>
+          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+        </li>
+        <li class="active">
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="logout-button">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>Apakah Anda yakin ingin logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Ya</button>
+                <button id="cancel-logout">Tidak</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"> </label>
+        <a href="#" class="profile">
+          <img src="images/profile_logo.png" />
+        </a>
+      </nav>
+
+      <!-- End of Navbar -->
+
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Rekap Absensi</h1>
+            <ul class="breadcrumb">
+              <li><a href="" class="active">Rekap Absensi</a></li>
+              /
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabel Course Terdaftar -->
+        <div class="bottom-data">
+          <div class="orders">
+            <div class="header">
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mata Kuliah</th>
+                  <th>Kode</th>
+                  <th>Kelas</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sistem Embedded</td>
+                  <td>D82HF</td>
+                  <td>TMJ 3B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed">
+                      <i class="bx bxs-chevron-right"></i>Lihat
+                    </a>
+                    <a href="#" class="export-button">
+                      <i class="bx bx-export"></i>Ekspor
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Web</td>
+                  <td>D82HF</td>
+                  <td>TMJ 2B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed">
+                      <i class="bx bxs-chevron-right"></i>Lihat
+                    </a>
+                    <a href="#" class="export-button">
+                      <i class="bx bx-export"></i>Ekspor
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pemrograman Berorientasi Objek</td>
+                  <td>D82HF</td>
+                  <td>TMJ 1B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed">
+                      <i class="bx bxs-chevron-right"></i>Lihat
+                    </a>
+                    <a href="#" class="export-button">
+                      <i class="bx bx-export"></i>Ekspor
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Rekayasa Perangkat Lunak</td>
+                  <td>D82HF</td>
+                  <td>TMJ 4B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed">
+                      <i class="bx bxs-chevron-right"></i>Lihat
+                    </a>
+                    <a href="#" class="export-button">
+                      <i class="bx bx-export"></i>Ekspor
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Keamanan Komputer</td>
+                  <td>D82HF</td>
+                  <td>TMJ 5B</td>
+                  <td class="edit">
+                    <a href="data_mhsw.html" class="status completed">
+                      <i class="bx bxs-chevron-right"></i>Lihat
+                    </a>
+                    <a href="#" class="export-button">
+                      <i class="bx bx-export"></i>Ekspor
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+    </script>
+  </body>
+</html>
