@@ -798,6 +798,17 @@ input:disabled {
 }
 
 @media screen and (max-width: 576px) {
+  .container {
+    overflow-x: auto;
+    justify-content: flex-start;
+    margin-top: -150px;
+  }
+  
+  .registration-form {
+    margin-top: 200px;
+    min-width: 450px;
+  }
+
     .content main .bottom-data .header{
         min-width: 340px;
     }

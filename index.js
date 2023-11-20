@@ -135,7 +135,7 @@ cancelLogoutButton.addEventListener('click', () => {
 
 confirmLogoutButton.addEventListener('click', () => {
   // Lakukan logout di sini
-  // window.location.href = '/logout'; 
+  window.location.href = 'Login_admin.html'; 
 
 
   confirmationModal.classList.remove('active');

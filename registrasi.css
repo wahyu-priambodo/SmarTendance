@@ -62,7 +62,7 @@
 }
 
 .content main .insights li .bx{
-    min-width: 80px;
+    width: 80px;
     height: 80px;
     border-radius: 10px;
     font-size: 36px;
@@ -104,6 +104,34 @@
     .content{
         width: calc(100% - 60px);
         left: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .content main .insights{
+        display: grid;
+        grid-template-columns: repeat(auto, minmax(150px, 1fr));
+        grid-gap: 15px;
+        margin-top: 60px;
+    }
+    
+    .content main .insights li{
+        padding: 18px;
+        border-radius: 17px;
+        grid-gap: 15px;
+    }
+    
+    .content main .insights li .bx{
+        font-size: 28px;
+        height: 60px;
+        max-width: 60px;
+        min-width: 60px;
+    }
+    
+    .content main .insights li .info h3{
+        font-size: 18px;
+        font-weight: 500;
     }
 
 }
