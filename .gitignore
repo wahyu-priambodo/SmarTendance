@@ -1,3 +1,6 @@
 # created by virtualenv automatically
 .env
 .venv
+.quilvenv/
+respontime/rtt_quil.py
+respontime/test_time.ino
