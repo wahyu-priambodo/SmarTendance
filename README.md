@@ -3,7 +3,7 @@
 - Using REST API architecture (using flask-restx)
 - REST API docs can be accessed at `/api/v1/docs` endpoint 
 
-## 💻 Information Development 💻
+## 💻 Development Environment 💻
 Backend     : Python **3.10.12**, Flask **3.0.0**
 Database    : SQLite3 **3.38.5**
 Tested OS   : Ubuntu Desktop 22.04 LTS 
