@@ -17,7 +17,7 @@
     <div class="sidebar">
       <a href="#" class="logo">
         <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smar</span>Tendance</div>
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
@@ -102,7 +102,7 @@
               </span>
             </li>
           </a>
-          <a href="regis-dosen.html" class="regisBar">
+          <a href="{{url_for('admin_ep.add_lecturer')}}" class="regisBar">
             <li>
               <i class="bx bxs-user"></i><br />
               <span class="info">

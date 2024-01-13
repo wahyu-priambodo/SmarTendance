@@ -18,9 +18,10 @@ user_ep.add_url_rule('/logout', endpoint="logout", view_func=logout, methods=['G
 user_ep.add_url_rule('/dashboard', endpoint="dashboard", view_func=dashboard, methods=['GET'])
 
 # List of admin endpoints (admin routes)
-# CRUD for course, student, and lecturer
+# Action for registation (insert/add)
 admin_ep.add_url_rule('/add', endpoint="add", view_func=add, methods=['GET'])
 admin_ep.add_url_rule('/add/student', endpoint="add_student", view_func=add_student, methods=['GET', 'POST'])
+admin_ep.add_url_rule('/add/lecturer', endpoint="add_lecturer", view_func=add_lecturer, methods=['GET', 'POST'])
 
 admin_ep.add_url_rule('/<string:id>/view', endpoint="view", view_func=admin_view, methods=['GET'])
 admin_ep.add_url_rule('/<string:id>/edit', endpoint="edit", view_func=admin_edit, methods=['GET', 'POST'])
