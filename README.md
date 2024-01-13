@@ -1,48 +1,45 @@
-# 🚀 Backend v1.0 Has Released! 🚀
-- Changing from PHP (native) to Flask Python (3.0.0)
-- Using REST API architecture (using flask-restx)
-- REST API docs can be accessed at `/api/v1/docs` endpoint 
+git merge origin/wahyu
+git push -u origin wahyu
+git switch wahyu
 
-## 💻 Development Environment 💻
-<p>
-Backend     : Python <strong>3.10.12</strong>, Flask <strong>3.0.0</strong><br>
-Database    : SQLite3 <strong>3.38.5</strong><br>
-Tested OS   : Ubuntu Desktop 22.04 LTS<br> 
-Status code :
-</p>
+List Endpoint:
+admin:
 
-```txt
-200 -> Successfully send request
-201 -> Successfully create new data
-400 -> bad request (invalid syntax)
-401 -> unauthorized (failed to authenticate)
-403 -> access forbidden
-404 -> not found
-405 -> method not allowed
+```text
+- admin/<nim>/edit
+- admin/<nip>/edit
+- admin/<course_id>/edit
+- admin/<course_id>/view
+- admin/<nim>/delete
+- admin/<nip>/delete
+- admin/<course_id>/delete
+- admin/new -> admin/new/student
+- admin/new -> admin/new/lecturer
+- admin/new -> admin/new/course
+- admin/show/students
+- admin/show/lecturers
+- admin/show/courses
 ```
 
-## 🚧 Usage 🚧
-```shell
-source .venv/bin/activate # activate venv
-pip3 install -r requirements.txt  # install all requirements
-flask run                 # run flask app
+students
+
+```text
+- student/
 ```
 
-## 🐍 Customizations 🐍
+Libraries:
+setuptools gunicorn python-dotenv Flask Flask-SQLAlchemy PyMySQL Flask-Migrate Flask-SocketIO Flask-WTF email-validator Flask-Argon2
+
+Kalo gak bisa rename database di phpmyadmin, coba repair table dulu
+
 ```python
-# To generate your own `JWT_SECRET_KEY` use this command:
-import secrets
-print(secrets.token_hex())
-# copy the result to your .flaskenv file and replace the value of `JWT_SECRET_KEY` variable.
+from flask_argon2 import check_password_hash, generate_password_hash
+db.session.add_all([
+User(user_id='1234567890', user_role='ADMIN', user_fullname='Admin Satu', user_password_hash=generate_password_hash(
+'AdminPassword1!'), user_rfid_hash=generate_password_hash('testadmin1rfid'), user_email_address='admin1@tik.pnj.ac.id')
+])
+from flask_argon2 import check_password_hash, generate_password_hash
+db.session.add_all([User(user_id='2207421048', user_role='ADMIN', user_fullname='Wahyu Priambodo', user_password_hash=generate_password_hash('WahyuPriambodo1!'), user_email_address='wahyu.priambodo.tik22@mhsw.pnj.ac.id'), User(user_id='2207421059', user_role='STUDENT', user_fullname='Cornelius Yuli Rosdianto', user_password_hash=generate_password_hash('CorneliusPassword1!'), user_rfid_hash=generate_password_hash('testcornelrfid'), user_email_address='cornelius.yuli.rosdianto.tik22@mhsw.pnj.ac.id', student_class='TMJ-3B')])
+db.session.commit()
+db.session.commit()
 ```
-
-## 👇 Credits 👇
-- ChatGPT
-- Pretty Printed YouTube Channel
-
-### 📋 TODO 📋
-- [X] Buat semua api endpoint (DONE)
-- [ ] Proteksi REST server dengan JWT (flask_jwt_extended)
-- [ ] Menerapkan role-based authorization pada protected endpoint
-- [ ] Menambahkan salt untuk password lecturer dan student
-- [ ] Membatasi presensi 1 kali per-pertemuan (per-minggu)
