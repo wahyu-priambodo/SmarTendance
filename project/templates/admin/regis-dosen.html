@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/regis-form.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
-    <title>Registrasi Dosen</title>
+    <title>Admin | Lecturer Registration</title>
   </head>
 
   <body>
@@ -27,13 +27,13 @@
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -48,10 +48,10 @@
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -84,13 +84,13 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Registrasi Akun Dosen</h1>
+            <h1>Lecturer Account Registration</h1>
             <ul class="breadcrumb">
-              <a href="{{url_for('admin_ep.add')}}"><li>Registrasi</li></a>
+              <a href="{{url_for('admin_ep.add')}}"><li>Registration</li></a>
               /
               <li>
                 <a href="{{url_for('admin_ep.add_lecturer')}}" class="active">
-                  Registrasi Akun Dosen
+                  Lecturer Account Registration
                 </a>
               </li>
             </ul>
@@ -101,19 +101,19 @@
         <div class="container">
           <div class="registration-form">
             <form action="{{url_for('admin_ep.add_lecturer')}}" method="POST" id="registration-form">
-              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-              <h2>Registrasi Dosen</h2>
+              <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+              <h2>Lecturer Registration Form</h2>
               <div class="form-group">
-                <label for="nama">Nama Dosen</label>
+                <label for="nama">Lecturer Name</label>
                 <input type="text" id="nama" name="lecturer_name" required />
               </div>
               <div class="form-group">
-                <label for="nip">NIP</label>
+                <label for="nip">Lecturer NIP</label>
                 <input type="text" id="nip" name="lecturer_nip" required />
               </div>
               <!-- DROPDOWN MAJOR LIST -->
               <div class="form-group">
-                <select name="lecturer_major" id="major">
+                <select name="lecturer_major" id="major" required>
                   {% for major in major_list %}
                     <option value="{{major}}">
                       {{major}}
@@ -123,7 +123,7 @@
               </div>
 
               <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Lecturer Password</label>
                 <input type="password" id="password" name="lecturer_pw" required />
                 <span
                   class="show-password"
@@ -132,7 +132,7 @@
                 ></span>
               </div>
               <div class="form-group">
-                <label for="confirm-pass">Konfirmasi Password</label>
+                <label for="confirm-pass">Confirm Lecturer Password</label>
                 <input type="password" id="confirm-pass" name="lecturer_confirm_pw" required />
                 <span
                   class="show-password"
@@ -141,18 +141,18 @@
                 ></span>
               </div>
               <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">Lecturer Email Address</label>
                 <input type="email" id="email" name="lecturer_email_address" required />
               </div>
               <div class="form-group">
-                <label for="home-address">Home Address</label>
+                <label for="home-address">Lecturer Home Address</label>
                 <input type="text" id="home-address" name="lecturer_home_address" />
               </div>
               <div class="form-group">
-                <label for="uid">UID Dosen</label>
+                <label for="uid">Lecturer Card UID</label>
                 <input type="text" id="uid" name="lecturer_uid" required />
               </div>
-              <button type="submit" class="btn-register">Register</button>
+              <button type="submit" class="btn-register">Register Lecturer</button>
             </form>
           </div>
         </div>

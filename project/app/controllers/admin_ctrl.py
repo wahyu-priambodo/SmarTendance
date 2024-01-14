@@ -1,5 +1,6 @@
 from flask import redirect, url_for, render_template, request, flash, session, abort
 from flask_argon2 import generate_password_hash
+from datetime import datetime
 
 from ..models import *
 
@@ -79,6 +80,79 @@ def validate_user_form(
       return False
   # return True if all validation passed
   return True
+
+def is_valid_day(day: str) -> bool:
+  days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  return day.capitalize() in days_of_week
+
+def is_valid_time(time: str) -> bool:
+  try:
+    datetime.strptime(time, '%H:%M:%S')
+    return True
+  except ValueError:
+    return False
+
+def validate_course_form(
+  course_id:str, course_name:str, course_sks:int, at_semester:int,
+  day:str, time_start:str, time_end:str, course_description:str,
+  lecturer_nip:str, class_id:str, room_id:str
+) -> bool:
+  if not (course_id and course_name and course_sks and at_semester 
+          and day and time_start and time_end
+          and lecturer_nip and class_id and room_id
+  ):
+    flash('Please fill all the form!', 'danger')
+    return False
+  if len(course_id) > 15:
+    flash('Course ID must be less than 15 characters!', 'danger')
+    return False
+  if len(course_name) > 100:
+    flash('Course name must be less than 100 characters!', 'danger')
+    return False
+  if not (isinstance(course_sks,int)) or (course_sks<1 or course_sks>=6):
+    flash('Course SKS must be between 1 and 8!', 'danger')
+    return False
+  if not (isinstance(at_semester,int)) or (at_semester<1 or at_semester>=8):
+    flash('Course semester must be between 1 and 8!', 'danger')
+    return False
+  if not is_valid_day(day):
+    flash('Day must be a day of week!', 'danger')
+    return False
+  if time_start == time_end:
+    flash('Time start and time end must be different!', 'danger')
+    return False
+  if not (is_valid_time(time_start) or is_valid_time(time_end)):
+    flash('Time start or time end must be in format HH:MM AM/PM!', 'danger')
+    return False
+  if len(course_description) > 256:
+    flash('Course description must be less than 256 characters!', 'danger')
+    return False
+  # Check for lecturer NIP
+  lecturer_exist = User.query.filter_by(
+    user_id=lecturer_nip,
+    user_role='LECTURER'
+  ).first()
+  if not lecturer_exist:
+    flash('Lecturer NIP is not valid!', 'danger')
+    return False
+  # Check if course already registered
+  course_exist = Course.query.filter_by(course_id=course_id).first()
+  if course_exist:
+    flash('Course already registered!', 'danger')
+    return False
+  # Check for class ID
+  class_exist = Class.query.filter_by(class_id=class_id).first()
+  if not class_exist:
+    flash('Class ID is not valid!', 'danger')
+    return False
+  # Check for room ID
+  room_exist = Room.query.filter_by(room_id=room_id).first()
+  if not room_exist:
+    flash('Room ID is not valid!', 'danger')
+    return False
+  # return True if all validation passed
+  return True
+""" End of function helper """
 
 def add():
   sess_user_id = session.get('user_id')
@@ -182,6 +256,66 @@ def add_lecturer():
   return render_template(
     'admin/regis-dosen.html',
     major_list=major_list
+  )
+
+def add_course():
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  list_classes = Class.query.all()
+  days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  lecturers = User.query.filter_by(user_role='LECTURER').all()
+  rooms = Room.query.all()
+  form = request.form
+  if request.method == 'POST':
+    course_name = form['course_name']
+    course_id = form['course_id']
+    course_sks = int(form['course_sks'])
+    course_semester = int(form['course_semester'])
+    course_day = form['course_day']
+    course_start = form['time_start']
+    course_end = form['time_end']
+    course_description = form['course_description']
+    lecturer_nip = form['lecturer_nip']
+    class_id = form['class_id']
+    room_id = form['room_id']
+    # Validate course form
+    is_course_form_valid = validate_course_form(
+      course_id=course_id, course_name=course_name, course_sks=course_sks, at_semester=course_semester, day=course_day, 
+      time_start=course_start, time_end=course_end, course_description=course_description,
+      lecturer_nip=lecturer_nip, class_id=class_id, room_id=room_id
+    )
+    # Check if the form is valid
+    if not is_course_form_valid:
+      return redirect(url_for('admin_ep.add_course'))
+    # If the form valid, then add new course to database based on the form input
+    new_course = Course (
+      course_id = course_id,
+      course_name = course_name,
+      course_sks = course_sks,
+      at_semester = course_semester,
+      day = course_day,
+      time_start = course_start,
+      time_end = course_end,
+      course_description = course_description,
+      lecturer_nip = lecturer_nip,
+      class_id = class_id,
+      room_id = room_id
+    )
+    # Add new course to database
+    db.session.add(new_course)
+    db.session.commit()
+    flash('Course successfully registered!', 'success')
+    return redirect(url_for('admin_ep.add'))
+  return render_template(
+    'admin/regis-course.html',
+    list_classes=list_classes,
+    days_of_week=days_of_week,
+    lecturers=lecturers,
+    rooms=rooms
   )
 
 def admin_view(id: str):

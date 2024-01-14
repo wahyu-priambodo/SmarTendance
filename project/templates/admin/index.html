@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/style.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
-    <title>Dashboard Admin | {{admin.user_fullname}}</title>
+    <title>Admin {{admin.user_fullname}} | Dashboard</title>
   </head>
 
   <body>
@@ -27,13 +27,13 @@
           <a href="#"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -48,10 +48,10 @@
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -99,28 +99,28 @@
             <i class="bx bx-group"></i>
             <span class="info">
               <h3>{{total_students}}</h3>
-              <p>Mahasiswa Terdaftar</p>
+              <p>Registered Students</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-user"></i>
             <span class="info">
               <h3>{{total_lecturers}}</h3>
-              <p>Jumlah Dosen</p>
+              <p>Total Lecturers</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-graduation"></i>
             <span class="info">
               <h3>{{total_courses}}</h3>
-              <p>Jumlah Course</p>
+              <p>Total Courses</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-door-open"></i>
             <span class="info">
               <h3>{{total_classes}}</h3>
-              <p>Jumlah Kelas</p>
+              <p>Total Classes</p>
             </span>
           </li>
         </ul>
@@ -131,7 +131,7 @@
           <div class="orders" data-table="mahasiswa">
             <div class="header" data-table="mahasiswa">
               <i class="bx bx-table" data-table="mahasiswa"></i>
-              <h3>Mahasiswa Terdaftar</h3>
+              <h3>Registered Students</h3>
               <div class="filter-dropdown">
                 <select id="mahasiswa-data-filter">
                   <option value="5">5</option>
@@ -153,11 +153,11 @@
             <table>
               <thead>
                 <tr>
-                  <th>Mahasiswa</th>
+                  <th>Student</th>
                   <th class="data">NIM</th>
                   <th class="data">Class</th>
                   <th class="data">Total courses</th>
-                  <th>Aksi</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,10 +175,10 @@
                   <td>{{student_courses[student.user_id]}}</td>
                   <td class="action">
                     <a href="{{url_for('admin_ep.edit', id=student.user_id)}}" class="status completed">
-                      <i class="bx bxs-edit ed"></i>ubah
+                      <i class="bx bxs-edit ed"></i>edit
                     </a>
                     <a href="{{url_for('admin_ep.delete', id=student.user_id)}}" class="status delete">
-                      <i class="bx bxs-edit ed"></i>hapus
+                      <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>
               {% endfor %}
@@ -199,7 +199,7 @@
           <div class="orders" data-table="dosen">
             <div class="header" data-table="dosen">
               <i class="bx bx-table" data-table="dosen"></i>
-              <h3>Dosen Terdaftar</h3>
+              <h3>Registered Lecturers</h3>
               <div class="filter-dropdown">
                 <select id="dosen-data-filter">
                   <option value="5">5</option>
@@ -220,11 +220,11 @@
             <table>
               <thead>
                 <tr>
-                  <th>Dosen</th>
+                  <th>Lecturer</th>
                   <th>NIP</th>
                   <th>Major</th>
                   <th>Total courses</th>
-                  <th>Aksi</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -239,10 +239,10 @@
                   <td>{{lecturer_courses[lecturer.user_id]}}</td>
                   <td class="action">
                     <a href="{{url_for('admin_ep.edit', id=lecturer.user_id)}}" class="status completed">
-                      <i class="bx bxs-edit ed"></i>ubah
+                      <i class="bx bxs-edit ed"></i>edit
                     </a>
                     <a href="{{url_for('admin_ep.delete', id=lecturer.user_id)}}" class="status delete">
-                      <i class="bx bxs-edit ed"></i>hapus
+                      <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>
               {% endfor %}

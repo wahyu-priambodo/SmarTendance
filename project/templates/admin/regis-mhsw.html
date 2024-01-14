@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/regis-form.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
-    <title>Registrasi Mahasiswa</title>
+    <title>Admin | Student Registration</title>
   </head>
 
   <body>
@@ -27,13 +27,13 @@
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -48,10 +48,10 @@
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -84,14 +84,14 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Registrasi Akun Mahasiswa</h1>
+            <h1>Student Account Registration</h1>
             <ul class="breadcrumb">
-              <a href="{{url_for('admin_ep.add')}}"><li>Registrasi</li></a>
+              <a href="{{url_for('admin_ep.add')}}"><li>Registration</li></a>
               /
               <li>
-                <a href="{{url_for('admin_ep.add_student')}}" class="active"
-                  >Registrasi Akun Mahasiswa</a
-                >
+                <a href="{{url_for('admin_ep.add_student')}}" class="active">
+                  Student Account Registration
+                </a>
               </li>
             </ul>
           </div>
@@ -101,20 +101,20 @@
         <div class="container">
           <div class="registration-form">
             <form action="{{url_for('admin_ep.add_student')}}" method="POST" id="registration-form">
-              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-              <h2>Registrasi Mahasiswa</h2>
+              <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+              <h2>Student Registration Form</h2>
               <div class="form-group">
-                <label for="nama">Nama Mahasiswa</label>
+                <label for="nama">Student Name</label>
                 <input type="text" id="nama" name="student_name" required />
               </div>
               <div class="form-group">
-                <label for="nim">NIM</label>
+                <label for="nim">Student NIM</label>
                 <input type="text" id="nim" name="student_nim" required />
               </div>
 
               <!-- DROPDOWN -->
               <div class="select-box">
-                <label for="options-container" id="class">Kelas</label>
+                <label for="options-container" id="class">Student Class</label>
                 <div class="options-container" id="options-container">
                   {% for class in student_class %}
                     <div class="option">
@@ -124,6 +124,7 @@
                         id="{{class.class_id}}"
                         name="student_class"
                         value="{{class.class_id}}"
+                        required
                       />
                       <label for="{{class.class_id}}">
                         {{class.class_id}}
@@ -132,16 +133,16 @@
                   {% endfor %}
                 </div>
 
-                <div class="selected">Pilih Kelas</div>
+                <div class="selected">Choose a class</div>
 
                 <div class="search-box">
-                  <input type="text" placeholder="Cari Kelas..." />
+                  <input type="text" placeholder="Search Kelas..." />
                 </div>
               </div>
 
               <!-- END -->
               <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Student Password</label>
                 <input type="password" id="password" name="student_pw" required />
                 <span
                   class="show-password"
@@ -150,7 +151,9 @@
                 ></span>
               </div>
               <div class="form-group">
-                <label for="confirm-pass">Konfirmasi Password</label>
+                <label for="confirm-pass">
+                  Confirm Student Password
+                </label>
                 <input type="password" id="confirm-pass" name="student_confirm_pw" required />
                 <span
                   class="show-password"
@@ -159,24 +162,24 @@
                 ></span>
               </div>
               <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">Student Email Address</label>
                 <input type="email" id="email" name="student_email_address" required />
               </div>
               <div class="form-group">
-                <label for="home-address">Home Address</label>
+                <label for="home-address">Student Home Address</label>
                 <input type="text" id="home-address" name="student_home_address" />
               </div>
               <div class="form-uid" id="uid-btn">
                 <button type="button" id="show-uid-popup">
-                  <i class="bx bx-rfid"></i><span>Registrasi Scan UID</span>
+                  <i class="bx bx-rfid"></i><span>Scan Student ID Card</span>
                 </button>
               </div>
               <div class="form-group">
-                <label for="uid" id="label-uid">UID Mahasiswa</label>
+                <label for="uid" id="label-uid">Student Card UID</label>
                 <input
                   type="text"
                   id="uid"
-                  placeholder="UID e-KTP Mahasiswa"
+                  placeholder="Student Card UID"
                   name="student_uid"
                   readonly
                   required
@@ -185,10 +188,10 @@
               <div class="delete">
                 <button type="button">
                   <i class="bx bxs-trash"></i>
-                  <span>Hapus UID</span>
+                  <span>Delete Student Card UID</span>
                 </button>
               </div>
-              <button type="submit" class="btn-register">Register</button>
+              <button type="submit" class="btn-register">Register Student</button>
             </form>
           </div>
         </div>
@@ -197,7 +200,7 @@
     </div>
     <div class="popup" id="uid-popup">
       <div class="popup-container">
-        <h2>Registrasi UID Mahasiswa</h2>
+        <h2>Student ID Card Registration</h2>
         <div id="wifi-loader">
           <svg class="circle-outer" viewBox="0 0 86 86">
             <circle class="back" cx="43" cy="43" r="40"></circle>
@@ -229,15 +232,15 @@
             ></path>
           </svg>
         </div>
-        <div class="scan-success">UID Berhasil Terbaca</div>
+        <div class="scan-success">Student Card UID Successfully Read</div>
         <input
           type="text"
           id="uid-input"
-          placeholder="Silakan Tap Kartu RFID"
+          placeholder="Please tap the student id card"
         />
         <div class="popup-button" align-self="flex-end">
-          <button id="close-popup" class="cancel">Batal</button>
-          <button id="register-uid-button">Simpan</button>
+          <button id="close-popup" class="cancel">Cancel</button>
+          <button id="register-uid-button">Save</button>
         </div>
       </div>
     </div>

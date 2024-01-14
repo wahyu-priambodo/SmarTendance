@@ -7,33 +7,33 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="regis-form.css" />
-    <link rel="stylesheet" href="SideMenu_Navbar.css" />
-    <title>Registrasi Course</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/regis-form.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <title>Admin | Course Registration</title>
   </head>
 
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <img src="images/logo.png" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smar</span>Tendance</div>
+        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
-          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -41,17 +41,17 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button">
+          <a href="#" class="logout" id="logout-button" data-logout-url="{{url_for('user_ep.logout')}}">
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"></label>
         <a href="#" class="profile">
-          <img src="images/profile_logo.png" />
+          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
         </a>
       </nav>
       <!-- End of Navbar -->
@@ -84,12 +84,12 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Registrasi Course</h1>
+            <h1>Course Registration</h1>
             <ul class="breadcrumb">
-              <a href="registrasi.html"><li>Registrasi</li></a>
+              <a href="{{url_for('admin_ep.add')}}"><li>Registration</li></a>
               /
               <li>
-                <a href="regis-course.html" class="active">Registrasi Course</a>
+                <a href="{{url_for('admin_ep.add_course')}}" class="active">Course Registration</a>
               </li>
             </ul>
           </div>
@@ -98,179 +98,145 @@
         <!-- Registration Form -->
         <div class="container">
           <div class="registration-form">
-            <form action="" method="" id="registration-form">
-              <h2>Registrasi Course</h2>
+            <form action="{{url_for('admin_ep.add_course')}}" method="POST" id="registration-form">
+              <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+              <h2>Course Registration Form</h2>
               <div class="form-group kursus">
-                <label for="nama-course">Nama Course</label>
+                <label for="nama-course">Course Name</label>
                 <input
                   type="text"
                   id="nama-course"
-                  name="nama-course"
+                  name="course_name"
                   required
                 />
               </div>
               <div class="form-group kursus">
-                <label for="enroll">Enrollment Key</label>
+                <label for="course-id">Course ID</label>
                 <input
                   type="text"
-                  id="enroll"
-                  name="enroll"
-                  readonly
+                  id="course-id"
+                  name="course_id"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="course-sks">Course SKS</label>
+                <input
+                  type="number"
+                  id="course-sks"
+                  name="course_sks"
+                  required
+                />
+              </div>
+              <div class="form-group kursus">
+                <label for="semester">For semester</label>
+                <input
+                  type="number"
+                  id="semester"
+                  name="course_semester"
                   required
                 />
               </div>
 
               <!-- pilih kelas -->
               <div class="select-box">
-                <label for="options-container" id="class">Kelas</label>
+                <label for="options-container" id="class">Course Class</label>
                 <div class="options-container" id="options-container">
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 1A"
-                      name="kelas"
-                      value="TMJ 1A"
-                    />
-                    <label for="TMJ 1A">TMJ 1A</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 1B"
-                      name="kelas"
-                      value="TMJ 1B"
-                    />
-                    <label for="TMJ 1B">TMJ 1B</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMD 1A"
-                      name="kelas"
-                      value="TMD 1A"
-                    />
-                    <label for="TMD 1A">TMD 1A</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMD 1B"
-                      name="kelas"
-                      value="TMD 1B"
-                    />
-                    <label for="TMD 1B">TMD 1B</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TKJ 1"
-                      value="TKJ 1"
-                      name="kelas"
-                    />
-                    <label for="TKJ 1">TKJ 1</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 3A"
-                      value="TMJ 3A"
-                      name="kelas"
-                    />
-                    <label for="TMJ 3A">TMJ 3A</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 3B"
-                      value="TMJ 3B"
-                      name="kelas"
-                    />
-                    <label for="TMJ 3B">TMJ 3B</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 5"
-                      value="TMJ 5"
-                      name="kelas"
-                    />
-                    <label for="TMJ 5">TMJ 5</label>
-                  </div>
-
-                  <div class="option">
-                    <input
-                      type="radio"
-                      class="radio"
-                      id="TMJ 7A"
-                      value="TMJ 7A"
-                      name="kelas"
-                    />
-                    <label for="TMJ 7A">TMJ 7A</label>
-                  </div>
+                  {% for class in list_classes %}
+                    <div class="option">
+                      <input
+                        type="radio"
+                        class="radio"
+                        id="{{class.class_id}}"
+                        name="class_id"
+                        value="{{class.class_id}}"
+                        required
+                      />
+                      <label for="{{class.class_id}}">
+                        {{class.class_id}}
+                      </label>
+                    </div>
+                  {% endfor %}
                 </div>
 
-                <div class="selected">Pilih Kelas</div>
+                <div class="selected">Pick a Course Class</div>
 
                 <div class="search-box">
-                  <input type="text" placeholder="Cari Kelas..." />
+                  <input type="text" placeholder="Search Class..." />
                 </div>
               </div>
               <!-- end -->
+              <!-- Select course day -->
               <div class="form-group kursus">
-                <label for="kode-course">Kode Course</label>
-                <input
-                  type="text"
-                  id="kode-course"
-                  name="kode-course"
-                  required
-                />
+                <select name="course_day" id="day" required>
+                  {% for day in days_of_week %}
+                    <option value="{{day}}">
+                      {{day}}
+                    </option>
+                  {% endfor %}
+                </select>
               </div>
+              <!-- End of select course day -->
               <div class="form-group kursus">
-                <label for="durasi-course">Durasi Course</label>
-                <input
-                  type="text"
-                  id="durasi-course"
-                  name="durasi-course"
-                  required
-                />
-              </div>
-              <div class="form-group kursus">
-                <label for="start-course">Waktu Mulai</label>
+                <label for="start-course">Course Start</label>
                 <input
                   type="time"
                   id="start-course"
-                  name="start-course"
+                  name="time_start"
                   required
+                  step="1"
                 />
               </div>
               <div class="form-group kursus">
-                <label for="enroll">Waktu Selesai</label>
-                <input type="time" id="end-course" name="end-course" required />
+                <label for="end-course">Course End</label>
+                <input
+                  type="time"
+                  id="end-course"
+                  name="time_end"
+                  required
+                  step="1"
+                />
+              </div>
+              <!-- Select lecturer -->
+              <div class="form-group kursus">
+                <select name="lecturer_nip" id="lecturer" required>
+                  {% for lecturer in lecturers %}
+                    <option value="{{lecturer.user_id}}">
+                      {{lecturer.user_fullname}} ({{lecturer.user_id}})
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- End of select lecturer -->
+              <!-- Select course room -->
+              <div class="form-group kursus">
+                <select name="room_id" id="room" required>
+                  {% for room in rooms %}
+                    <option value="{{room.room_id}}">
+                      {{room.room_id}}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- End of select course room -->
+              <div class="form-group kursus">
+                <label for="course-description">Course Description</label>
+                <input
+                  type="text"
+                  id="course-description"
+                  name="course_description"
+                  required
+                />
               </div>
 
-              <button type="submit" class="btn-register">Register</button>
+              <button type="submit" class="btn-register">Register Course</button>
             </form>
           </div>
         </div>
         <!-- End of Registration Form -->
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

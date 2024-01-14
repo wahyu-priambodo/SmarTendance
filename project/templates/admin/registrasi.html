@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/registrasi.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
-    <title>Registrasi</title>
+    <title>Admin | Registration</title>
   </head>
 
   <body>
@@ -27,13 +27,13 @@
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -48,10 +48,10 @@
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -84,9 +84,9 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Registrasi</h1>
+            <h1>Registration</h1>
             <ul class="breadcrumb">
-              <li><a href="#" class="active">Registrasi</a></li>
+              <li><a href="#" class="active">Registration</a></li>
               /
             </ul>
           </div>
@@ -98,7 +98,7 @@
             <li>
               <i class="bx bx-group"></i><br />
               <span class="info">
-                <h3 class="info">Registrasi Akun Mahasiswa</h3>
+                <h3 class="info">Student Account Registration</h3>
               </span>
             </li>
           </a>
@@ -106,22 +106,22 @@
             <li>
               <i class="bx bxs-user"></i><br />
               <span class="info">
-                <h3 class="info">Registrasi Akun Dosen</h3>
+                <h3 class="info">Lecturer Account Registration</h3>
               </span>
             </li>
           </a>
-          <a href="regis-course.html" class="regisBar">
+          <a href="{{url_for('admin_ep.add_course')}}" class="regisBar">
             <li>
               <i class="bx bxs-graduation"></i><br />
               <span class="info">
-                <h3 class="info">Registrasi Course</h3>
+                <h3 class="info">Course Registration</h3>
               </span>
             </li>
           </a>
         </ul>
       </main>
     </div>
-    <script src="{{url_for('static', filename='index.js')}}"></script>
+    <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");

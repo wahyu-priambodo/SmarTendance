@@ -22,6 +22,7 @@ user_ep.add_url_rule('/dashboard', endpoint="dashboard", view_func=dashboard, me
 admin_ep.add_url_rule('/add', endpoint="add", view_func=add, methods=['GET'])
 admin_ep.add_url_rule('/add/student', endpoint="add_student", view_func=add_student, methods=['GET', 'POST'])
 admin_ep.add_url_rule('/add/lecturer', endpoint="add_lecturer", view_func=add_lecturer, methods=['GET', 'POST'])
+admin_ep.add_url_rule('/add/course', endpoint="add_course", view_func=add_course, methods=['GET', 'POST'])
 
 admin_ep.add_url_rule('/<string:id>/view', endpoint="view", view_func=admin_view, methods=['GET'])
 admin_ep.add_url_rule('/<string:id>/edit', endpoint="edit", view_func=admin_edit, methods=['GET', 'POST'])
