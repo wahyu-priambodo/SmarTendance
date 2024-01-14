@@ -282,7 +282,100 @@
     border-radius: 4px;
 }
 
-
+/* CSS untuk Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: var(--grey);
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: rgb(68, 68, 68);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  form {
+    display: grid;
+    gap: 10px;
+  }
+  
+  label {
+    font-size: 16px;
+    color: var(--dark);
+    text-align: left;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--grey);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    color: var(--dark);
+    background-color: var(--grey);
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button.cancel {
+    background-color: #f44336;
+  }
+  
+  button.update:hover {
+    background-color: #45a049;
+  }
+  
+  /* Tambahkan CSS untuk mengatur tombol "Batal" */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  /* Atur ulang warna tombol "Batal" dan "Update" */
+  button.cancel,
+  button.update {
+    width: 48%;
+  }
+  
+  button.cancel:hover,
+  button.update:hover {
+    opacity: 0.9;
+  }
 @media screen and (max-width: 768px) {
     .content{
         width: calc(100% - 60px);

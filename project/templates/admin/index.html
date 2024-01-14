@@ -7,8 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/style.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/style.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}"
+    />
     <title>Admin {{admin.user_fullname}} | Dashboard</title>
   </head>
 
@@ -16,24 +22,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <img
+          src="{{url_for('static', filename='images/logo.png')}}"
+          alt="Logo SmarTandance"
+        />
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li class="active">
-          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"
+            ><i class="bx bxs-dashboard"></i>Dashboard</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
+          <a href="{{url_for('admin_ep.add')}}"
+            ><i class="bx bx-group"></i>Registration</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
+          <a href="rekap_absen.html"
+            ><i class="bx bx-data"></i>Attendance Recap</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -41,7 +56,12 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button" data-logout-url="{{url_for('user_ep.logout')}}">
+          <a
+            href="#"
+            class="logout"
+            id="logout-button"
+            data-logout-url="{{url_for('user_ep.logout')}}"
+          >
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
@@ -76,7 +96,9 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"> </label>
         <a href="#" class="profile">
-          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
+          <img
+            src="{{url_for('static', filename='images/profile_logo.png')}}"
+          />
         </a>
       </nav>
 
@@ -161,10 +183,12 @@
                 </tr>
               </thead>
               <tbody>
-              {% for student in students %}
+                {% for student in students %}
                 <tr>
                   <td>
-                    <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
+                    <img
+                      src="{{url_for('static', filename='images/profile_logo.png')}}"
+                    />
                     <p>{{student.user_fullname}}</p>
                   </td>
                   <!-- Student nim -->
@@ -174,14 +198,22 @@
                   <!-- Studenet total courses -->
                   <td>{{student_courses[student.user_id]}}</td>
                   <td class="action">
-                    <a href="{{url_for('admin_ep.edit', id=student.user_id)}}" class="status completed">
+                    <a
+                      href="{{url_for('admin_ep.edit', id=student.user_id)}}"
+                      class="status completed"
+                      onclick="openModal('{{student.user_id}}', '{{student.user_fullname}}')"
+                    >
                       <i class="bx bxs-edit ed"></i>edit
                     </a>
-                    <a href="{{url_for('admin_ep.delete', id=student.user_id)}}" class="status delete">
+                    <a
+                      href="{{url_for('admin_ep.delete', id=student.user_id)}}"
+                      class="status delete"
+                    >
                       <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>
-              {% endfor %}
+                  {% endfor %}
+                </tr>
               </tbody>
             </table>
             <div class="pagination">
@@ -228,24 +260,34 @@
                 </tr>
               </thead>
               <tbody>
-              {% for lecturer in lecturers %}
+                {% for lecturer in lecturers %}
                 <tr>
                   <td>
-                    <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
+                    <img
+                      src="{{url_for('static', filename='images/profile_logo.png')}}"
+                    />
                     <p>{{lecturer.user_fullname}}</p>
                   </td>
                   <td>{{lecturer.user_id}}</td>
                   <td>{{lecturer.lecturer_major.value}}</td>
                   <td>{{lecturer_courses[lecturer.user_id]}}</td>
                   <td class="action">
-                    <a href="{{url_for('admin_ep.edit', id=lecturer.user_id)}}" class="status completed">
+                    <a
+                      href="{{url_for('admin_ep.edit', id=lecturer.user_id)}}"
+                      class="status completed"
+                      onclick="openModal('{{lecturer.user_id}}', '{{lecturer.user_fullname}}')"
+                    >
                       <i class="bx bxs-edit ed"></i>edit
                     </a>
-                    <a href="{{url_for('admin_ep.delete', id=lecturer.user_id)}}" class="status delete">
+                    <a
+                      href="{{url_for('admin_ep.delete', id=lecturer.user_id)}}"
+                      class="status delete"
+                    >
                       <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>
-              {% endfor %}
+                  {% endfor %}
+                </tr>
               </tbody>
             </table>
             <div class="pagination">
@@ -260,6 +302,44 @@
           </div>
         </div>
       </main>
+    </div>
+    <!-- Modal Form Update -->
+    <div class="modal" id="updateModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Update User</h2>
+        <form id="updateForm">
+          <label for="userId">ID User:</label>
+          <input type="text" id="userId" name="user_id" readonly />
+
+          <label for="userName">Nama:</label>
+          <input type="text" id="userName" name="userName" required />
+
+          <label for="newPassword">Password Baru:</label>
+          <input type="password" id="newPassword" name="user_password_hash" />
+
+          <label for="confirmPassword">Konfirmasi Password:</label>
+          <input type="password" id="confirmPassword" />
+
+          <label for="UID">UID:</label>
+          <input type="text" id="UID" />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="user_email_address" required />
+
+          <label for="address">Alamat Rumah:</label>
+          <input type="text" id="address" name="user_home_address" required />
+
+          <div class="buttons">
+            <button type="button" class="update" onclick="updateUser()">
+              Update
+            </button>
+            <button type="button" class="cancel" onclick="closeModal()">
+              Batal
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
     <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script>
@@ -455,6 +535,17 @@
       });
 
       updatePaginationDosen();
+
+      // modal form
+      function openModal(userId, userName) {
+        document.getElementById("userId").value = userId;
+        document.getElementById("userName").value = userName;
+        document.getElementById("updateModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("updateModal").style.display = "none";
+      }
     </script>
   </body>
 </html>

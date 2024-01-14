@@ -7,8 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/regis-form.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/regis-form.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}"
+    />
     <title>Admin | Course Registration</title>
   </head>
 
@@ -16,24 +22,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <img
+          src="{{url_for('static', filename='images/logo.png')}}"
+          alt="Logo SmarTandance"
+        />
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"
+            ><i class="bx bxs-dashboard"></i>Dashboard</a
+          >
         </li>
         <li>
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
+          <a href="{{url_for('admin_ep.add')}}"
+            ><i class="bx bx-group"></i>Registration</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
+          <a href="rekap_absen.html"
+            ><i class="bx bx-data"></i>Attendance Recap</a
+          >
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -41,7 +56,12 @@
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button" data-logout-url="{{url_for('user_ep.logout')}}">
+          <a
+            href="#"
+            class="logout"
+            id="logout-button"
+            data-logout-url="{{url_for('user_ep.logout')}}"
+          >
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
@@ -75,7 +95,9 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"></label>
         <a href="#" class="profile">
-          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
+          <img
+            src="{{url_for('static', filename='images/profile_logo.png')}}"
+          />
         </a>
       </nav>
       <!-- End of Navbar -->
@@ -89,7 +111,9 @@
               <a href="{{url_for('admin_ep.add')}}"><li>Registration</li></a>
               /
               <li>
-                <a href="{{url_for('admin_ep.add_course')}}" class="active">Course Registration</a>
+                <a href="{{url_for('admin_ep.add_course')}}" class="active"
+                  >Course Registration</a
+                >
               </li>
             </ul>
           </div>
@@ -98,7 +122,11 @@
         <!-- Registration Form -->
         <div class="container">
           <div class="registration-form">
-            <form action="{{url_for('admin_ep.add_course')}}" method="POST" id="registration-form">
+            <form
+              action="{{url_for('admin_ep.add_course')}}"
+              method="POST"
+              id="registration-form"
+            >
               <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
               <h2>Course Registration Form</h2>
               <div class="form-group kursus">
@@ -112,12 +140,7 @@
               </div>
               <div class="form-group kursus">
                 <label for="course-id">Course ID</label>
-                <input
-                  type="text"
-                  id="course-id"
-                  name="course_id"
-                  required
-                />
+                <input type="text" id="course-id" name="course_id" required />
               </div>
               <div class="form-group kursus">
                 <label for="course-sks">Course SKS</label>
@@ -143,19 +166,17 @@
                 <label for="options-container" id="class">Course Class</label>
                 <div class="options-container" id="options-container">
                   {% for class in list_classes %}
-                    <div class="option">
-                      <input
-                        type="radio"
-                        class="radio"
-                        id="{{class.class_id}}"
-                        name="class_id"
-                        value="{{class.class_id}}"
-                        required
-                      />
-                      <label for="{{class.class_id}}">
-                        {{class.class_id}}
-                      </label>
-                    </div>
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="{{class.class_id}}"
+                      name="class_id"
+                      value="{{class.class_id}}"
+                      required
+                    />
+                    <label for="{{class.class_id}}"> {{class.class_id}} </label>
+                  </div>
                   {% endfor %}
                 </div>
 
@@ -168,11 +189,10 @@
               <!-- end -->
               <!-- Select course day -->
               <div class="form-group kursus">
+                <label for="day">Select a Day</label>
                 <select name="course_day" id="day" required>
                   {% for day in days_of_week %}
-                    <option value="{{day}}">
-                      {{day}}
-                    </option>
+                  <option value="{{day}}">{{day}}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -199,22 +219,22 @@
               </div>
               <!-- Select lecturer -->
               <div class="form-group kursus">
+                <label for="lecturer">Select a Lecturer</label>
                 <select name="lecturer_nip" id="lecturer" required>
                   {% for lecturer in lecturers %}
-                    <option value="{{lecturer.user_id}}">
-                      {{lecturer.user_fullname}} ({{lecturer.user_id}})
-                    </option>
+                  <option value="{{lecturer.user_id}}">
+                    {{lecturer.user_fullname}} ({{lecturer.user_id}})
+                  </option>
                   {% endfor %}
                 </select>
               </div>
               <!-- End of select lecturer -->
               <!-- Select course room -->
               <div class="form-group kursus">
+                <label for="room">Select a Room</label>
                 <select name="room_id" id="room" required>
                   {% for room in rooms %}
-                    <option value="{{room.room_id}}">
-                      {{room.room_id}}
-                    </option>
+                  <option value="{{room.room_id}}">{{room.room_id}}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -229,7 +249,9 @@
                 />
               </div>
 
-              <button type="submit" class="btn-register">Register Course</button>
+              <button type="submit" class="btn-register">
+                Register Course
+              </button>
             </form>
           </div>
         </div>
