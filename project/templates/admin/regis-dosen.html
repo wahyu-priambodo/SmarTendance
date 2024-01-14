@@ -192,9 +192,28 @@
                   name="lecturer_home_address"
                 />
               </div>
+              <!-- UID input -->
+              <div class="form-uid" id="uid-btn">
+                <button type="button" id="show-uid-popup">
+                  <i class="bx bx-rfid"></i><span>Scan Lecturer ID Card</span>
+                </button>
+              </div>
               <div class="form-group">
-                <label for="uid">Lecturer Card UID</label>
-                <input type="text" id="uid" name="lecturer_uid" required />
+                <label for="uid" id="label-uid">Lecturer Card UID</label>
+                <input
+                  type="text"
+                  id="uid"
+                  placeholder="Lecturer Card UID"
+                  name="lecturer_uid"
+                  readonly
+                  required
+                />
+              </div>
+              <div class="delete">
+                <button type="button">
+                  <i class="bx bxs-trash"></i>
+                  <span>Delete Lecturer Card UID</span>
+                </button>
               </div>
               <button type="submit" class="btn-register">
                 Register Lecturer
@@ -204,6 +223,52 @@
         </div>
         <!-- End of Registration Form -->
       </main>
+    </div>
+    <div class="popup" id="uid-popup">
+      <div class="popup-container">
+        <h2>Lecturer ID Card Registration</h2>
+        <div id="wifi-loader">
+          <svg class="circle-outer" viewBox="0 0 86 86">
+            <circle class="back" cx="43" cy="43" r="40"></circle>
+            <circle class="front" cx="43" cy="43" r="40"></circle>
+            <circle class="new" cx="43" cy="43" r="40"></circle>
+          </svg>
+          <svg class="circle-middle" viewBox="0 0 60 60">
+            <circle class="back" cx="30" cy="30" r="27"></circle>
+            <circle class="front" cx="30" cy="30" r="27"></circle>
+          </svg>
+          <svg class="circle-inner" viewBox="0 0 34 34">
+            <circle class="back" cx="17" cy="17" r="14"></circle>
+            <circle class="front" cx="17" cy="17" r="14"></circle>
+          </svg>
+          <div class="text" data-text="Scanning"></div>
+        </div>
+        <div class="complete-mark">
+          <svg class="icon-success" viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="36" fill="#66bb6a"></circle>
+            <path
+              fill="none"
+              stroke="#FFFFFF"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-dasharray="56"
+              stroke-dashoffset="56"
+              d="M17.7,40.9l10.9,10.9l28.7-28.7"
+            ></path>
+          </svg>
+        </div>
+        <div class="scan-success">Lecturer Card UID Successfully Read</div>
+        <input
+          type="text"
+          id="uid-input"
+          placeholder="Please tap the lecturer id card"
+        />
+        <div class="popup-button" align-self="flex-end">
+          <button id="close-popup" class="cancel">Cancel</button>
+          <button id="register-uid-button">Save</button>
+        </div>
+      </div>
     </div>
     <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script
@@ -282,6 +347,94 @@
             "Konfirmasi password harus sama dengan password"
           ); // Password tidak cocok, atur pesan kesalahan
         }
+      });
+
+      const wifiLoader = document.getElementById("wifi-loader");
+      const completeMark = document.querySelector(".complete-mark");
+      const scanSuccess = document.querySelector(".scan-success");
+      const uidInputt = document.getElementById("uid-input");
+
+      uidInputt.addEventListener("input", function () {
+        if (uidInputt.value) {
+          wifiLoader.style.display = "none";
+          completeMark.style.display = "block";
+          scanSuccess.style.display = "block";
+          completeMark.classList.add("success");
+        } else {
+          wifiLoader.style.display = "flex";
+          completeMark.style.display = "none";
+          scanSuccess.style.display = "none";
+          completeMark.classList.remove("success");
+        }
+      });
+
+      uidInputt.addEventListener("focus", function () {
+        if (!uidInputt.value) {
+          wifiLoader.style.display = "flex";
+          completeMark.style.display = "none";
+          scanSuccess.style.display = "none";
+          completeMark.classList.remove("success");
+        }
+      });
+
+      const showUidButton = document.getElementById("show-uid-popup");
+      const popup = document.querySelector(".popup");
+      const closePopupButton = document.getElementById("close-popup");
+      const uidInput = document.getElementById("uid");
+      const registerUidButton = document.getElementById("register-uid-button");
+      const labelUid = document.getElementById("label-uid");
+      const uidInputField = document.getElementById("uid-input");
+
+      showUidButton.addEventListener("click", () => {
+        popup.style.display = "flex";
+      });
+
+      closePopupButton.addEventListener("click", () => {
+        popup.style.display = "none";
+        uidInputField.value = ""; // Reset value input UID
+        wifiLoader.style.display = "flex";
+        completeMark.style.display = "none";
+        scanSuccess.style.display = "none";
+        completeMark.classList.remove("success");
+      });
+
+      labelUid.style.display = "none";
+
+      registerUidButton.addEventListener("click", () => {
+        const uidInputValue = uidInputField.value;
+        uidInputField.value = "";
+        wifiLoader.style.display = "flex";
+        completeMark.style.display = "none";
+        scanSuccess.style.display = "none";
+        completeMark.classList.remove("success");
+
+        if (uidInputValue.trim() === "") {
+          const uidInputVal = uidInput.value;
+          // Set value untuk input dengan id "uid"
+          uidInput.value = uidInputValue;
+
+          // const uidHiddenVal = hiddenInput.value;
+          if (uidInputVal.trim() !== "") {
+            uidInput.value = uidInputValue;
+          }
+        } else {
+          uidInput.value = uidInputValue;
+        }
+
+        if (uidInputValue) {
+          labelUid.style.display = "block";
+        } else {
+          labelUid.style.display = "none";
+        }
+
+        popup.style.display = "none";
+      });
+
+      const deleteUID = document.querySelector(".delete button");
+
+      deleteUID.addEventListener("click", () => {
+        uidInput.value = "";
+        labelUid.style.display = "none";
       });
     </script>
   </body>
