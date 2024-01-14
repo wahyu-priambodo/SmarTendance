@@ -1,3 +1,5 @@
+# SmarTendance V2
+
 git merge origin/wahyu
 git push -u origin wahyu
 git switch wahyu

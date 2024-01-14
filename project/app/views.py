@@ -24,6 +24,11 @@ admin_ep.add_url_rule('/add/student', endpoint="add_student", view_func=add_stud
 admin_ep.add_url_rule('/add/lecturer', endpoint="add_lecturer", view_func=add_lecturer, methods=['GET', 'POST'])
 admin_ep.add_url_rule('/add/course', endpoint="add_course", view_func=add_course, methods=['GET', 'POST'])
 
+# Action for view and export attendance logs by course
+admin_ep.add_url_rule('/attendance', endpoint="attendance", view_func=attendance, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:role>/get', endpoint="get_attendance", view_func=get_attendance, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:role>/export', endpoint="export_attendance", view_func=export_attendance, methods=['GET'])
+
 admin_ep.add_url_rule('/<string:id>/view', endpoint="view", view_func=admin_view, methods=['GET'])
 admin_ep.add_url_rule('/<string:id>/edit', endpoint="edit", view_func=admin_edit, methods=['GET', 'POST'])
 admin_ep.add_url_rule('/<string:id>/delete', endpoint="delete", view_func=admin_delete, methods=['GET', 'POST'])

@@ -1,6 +1,9 @@
-from flask import redirect, url_for, render_template, request, flash, session, abort
+from flask import redirect, url_for, render_template, request, flash, session, abort, jsonify, Response
 from flask_argon2 import generate_password_hash
 from datetime import datetime
+from sqlalchemy.orm import joinedload
+import pandas as pd
+from io import BytesIO
 
 from ..models import *
 
@@ -152,8 +155,13 @@ def validate_course_form(
     return False
   # return True if all validation passed
   return True
+
+def format_time(time_object:datetime):
+  formatted_time = time_object.strftime('%a, %d %b %Y %H:%M:%S')
+  return formatted_time
 """ End of function helper """
 
+""" Registration """
 def add():
   sess_user_id = session.get('user_id')
   sess_user_role = session.get('user_role')
@@ -317,6 +325,113 @@ def add_course():
     lecturers=lecturers,
     rooms=rooms
   )
+""" End of registration """
+
+""" Attendance """
+# Attendance page
+def attendance():
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  roles = ['STUDENT', 'LECTURER']
+  return render_template(
+    'admin/rekap_absen.html',
+    roles=roles,
+  )
+
+def serialized_logs(role:str) -> list:
+  serialized_logs = []
+  if role == 'STUDENT':
+    student_attendance_logs = (
+      db.session.query(StudentAttendanceLogs)
+      .options(
+        joinedload(StudentAttendanceLogs.user_student),
+        joinedload(StudentAttendanceLogs.course_student),
+        joinedload(StudentAttendanceLogs.room_student)
+      )
+      .all()
+    )
+    serialized_logs = [
+      {
+        'name': log.user_student.user_fullname,
+        'course': log.course_student.course_name,
+        'room': log.room_student.room_id,
+        'time_in': format_time(log.time_in),
+        'status': log.status.value
+      }
+      for log in student_attendance_logs
+    ]
+  elif role == 'LECTURER':
+    lecturer_attendance_logs = (
+      db.session.query(LecturerAttendanceLogs)
+      .options(
+        joinedload(LecturerAttendanceLogs.user_lecturer),
+        joinedload(LecturerAttendanceLogs.course_lecturer),
+        joinedload(LecturerAttendanceLogs.room_lecturer)
+      )
+      .all()
+    )
+    serialized_logs = [
+      {
+        'name': log.user_lecturer.user_fullname,
+        'course': log.course_lecturer.course_name,
+        'room': log.room_lecturer.room_id,
+        'time_in': format_time(log.time_in),
+        'status': log.status.value
+      }
+      for log in lecturer_attendance_logs
+    ]
+  else:
+    return jsonify({'message': 'User role is not valid!'}), 400
+  # Return serialized attendance logs in JSON format
+  return serialized_logs
+
+# Function to fetch attendance logs by role
+def get_attendance(role:str):
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  # If the selected role is student
+  if role in ['STUDENT', 'LECTURER']:
+    attendance_logs = serialized_logs(role=role)
+    return jsonify({'attendance': attendance_logs}), 200
+  else:
+    return jsonify({'message': 'User role is not valid!'}), 400
+
+def export_attendance(role:str):
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  # Create dataframe from serialized logs
+  attendance_logs = serialized_logs(role=role)
+  # Create dataframe from serialized logs
+  df = pd.DataFrame(attendance_logs)
+  # Create a BytesIO buffer to store the Excel file
+  excel_buffer = BytesIO()
+  # Export dataframe to excel_buffer
+  df.to_excel(excel_buffer, index=False, header=True)
+  # Set the position of the buffer to the beginning
+  excel_buffer.seek(0)
+  # Create response object
+  response = Response(
+    excel_buffer.read(),
+    content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  )
+  output_file = f"{role.lower()}_attendance_logs.xlsx"
+  # Add headers to response
+  response.headers["Content-Disposition"] = f"attachment; filename={output_file}.xlsx"
+  # Return response
+  return response
+""" End of attendance """
 
 def admin_view(id: str):
   pass

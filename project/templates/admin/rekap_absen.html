@@ -7,33 +7,33 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="rekap_absen.css" />
-    <link rel="stylesheet" href="SideMenu_Navbar.css" />
-    <title>Rekap Absensi</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/rekap_absen.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <title>Admin | Attendance Logs</title>
   </head>
 
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <img src="images/logo.png" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smart</span>endance</div>
+        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>Smartendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
           <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
-          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li class="active">
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Rekap Absensi</a>
+          <a href="{{url_for('admin_ep.attendance')}}"><i class="bx bx-data"></i>Attendance Logs</a>
         </li>
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
@@ -45,13 +45,13 @@
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
-          <div class="confirmation-modal" id="confirmation-modal">
+          <div class="confirmation-modal" id="confirmation-modal" data-logout-url="{{url_for('user_ep.logout')}}">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"> </label>
         <a href="#" class="profile">
-          <img src="images/profile_logo.png" />
+          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
         </a>
       </nav>
 
@@ -85,131 +85,49 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Rekap Absensi</h1>
+            <h1>Attendance Logs</h1>
             <ul class="breadcrumb">
-              <li><a href="" class="active">Rekap Absensi</a></li>
+              <li>
+                <a href="{{url_for('admin_ep.attendance')}}" class="active">Attendance Logs</a>
+              </li>
               /
             </ul>
           </div>
         </div>
 
         <div class="select-box">
-          <label for="options-container" id="class">Kelas</label>
+          <label for="options-container" id="class">User Role</label>
           <div class="options-container" id="options-container">
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 1A"
-                name="kelas"
-                value="TMJ 1A"
-              />
-              <label for="TMJ 1A">TMJ 1A</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 1B"
-                name="kelas"
-                value="TMJ 1B"
-              />
-              <label for="TMJ 1B">TMJ 1B</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMD 1A"
-                name="kelas"
-                value="TMD 1A"
-              />
-              <label for="TMD 1A">TMD 1A</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMD 1B"
-                name="kelas"
-                value="TMD 1B"
-              />
-              <label for="TMD 1B">TMD 1B</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TKJ 1"
-                value="TKJ 1"
-                name="kelas"
-              />
-              <label for="TKJ 1">TKJ 1</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 3A"
-                value="TMJ 3A"
-                name="kelas"
-              />
-              <label for="TMJ 3A">TMJ 3A</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 3B"
-                value="TMJ 3B"
-                name="kelas"
-              />
-              <label for="TMJ 3B">TMJ 3B</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 5"
-                value="TMJ 5"
-                name="kelas"
-              />
-              <label for="TMJ 5">TMJ 5</label>
-            </div>
-
-            <div class="option">
-              <input
-                type="radio"
-                class="radio"
-                id="TMJ 7A"
-                value="TMJ 7A"
-                name="kelas"
-              />
-              <label for="TMJ 7A">TMJ 7A</label>
-            </div>
+            {% for role in roles %}
+              <div class="option">
+                <input
+                  type="radio"
+                  class="radio"
+                  id="{{role}}"
+                  name="role"
+                  value="{{role}}"
+                />
+                  <label for="{{role}}">
+                    {{role}}
+                  </label>
+                </div>
+              {% endfor %}
           </div>
 
-          <div class="selected">Pilih Kelas</div>
+          <div class="selected">Choose a user role</div>
 
           <div class="search-box">
-            <input type="text" placeholder="Cari Kelas..." />
+            <input type="text" placeholder="Search user role..." />
           </div>
         </div>
 
         <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
           <!-- coba -->
-          <div class="orders">
+          <div class="orders" id="attendanceLogsContainer" style="display: none;">
             <div class="header">
               <i class="bx bx-calendar"></i>
-              <h3>Absensi TMJ-3B</h3>
+              <h3>Attendance Logs</h3>
               <div class="filter-dropdown">
                 <select id="data-filter">
                   <option value="5">5</option>
@@ -229,79 +147,14 @@
             </div>
             <table>
               <thead>
-                <tr>
-                  <th>Mata Kuliah</th>
-                  <th>Dosen Pengampu</th>
-                  <th>Jumlah Mahasiswa</th>
-                  <th>Aksi</th>
-                </tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Room</th>
+                <th>Time In</th>
+                <th>Status</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>Sistem Embedded</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="presensi-course.html" class="status view"
-                      ><i class="bx bxs-chevron-right"></i>Lihat</a
-                    >
-                    <a href="#" class="status ekspor"
-                      ><i class="bx bx-export"></i>Ekspor</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Pemrograman Web</td>
-                  <td>Maria Agustin</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="presensi-course.html" class="status view"
-                      ><i class="bx bxs-chevron-right"></i>Lihat</a
-                    >
-                    <a href="#" class="status ekspor"
-                      ><i class="bx bx-export"></i>Ekspor</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Pemrograman Berorientasi Objek</td>
-                  <td>Ariawan Andi Suhandana</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="presensi-course.html" class="status view"
-                      ><i class="bx bxs-chevron-right"></i>Lihat</a
-                    >
-                    <a href="#" class="status ekspor"
-                      ><i class="bx bx-export"></i>Ekspor</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Rekayasa Perangkat Lunak</td>
-                  <td>Susana Dwi Yulianti</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="presensi-course.html" class="status view"
-                      ><i class="bx bxs-chevron-right"></i>Lihat</a
-                    >
-                    <a href="#" class="status ekspor"
-                      ><i class="bx bx-export"></i>Ekspor</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Keamanan Komputer</td>
-                  <td>Defiana Arnaldy</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="presensi-course.html" class="status view"
-                      ><i class="bx bxs-chevron-right"></i>Lihat</a
-                    >
-                    <a href="#" class="status ekspor"
-                      ><i class="bx bx-export"></i>Ekspor</a
-                    >
-                  </td>
-                </tr>
+                <!-- Automatically added when the request is done -->
               </tbody>
             </table>
             <div class="pagination">
@@ -312,13 +165,17 @@
               <button id="next-page">
                 <i class="bx bx-chevrons-right"></i>
               </button>
+              <a href="#" class="status ekspor">
+                <i class="bx bx-export"></i>Export
+              </a>
             </div>
           </div>
+          <!-- button export -->
           <!-- end -->
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
@@ -327,6 +184,45 @@
           toggler.checked = true;
         }
       });
+
+      function getAttendanceData(role) {
+        role = role.trim(); // Trim leading and trailing spaces
+        const attendanceLogsContainer = document.getElementById('attendanceLogsContainer');
+      
+        if (role) {
+          fetch(`/admin/attendance/${role}/get`)
+            .then((response) => response.json())
+            .then((data) => {
+              // Panggil fungsi untuk mengisi tabel dengan data
+              populateTable(data.attendance);
+              attendanceLogsContainer.style.display = 'block'; // Show attendance logs container
+            })
+            .catch((error) => {
+              console.error('Error fetching attendance data:', error);
+              attendanceLogsContainer.style.display = 'none'; // Hide attendance logs container on error
+            });
+        } else {
+          attendanceLogsContainer.style.display = 'none'; // Hide attendance logs container when no role is selected
+        }
+      }
+    
+      // Fungsi untuk mengisi tabel dengan data absensi
+      function populateTable(attendanceData) {
+        const tableBody = document.querySelector(".bottom-data .orders table tbody");
+        tableBody.innerHTML = ""; // Kosongkan isi tabel
+    
+        attendanceData.forEach((row) => {
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `
+            <td>${row.name}</td>
+            <td>${row.course}</td>
+            <td>${row.room}</td>
+            <td>${row.time_in}</td>
+            <td>${row.status}</td>
+          `;
+          tableBody.appendChild(newRow);
+        });
+      }
 
       const searchButtons = document.querySelectorAll(
         ".bottom-data .orders .header .search-btn"
@@ -361,6 +257,43 @@
       const label = document.querySelector("#class");
 
       const optionsList = document.querySelectorAll(".option");
+
+      optionsList.forEach((o) => {
+        o.addEventListener("click", () => {
+          const role = o.querySelector("label").innerHTML.trim();  // Trim leading and trailing spaces
+          selected.innerHTML = role; // Mengganti teks yang ditampilkan di dropdown
+      
+          // Mendapatkan data absensi berdasarkan peran yang dipilih
+          getAttendanceData(role);
+      
+          const radioInput = o.querySelector("input[type=radio]"); // Mendapatkan elemen radio terkait
+          radioInput.checked = true; // Menandai elemen radio sebagai terkilih
+          optionsContainer.classList.remove("active");
+          searchBox.style.display = "none";
+          searchBox.value = "";
+          filterList("");
+
+          // Export button
+          const exportButton = document.querySelector(".ekspor");
+          if (role === "STUDENT") {
+            exportButton.href = "{{url_for('admin_ep.export_attendance', role='STUDENT')}}";
+          } else if (role === "LECTURER") {
+            exportButton.href = "{{url_for('admin_ep.export_attendance', role='LECTURER')}}";
+          }
+        });
+      });
+    
+      // Menambahkan event listener untuk perubahan pada elemen radio input 'role'
+      const roleRadioInputs = document.querySelectorAll("input[name='role']");
+      roleRadioInputs.forEach((radioInput) => {
+        radioInput.addEventListener("change", () => {
+          const selectedRole = document.querySelector("input[name='role']:checked").value;
+          selected.innerHTML = selectedRole;
+    
+          // Mendapatkan data absensi berdasarkan peran yang dipilih
+          getAttendanceData(selectedRole);
+        });
+      });
 
       selected.addEventListener("click", () => {
         optionsContainer.classList.toggle("active");
