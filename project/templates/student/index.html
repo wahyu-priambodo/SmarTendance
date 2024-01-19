@@ -30,7 +30,7 @@
       </a>
       <ul class="side-menu">
         <li class="active">
-          <a href="{{url_for('user_ep.dashboard')}}"
+          <a href="{{url_for('student_ep.dashboard')}}"
             ><i class="bx bxs-dashboard"></i>Dashboard</a
           >
         </li>
@@ -94,7 +94,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Selamat Datang, User</h1>
+            <h1>Selamat Datang, {{ student.user_fullname }}</h1>
             <ul class="breadcrumb">
               <li><a href="" class="active">Dashboard</a></li>
             </ul>
@@ -106,15 +106,8 @@
           <li>
             <i class="bx bxs-graduation"></i>
             <span class="info">
-              <h3>{{total_courses}}</h3>
+              <h3>{{ total_courses }}</h3>
               <p>Total Courses</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bxs-door-open"></i>
-            <span class="info">
-              <h3>{{total_classes}}</h3>
-              <p>Total Classes</p>
             </span>
           </li>
         </ul>
@@ -124,8 +117,8 @@
         <div class="bottom-data">
           <div class="orders" data-table="course">
             <div class="header" data-table="course">
-              <i class="bx bx-table" data-table="course"></i>
-              <h3>My Courses</h3>
+              <i class="bx bxs-book" data-table="course"></i>
+              <h3>Today Courses</h3>
               <div class="filter-dropdown">
                 <select id="course-data-filter">
                   <option value="5">5</option>
@@ -134,58 +127,49 @@
                 </select>
                 <i class="bx bx-filter bx-filter-course"></i>
               </div>
-              <input
-                type="search"
-                placeholder="Search..."
-                class="search-input"
-              />
-              <button class="search-btn" type="submit">
-                <i class="bx bx-search"></i>
-              </button>
             </div>
 
             <table>
               <thead>
                 <tr>
-                  <th>Course</th>
-                  <th class="data">Class</th>
+                  <th>Course Name</th>
                   <th class="data">Lecturer</th>
-                  <th class="data">Time</th>
-                  <th>Actions</th>
+                  <th class="data">Time Start</th>
+                  <th class="data">Time End</th>
+                  <th class="data">Room</th>
+                  <th class="data">Status</th>
+                  <th class="data">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {% for course in student %}
+                {% for course in student_courses %}
                 <tr>
+                  <td>{{course.course_name}}</td>
+                  <td>{{lecturer.user_fullname}}</td>
+                  <td>{{course.time_start}}</td>
+                  <td>{{course.time_end}}</td>
+                  <td>{{course.room_id}}</td>
                   <td>
-                    <box-icon type="solid" name="book"></box-icon>
-                    <p>{{student.user_fullname}}</p>
+                    {% if course.course_id in attendance_data %} {% for log in
+                    attendance_data[course.course_id] %} {{ log.status.value }}
+                    <br />
+                    {% endfor %} {% else %} No attendance data available {%
+                    endif %}
                   </td>
-                  <!-- Student nim -->
-                  <td>{{student.user_id}}</td>
-                  <!-- Student class -->
-                  <td>{{student.student_class}}</td>
-                  <!-- Studenet total courses -->
-                  <td>{{student_courses[student.user_id]}}</td>
                   <td class="action">
                     <a
-                      href="{{url_for('admin_ep.edit', id=student.user_id)}}"
+                      href="#"
                       class="status completed"
-                      onclick="openModal('{{student.user_id}}', '{{student.user_fullname}}')"
+                      onclick="openModal(('{{student.user_id}}', '{{student.user_fullname}}'))"
                     >
-                      <i class="bx bxs-edit ed"></i>edit
-                    </a>
-                    <a
-                      href="{{url_for('admin_ep.delete', id=student.user_id)}}"
-                      class="status delete"
-                    >
-                      <i class="bx bxs-edit ed"></i>delete
+                      <i class="bx bx-detail"></i> details
                     </a>
                   </td>
-                  {% endfor %}
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
+
             <div class="pagination">
               <button id="mahasiswa-prev-page" disabled>
                 <i class="bx bx-chevrons-left"></i>
@@ -198,6 +182,45 @@
           </div>
         </div>
       </main>
+    </div>
+
+    <!-- Modal Form Update -->
+    <div class="modal" id="updateModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Course Detail</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Day</th>
+              <th>Room</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for course in student_courses %}
+            <tr>
+              <td>
+                {% if course.course_id in attendance_data %} {% for log in
+                attendance_data[course.course_id] %} {{ log.time_in }}
+                <br />
+                {% endfor %} {% else %} No attendance data available {% endif %}
+              </td>
+              <td>{{course.day}}</td>
+              <td>{{course.room_id}}</td>
+              <td>
+                {% if course.course_id in attendance_data %} {% for log in
+                attendance_data[course.course_id] %} {{ log.status.value }}
+                <br />
+                {% endfor %} {% else %} No attendance data available {% endif %}
+              </td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script src="{{url_for('static', filename='student/index.js')}}"></script>
@@ -217,30 +240,16 @@
           document.body.classList.add("dark");
           toggler.checked = true;
         }
-
-        // Fungsi untuk memperbarui waktu secara berkala
-        function updateClock() {
-          const tanggalElement = document.getElementById("tanggal");
-          const currentTime = new Date();
-          const hari = currentTime.toLocaleDateString(undefined, {
-            weekday: "long",
-          });
-          const tanggal = currentTime.getDate();
-          const bulan = currentTime.toLocaleDateString(undefined, {
-            month: "long",
-          });
-          const tahun = currentTime.getFullYear();
-
-          // Format waktu
-          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun}`;
-
-          // Tampilkan waktu dalam elemen dengan ID "tanggal"
-          tanggalElement.textContent = formattedTime;
-        }
-
-        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
-        updateClock();
       });
+
+      // modal form
+      function openModal() {
+        document.getElementById("updateModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("updateModal").style.display = "none";
+      }
     </script>
   </body>
 </html>

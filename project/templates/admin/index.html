@@ -199,16 +199,13 @@
                   <td>{{student_courses[student.user_id]}}</td>
                   <td class="action">
                     <a
-                      href="{{url_for('admin_ep.edit', id=student.user_id)}}"
+                      href="#"
                       class="status completed"
                       onclick="openModal('{{student.user_id}}', '{{student.user_fullname}}')"
                     >
                       <i class="bx bxs-edit ed"></i>edit
                     </a>
-                    <a
-                      href="{{url_for('admin_ep.delete', id=student.user_id)}}"
-                      class="status delete"
-                    >
+                    <a href="#" class="status delete">
                       <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>
@@ -273,16 +270,13 @@
                   <td>{{lecturer_courses[lecturer.user_id]}}</td>
                   <td class="action">
                     <a
-                      href="{{url_for('admin_ep.edit', id=lecturer.user_id)}}"
+                      href="#"
                       class="status completed"
                       onclick="openModal('{{lecturer.user_id}}', '{{lecturer.user_fullname}}')"
                     >
                       <i class="bx bxs-edit ed"></i>edit
                     </a>
-                    <a
-                      href="{{url_for('admin_ep.delete', id=lecturer.user_id)}}"
-                      class="status delete"
-                    >
+                    <a href="#" class="status delete">
                       <i class="bx bxs-edit ed"></i>delete
                     </a>
                   </td>

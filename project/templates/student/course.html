@@ -7,8 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="course.css" />
-    <link rel="stylesheet" href="SideMenu_Navbar.css" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='student/course.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='student/SideMenu_Navbar.css')}}"
+    />
     <title>Smartendance</title>
   </head>
 
@@ -16,30 +22,42 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="#" class="logo">
-        <img src="Resource/logo.png" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smart</span>endance</div>
+        <img
+          src="{{url_for('static', filename='images/logo.png')}}"
+          alt="Logo SmarTandance"
+        />
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('student_ep.dashboard')}}"
+            ><i class="bx bxs-dashboard"></i>Dashboard</a
+          >
         </li>
         <li class="active">
-          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+          <a href="{{url_for('student_ep.course')}}"
+            ><i class="bx bxs-graduation"></i>Course</a
+          >
         </li>
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button">
+          <a
+            href="#"
+            class="logout"
+            id="logout-button"
+            data-logout-url="{{url_for('user_ep.logout')}}"
+          >
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -65,7 +83,9 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"> </label>
         <a href="#" class="profile">
-          <img src="./Resource/profile_logo.png" />
+          <img
+            src="{{url_for('static', filename='images/profile_logo.png')}}"
+          />
         </a>
       </nav>
 
@@ -74,7 +94,7 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Course Saya</h1>
+            <h1>My Course</h1>
             <ul class="breadcrumb">
               <li><a href="" class="active">Course</a></li>
               /
@@ -86,84 +106,42 @@
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bx-calendar"></i>
-              <h3 id="tanggal"></h3>
+              <i class="bx bxs-book"></i>
+              <h3>ALL COURSES</h3>
               <i class="bx bx-filter"></i>
               <i class="bx bx-search"></i>
             </div>
             <table>
               <thead>
                 <tr>
-                  <th>Mata Kuliah</th>
-                  <th>Kode</th>
-                  <th>Kelas</th>
-                  <th>Jumlah Mahasiswa</th>
-                  <th>Aksi</th>
+                  <th class="data">Course Name</th>
+                  <th class="data">Lecturer</th>
+                  <th class="data">Day</th>
+                  <th class="data">Time Start</th>
+                  <th class="data">Time End</th>
+                  <th class="data">Room</th>
+                  <th class="data">SKS</th>
                 </tr>
               </thead>
               <tbody>
+                {% for course in student_courses %}
                 <tr>
-                  <td>Sistem Embedded</td>
-                  <td>D82HF</td>
-                  <td>TMJ 3B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
+                  <td>{{course.course_name}}</td>
+                  <td>{{lecturer.user_fullname}}</td>
+                  <td>{{course.day}}</td>
+                  <td>{{course.time_start}}</td>
+                  <td>{{course.time_end}}</td>
+                  <td>{{course.room_id}}</td>
+                  <td>{{course.course_sks}}</td>
                 </tr>
-                <tr>
-                  <td>Pemrograman Web</td>
-                  <td>D82HF</td>
-                  <td>TMJ 2B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Pemrograman Berorientasi Objek</td>
-                  <td>D82HF</td>
-                  <td>TMJ 1B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Rekayasa Perangkat Lunak</td>
-                  <td>D82HF</td>
-                  <td>TMJ 4B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Keamanan Komputer</td>
-                  <td>D82HF</td>
-                  <td>TMJ 5B</td>
-                  <td>29</td>
-                  <td class="edit">
-                    <a href="data_mhsw.html" class="status completed"
-                      ><i class="bx bxs-chevron-right"></i>lihat</a
-                    >
-                  </td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="{{url_for('static', filename='student/index.js')}}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
@@ -181,29 +159,6 @@
           document.body.classList.add("dark");
           toggler.checked = true;
         }
-
-        // Fungsi untuk memperbarui waktu secara berkala
-        function updateClock() {
-          const tanggalElement = document.getElementById("tanggal");
-          const currentTime = new Date();
-          const hari = currentTime.toLocaleDateString(undefined, {
-            weekday: "long",
-          });
-          const tanggal = currentTime.getDate();
-          const bulan = currentTime.toLocaleDateString(undefined, {
-            month: "long",
-          });
-          const tahun = currentTime.getFullYear();
-
-          // Format waktu
-          const formattedTime = `${hari}, ${tanggal} ${bulan} ${tahun}`;
-
-          // Tampilkan waktu dalam elemen dengan ID "tanggal"
-          tanggalElement.textContent = formattedTime;
-        }
-
-        // Memanggil fungsi updateClock untuk menampilkan waktu saat halaman dimuat
-        updateClock();
       });
     </script>
   </body>

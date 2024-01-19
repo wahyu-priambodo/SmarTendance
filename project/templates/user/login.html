@@ -8,7 +8,11 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='user/login.css')}}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='user/login.css')}}"
+    />
     <title>SmarTendance</title>
   </head>
   <body>
@@ -25,7 +29,7 @@
       <i class="bx bx-menu menu-icon" id="mobile-menu"></i>
       <nav class="nav" id="main-nav">
         <a href="#">Contact</a>
-        <a href="#">Tutorial</a>
+        <a href="{{url_for('user_ep.tutorial')}}">Tutorial</a>
         <a href="{{url_for('user_ep.login')}}">Login</a>
       </nav>
     </header>
