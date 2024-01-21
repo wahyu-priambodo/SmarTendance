@@ -64,7 +64,54 @@ def dashboard():
       lecturer_courses=lecturer_courses
     )
   elif sess_user_role == 'LECTURER':
-    return render_template('lecturer/index.html')
+    lecturer = User.query.filter_by(user_id=sess_user_id, user_role='LECTURER').first()
+    courses = Course.query.filter_by(lecturer_nip=lecturer.user_id).all()
+    students = (
+      User.query
+        .join(Class, User.student_class == Class.class_id)
+        .join(Course, Course.class_id == Class.class_id)
+        .filter(Course.course_id.in_([course.course_id for course in courses]))
+        .all()
+    )
+    
+    total_classes = (
+        Course.query
+        .filter_by(lecturer_nip=sess_user_id)
+        .distinct(Course.class_id)
+        .count()
+    )
+    total_students = (
+        User.query
+        .filter((User.user_role == 'STUDENT') & (User.student_class == Course.class_id))
+        .filter(Course.lecturer_nip == sess_user_id)
+        .count()
+    )
+    total_courses = Course.query.filter_by(lecturer_nip=sess_user_id).count()
+    # Menginisialisasi dictionary untuk menyimpan data student_courses
+    student_courses = {}
+    # Iterasi untuk setiap course yang diajarkan oleh lecturer
+    for course in courses:
+      # Mengambil mahasiswa yang mengikuti kursus tertentu
+      students = (
+        User.query
+          .join(Class, User.student_class == Class.class_id)
+          .join(Course, Course.class_id == Class.class_id)
+          .filter(Course.course_id == course.course_id)
+          .all()
+      )
+      # Menambahkan data ke dictionary student_courses
+      student_courses[course.course_id] = {
+        'course_name': course.course_name,
+        'students': students
+      }
+    return render_template(
+        'lecturer/index.html',
+        lecturer=lecturer, students=students, courses=courses,
+        total_courses=total_courses,
+        total_classes=total_classes,
+        total_students=total_students,
+        student_courses=student_courses
+    )
   else:
     return render_template('student/index.html')
 

@@ -97,18 +97,19 @@
           <!-- Role selection -->
           <label for="select-role">Choose a user role</label>
           <select name="role" id="select-role">
-            <option value="" selected> <!-- Default option is set to be empty -->
+            <option value="" disabled selected hidden>User role</option> <!-- Default option is set to be empty -->
               {% for role in roles %}
                 <option value="{{role}}">{{role}}</option>
               {% endfor %}
             </option>
           </select>
+          <br />
           <!-- End of role selection -->
 
           <!-- Course selection -->
           <label for="select-course">Select a user course</label>
           <select name="course" id="select-course">
-            <option value="" selected></option> <!-- Default option is set to be empty -->
+            <option value="" disabled selected hidden>User course</option> <!-- Default option is set to be empty -->
             {% for course in courses %}
               <option value="{{course.course_id}}">{{course.course_name}}</option>
             {% endfor %}

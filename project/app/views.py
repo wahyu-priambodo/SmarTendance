@@ -17,7 +17,7 @@ user_ep.add_url_rule('/login', endpoint="login", view_func=login, methods=['GET'
 user_ep.add_url_rule('/logout', endpoint="logout", view_func=logout, methods=['GET'])
 user_ep.add_url_rule('/dashboard', endpoint="dashboard", view_func=dashboard, methods=['GET'])
 
-# List of admin endpoints (admin routes)
+""" List of admin endpoints (admin routes) """
 # Action for registation (insert/add)
 admin_ep.add_url_rule('/add', endpoint="add", view_func=add, methods=['GET'])
 admin_ep.add_url_rule('/add/student', endpoint="add_student", view_func=add_student, methods=['GET', 'POST'])
@@ -53,3 +53,8 @@ admin_ep.add_url_rule('/<string:nim>/delete/student', endpoint="delete_student",
 admin_ep.add_url_rule('/<string:nip>/delete/lecturer', endpoint="delete_lecturer", view_func=delete_lecturer, methods=['GET', 'POST'])
 # delete course
 admin_ep.add_url_rule('/<string:course_id>/delete/course', endpoint="delete_course", view_func=delete_course, methods=['GET', 'POST'])
+
+""" List of lecturer endpoints (lecturer routes) """
+lecturer_ep.add_url_rule('/logs', endpoint="view_lecturer_logs", view_func=view_lecturer_logs, methods=['GET'])
+lecturer_ep.add_url_rule('/logs/get', endpoint="get_lecturer_logs", view_func=get_lecturer_logs, methods=['GET'])
+lecturer_ep.add_url_rule('/logs/export', endpoint="export_lecturer_attendance", view_func=export_lecturer_logs, methods=['GET'])

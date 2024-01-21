@@ -87,23 +87,23 @@
               /
             </ul>
           </div>
+          <div class="show-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% if category == "success" %}
+                    <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px;"
+                    >
+                      {{message}}
+                    </span>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
         </div>
 
         <!-- Insights -->
-        <div class="show-messages">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                {% if category == "success" %}
-                  <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px;"
-                  >
-                    {{message}}
-                  </span>
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-        </div>
         <ul class="insights">
           <a href="{{url_for('admin_ep.add_student')}}" class="regisBar">
             <li>
