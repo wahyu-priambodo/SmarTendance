@@ -8,6 +8,7 @@ from .app.views import user_ep, admin_ep, lecturer_ep, student_ep
 def create_app(testing: bool = True):
   app = Flask(__name__)
   app.permanent_session_lifetime = timedelta(hours=1)
+  app.url_map.strict_slashes = False
   # Check for testing parameter value.
   if testing:
     app.config.from_object(TestingConfig)

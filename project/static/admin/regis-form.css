@@ -155,7 +155,7 @@ input[type="time"]::-webkit-clear-button {
 
 .selected::after {
   content: "";
-  background: url("images/arrow-down.svg");
+  background: url("../images/arrow-down.svg");
   background-size: contain;
   background-repeat: no-repeat;
 

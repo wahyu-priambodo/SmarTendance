@@ -27,7 +27,7 @@ class Class(db.Model):
   class_study_program = Column(Enum(StudyProgram), nullable=False)
   class_major = Column(Enum(Major), nullable=False)
   class_description = Column(Text, nullable=True)
-  courses = relationship('Course', backref='class_course', lazy=True)
+  courses = relationship('Course', backref='class_course', lazy=True, cascade='all, delete-orphan')
 
 class RoomBuilding(enum.Enum):
   GSG = 'GSG'
@@ -39,8 +39,8 @@ class Room(db.Model):
   room_building = Column(Enum(RoomBuilding), nullable=False)
   room_description = Column(Text, nullable=True)
   courses = relationship('Course', backref='room_course', lazy=True)
-  student_attendance_logs = relationship('StudentAttendanceLogs', backref='room_student', lazy=True)
-  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='room_lecturer', lazy=True)
+  student_attendance_logs = relationship('StudentAttendanceLogs', backref='room_student', lazy=True, cascade='all, delete-orphan')
+  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='room_lecturer', lazy=True, cascade='all, delete-orphan')
 
 class RoleName(enum.Enum):
   ADMIN = 'ADMIN'
@@ -58,9 +58,9 @@ class User(db.Model):
   user_home_address = Column(String(256), nullable=True)
   lecturer_major = Column(Enum(Major), nullable=True)
   student_class = Column(CHAR(10), ForeignKey('class.class_id'), nullable=True)
-  courses = relationship('Course', backref='user_course', lazy=True)
-  student_attendance_logs = relationship('StudentAttendanceLogs', backref='user_student', lazy=True)
-  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='user_lecturer', lazy=True)
+  courses = relationship('Course', backref='user_course', lazy=True, cascade='all, delete-orphan')
+  student_attendance_logs = relationship('StudentAttendanceLogs', backref='user_student', lazy=True, cascade='all, delete-orphan')
+  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='user_lecturer', lazy=True, cascade='all, delete-orphan')
 
   @property
   def password(self):
@@ -97,8 +97,8 @@ class Course(db.Model):
   lecturer_nip = Column(String(18), ForeignKey('user.user_id'), nullable=False)
   class_id = Column(CHAR(10), ForeignKey('class.class_id'), nullable=False)
   room_id = Column(CHAR(10), ForeignKey('room.room_id'), nullable=False)
-  student_attendance_logs = relationship('StudentAttendanceLogs', backref='course_student', lazy=True)
-  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='course_lecturer', lazy=True)
+  student_attendance_logs = relationship('StudentAttendanceLogs', backref='course_student', lazy=True, cascade='all, delete-orphan')
+  lecturer_attendance_logs = relationship('LecturerAttendanceLogs', backref='course_lecturer', lazy=True, cascade='all, delete-orphan')
 
 class AttendanceStatus(enum.Enum):
   PRESENT = 'PRESENT'

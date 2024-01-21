@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2024 at 01:35 PM
+-- Generation Time: Jan 19, 2024 at 10:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -79,6 +79,16 @@ CREATE TABLE `course` (
   `room_id` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`course_id`, `course_name`, `course_sks`, `at_semester`, `day`, `time_start`, `time_end`, `course_description`, `lecturer_nip`, `class_id`, `room_id`) VALUES
+('KAMKOM-TMJ3B', 'Keamanan Komputer-TMJ3B', 2, 3, 'Wednesday', '13:00:00', '15:00:00', 'Computer security course for TMJ-3B class.', '198112012015041001', 'TMJ-3B', 'AA204'),
+('RPL-TMJ3B', 'Rekayasa Perangkat Lunak-TMJ3B', 2, 3, 'Monday', '08:00:00', '10:50:00', 'Software engineering course for TMJ-3B class.', '198605222023212032', 'TMJ-3B', 'GSG209'),
+('SMBD-TMJ3B', 'Sistem Embedded-TMJ3B', 4, 3, 'Thursday', '13:00:00', '16:30:00', 'Embedded system course for TMJ-3B class.', '197910062003122001', 'TMJ-3B', 'AA204'),
+('WEB-TMJ3B', 'Pemrograman Web-TMJ3B', 2, 3, 'Wednesday', '08:00:00', '10:50:00', 'Web programming course for TMJ-3B class.', '197509152003122003', 'TMJ-3B', 'GSG210');
+
 -- --------------------------------------------------------
 
 --
@@ -93,6 +103,14 @@ CREATE TABLE `lecturer_attendance_logs` (
   `course_id` char(15) NOT NULL,
   `room_id` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lecturer_attendance_logs`
+--
+
+INSERT INTO `lecturer_attendance_logs` (`log_id`, `time_in`, `status`, `lecturer_nip`, `course_id`, `room_id`) VALUES
+(1, '2024-01-14 07:49:50', 'PRESENT', '198605222023212032', 'RPL-TMJ3B', 'GSG209'),
+(2, '2024-01-15 07:10:50', 'LATE', '197910062003122001', 'SMBD-TMJ3B', 'AA204');
 
 -- --------------------------------------------------------
 
@@ -112,6 +130,8 @@ CREATE TABLE `room` (
 
 INSERT INTO `room` (`room_id`, `room_building`, `room_description`) VALUES
 ('AA204', 'AA', NULL),
+('GSG208', 'GSG', NULL),
+('GSG209', 'GSG', NULL),
 ('GSG210', 'GSG', NULL);
 
 -- --------------------------------------------------------
@@ -128,6 +148,15 @@ CREATE TABLE `student_attendance_logs` (
   `course_id` char(15) NOT NULL,
   `room_id` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_attendance_logs`
+--
+
+INSERT INTO `student_attendance_logs` (`log_id`, `time_in`, `status`, `student_nim`, `course_id`, `room_id`) VALUES
+(3, '2024-01-16 21:22:16', 'PRESENT', '2207421033', 'KAMKOM-TMJ3B', 'AA204'),
+(4, '2024-01-16 22:23:23', 'PRESENT', '2207421031', 'RPL-TMJ3B', 'GSG209'),
+(5, '2024-01-16 22:23:23', 'PRESENT', '2207421033', 'SMBD-TMJ3B', 'AA204');
 
 -- --------------------------------------------------------
 
@@ -162,7 +191,9 @@ INSERT INTO `user` (`user_id`, `user_role`, `user_fullname`, `user_password_hash
 ('199109262019031012', 'LECTURER', 'Asep Kurniawan', '$argon2id$v=19$m=65536,t=3,p=4$m4FRK+CV3rAiuQBzMedoQQ$S/hlkIwFnUJLhZfwzCeY/u5to+8T5gkiXWJkQW4TNYI', '$argon2id$v=19$m=65536,t=3,p=4$04V/+gRCIVbAKEYrPa83Rw$TRtH/7IOesUG5NOdE5qpXelillNN3LdAKFiuadFdSGI', 'asep.kurniawan@tik.pnj.ac.id', NULL, 'TIK', NULL),
 ('199206052022032008', 'LECTURER', 'Ratna Widya Iswara', '$argon2id$v=19$m=65536,t=3,p=4$AiccjdDQaJ45DBwu3qPBpw$XCKv3pm67q89vAziRRQN6WoXIjW999vTqrRz4vxtt6Q', '$argon2id$v=19$m=65536,t=3,p=4$xjJ/JW/++hPjf0mIhYKI3g$8MjaOgSKJpDVp2G/7J1jLeB1pLVkG5/n482RSpY0REs', 'ratna.widya.iswara@tik.pnj.ac.id', NULL, 'TIK', NULL),
 ('199408202022031009', 'LECTURER', 'Iik Muhamad Malik Matin', '$argon2id$v=19$m=65536,t=3,p=4$y78B+oyVIl9QAYXCOOwp/A$AC/xH9xuKb2G4O896gEM1lLU8/peF007FzYbsmEcqfc', '$argon2id$v=19$m=65536,t=3,p=4$Kcumo0XQMRxHyVjJjcBh8Q$6iQhdRrQ80kAlRFHujRjD6tNLJB4jGmo8WW74TdzYXE', 'iik.muhamad.malik.matin@tik.pnj.ac.id', NULL, 'TIK', NULL),
-('2207421031', 'STUDENT', 'Muhammad Khairu Mufid', '$argon2id$v=19$m=65536,t=3,p=4$M4/Uhl73xK8tluGqpJE0UQ$hcSLDrk6m4rTE4Sqijcz4i3Ln7gDnWg/vqZzfNhHozc', '$argon2id$v=19$m=65536,t=3,p=4$2uvEgbOjUriRVaOTJgJhrA$/oL5ZSOg1JZgHryGV6T2ltct+m9EDVF7BqHwMEdcRpQ', 'muhammad.khairu.mufid.tik22@mhsw.pnj.ac.id', NULL, NULL, 'TMJ-3B'),
+('2207421010', 'STUDENT', 'Test1111', '$argon2id$v=19$m=65536,t=3,p=4$bXA1gUZTOR6e8zfp7zLs1A$hF2tBsNQOumLdN7KIsS+04KnRQRpRb6C8zCECwsSQKg', '$argon2id$v=19$m=65536,t=3,p=4$wnlKycSNO8jUzYwyi8dovA$/jLp4ijLGfDTtt3uizZTcfaQa4Ztbepl8PQtYPE1Bk8', 'test123@gmail.com', 'Test Home Address', NULL, 'TMJ-3A'),
+('2207421011', 'STUDENT', 'Test1234567', '$argon2id$v=19$m=65536,t=3,p=4$enFnNu6m77eizvT/cOvyVg$aPyhsl5jhB+DbXIY2Hse1YJhZwoXBbZ1S1RaxuGGGf0', '$argon2id$v=19$m=65536,t=3,p=4$9NQ2ga4wxAUFk6fSvmYfNQ$jDQak6lQdC0r0+qoiGw4bj+2r//VKbzXN07TItVQoto', 'test12345@gmail.com', 'test12345 home address.', NULL, 'TMJ-3A'),
+('2207421031', 'STUDENT', 'Muhammad Khairu', '$argon2id$v=19$m=65536,t=3,p=4$M4/Uhl73xK8tluGqpJE0UQ$hcSLDrk6m4rTE4Sqijcz4i3Ln7gDnWg/vqZzfNhHozc', '$argon2id$v=19$m=65536,t=3,p=4$2uvEgbOjUriRVaOTJgJhrA$/oL5ZSOg1JZgHryGV6T2ltct+m9EDVF7BqHwMEdcRpQ', 'muhammad.khairu.mufid.tik22@mhsw.pnj.ac.id', 'None', NULL, 'TMJ-3B'),
 ('2207421032', 'STUDENT', 'Kevin Alonzo Manuel Bakara', '$argon2id$v=19$m=65536,t=3,p=4$xI/30BK3vcUWqEjTxxYPlA$AAUlYoIL1WAP/2PTgTnVDinb7S+RZFRMcy6nt1RUmqI', '$argon2id$v=19$m=65536,t=3,p=4$WoG9Zo0/Ei1JPkrWOSWS9w$+iNBvfSs7r2E+Lr9HIDZjVsgPhKaK2oBaD8lN6N5LCc', 'kevin.alonzo.manuel.bakara.tik22@mhsw.pnj.ac.id', NULL, NULL, 'TMJ-3B'),
 ('2207421033', 'STUDENT', 'Devina Anggraini', '$argon2id$v=19$m=65536,t=3,p=4$MeUyzX+cmpu29ahcSd13uw$gKBRAWDLVCrvqNs/4BfQmXgjHA8TThE3UIpcHR90f2g', '$argon2id$v=19$m=65536,t=3,p=4$hx8NWi+9JZZ8hBwnHDe6ig$VuTi/MjBDfGOrZc2KMZh8FCqc5R/v2Nrtcqld1cV7PU', 'devina.anggraini.tik22@mhsw.pnj.ac.id', NULL, NULL, 'TMJ-3B'),
 ('2207421034', 'STUDENT', 'Alif Rendina Pamungkas', '$argon2id$v=19$m=65536,t=3,p=4$sUvXOSCu0z6CaHJcb1eo5w$gduQsF5APel878L+DDTfKsD/YsE/whgbDDZz8uN7LIg', '$argon2id$v=19$m=65536,t=3,p=4$WYfUKEeUwoVWdt86QFwBaQ$xNoKt9CTlaZaEr+Hq12iKYPglg5aFihJ9Ud9X++e4Nw', 'alif.rendina.pamungkas.tik22@mhsw.pnj.ac.id', NULL, NULL, 'TMJ-3B'),
@@ -241,13 +272,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `lecturer_attendance_logs`
 --
 ALTER TABLE `lecturer_attendance_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student_attendance_logs`
 --
 ALTER TABLE `student_attendance_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

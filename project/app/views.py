@@ -24,19 +24,28 @@ admin_ep.add_url_rule('/add/student', endpoint="add_student", view_func=add_stud
 admin_ep.add_url_rule('/add/lecturer', endpoint="add_lecturer", view_func=add_lecturer, methods=['GET', 'POST'])
 admin_ep.add_url_rule('/add/course', endpoint="add_course", view_func=add_course, methods=['GET', 'POST'])
 
-# Action for view and export attendance logs by course
-admin_ep.add_url_rule('/attendance', endpoint="attendance", view_func=attendance, methods=['GET'])
-admin_ep.add_url_rule('/attendance/<string:role>/get', endpoint="get_attendance", view_func=get_attendance, methods=['GET'])
-admin_ep.add_url_rule('/attendance/<string:role>/export', endpoint="export_attendance", view_func=export_attendance, methods=['GET'])
+# Action for view course
+admin_ep.add_url_rule('/courses/<string:class_id>/get', endpoint="get_courses", view_func=get_courses, methods=['GET'])
+admin_ep.add_url_rule('/courses', endpoint="courses", view_func=courses, methods=['GET'])
 
-admin_ep.add_url_rule('/<string:id>/view', endpoint="view", view_func=admin_view, methods=['GET'])
-admin_ep.add_url_rule('/<string:id>/edit', endpoint="edit", view_func=admin_edit, methods=['GET', 'POST'])
-admin_ep.add_url_rule('/<string:id>/delete', endpoint="delete", view_func=admin_delete, methods=['GET', 'POST'])
+# Action for view class
+admin_ep.add_url_rule('/classes', endpoint="classes", view_func=classes, methods=['GET'])
 
-# List of lecturer endpoints (lecturer routes)
-# Lecturer only can edit student attendance
-lecturer_ep.add_url_rule('/<string:id>/edit', endpoint="lecturer_edit", view_func="edit", methods=['GET', 'POST'])
+# Action for attendance
+admin_ep.add_url_rule('/attendance', endpoint="view_attendance", view_func=view_attendance, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:selected_role>/get', endpoint="get_attendance", view_func=get_attendance, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:selected_role>/export', endpoint="export_attendance", view_func=export_attendance, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:selected_role>/get_detail', endpoint="get_attendance_detail", view_func=get_attendance_detail, methods=['GET'])
+admin_ep.add_url_rule('/attendance/<string:selected_role>/detail', endpoint="view_attendance_detail", view_func=view_attendance_detail, methods=['GET'])
 
-# List of student endpoints (student routes)
-# Student only can view their attendance
-student_ep.add_url_rule('/<string:id>/view', endpoint="student_view", view_func="view", methods=['GET', 'POST'])
+# Action for edit user
+# edit student
+admin_ep.add_url_rule('/<string:nim>/edit/student', endpoint="edit_student", view_func=edit_student, methods=['GET', 'POST'])
+# edit lecturer
+admin_ep.add_url_rule('/<string:nip>/edit/lecturer', endpoint="edit_lecturer", view_func=edit_lecturer, methods=['GET', 'POST'])
+
+# Action for delete user
+# delete student
+admin_ep.add_url_rule('/<string:nim>/delete/student', endpoint="delete_student", view_func=delete_student, methods=['GET', 'POST'])
+# delete lecturer
+admin_ep.add_url_rule('/<string:nip>/delete/lecturer', endpoint="delete_lecturer", view_func=delete_lecturer, methods=['GET', 'POST'])

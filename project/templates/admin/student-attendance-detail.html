@@ -7,53 +7,48 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="presensi-course.css" />
-    <link rel="stylesheet" href="SideMenu_Navbar.css" />
-    <title>Presensi Course</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/attendance-detail.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <title>Admin | Detail {{student.user_fullname}}</title>
   </head>
 
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="#" class="logo">
-        <img src="images/logo.png" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smar</span>Tendance</div>
+      <a href="{{url_for('user_ep.dashboard')}}" class="logo">
+        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="index.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+          <a href="{{url_for('admin_ep.courses')}}"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li>
-          <a href="registrasi.html"><i class="bx bx-group"></i>Registrasi</a>
+          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Kelas</a>
+          <a href="{{url_for('admin_ep.classes')}}"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li class="active">
-          <a href="presensi-course.html"
-            ><i class="bx bx-data"></i>Rekap Absensi</a
-          >
-        </li>
-        <li>
-          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+          <a href="{{url_for('admin_ep.view_attendance')}}"><i class="bx bx-data"></i>Attendance Logs</a>
         </li>
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button">
+          <a href="#" class="logout" id="logout-button" data-logout-url="{{url_for('user_ep.logout')}}">
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
           <div class="confirmation-modal" id="confirmation-modal">
             <div class="modal-content">
               <h2>Logout Confirmation</h2>
-              <p>Apakah Anda yakin ingin logout?</p>
+              <p>You sure want to logout?</p>
               <div class="modal-buttons">
-                <button id="confirm-logout">Ya</button>
-                <button id="cancel-logout">Tidak</button>
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
               </div>
             </div>
           </div>
@@ -68,7 +63,7 @@
       <nav>
         <i class="bx bx-menu"></i>
         <form action="#">
-          <div class="form-input">
+          <div class="form-input" style="display: none;">
             <input type="search" placeholder="Search..." />
             <button class="search-btn" type="submit">
               <i class="bx bx-search"></i>
@@ -78,7 +73,7 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"> </label>
         <a href="#" class="profile">
-          <img src="images/profile_logo.png" />
+          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
         </a>
       </nav>
 
@@ -87,11 +82,19 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Rekap Absensi</h1>
+            <h1>Detail</h1>
             <ul class="breadcrumb">
-              <a href="rekap_absen.html"><li>Rekap Absensi</li></a>
+              <a href="{{url_for('admin_ep.view_attendance')}}">
+                <li>Attendance Logs</li>
+              </a>
               /
-              <li><a href="" class="active">Lihat</a></li>
+              <a href="">
+                <li>Detail</li>
+              </a>
+              /
+              <li>
+                <a href="" class="active">{{student.user_fullname}}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -100,14 +103,8 @@
         <div class="bottom-data">
           <div class="orders">
             <div class="header">
-              <i class="bx bx-table"></i>
-              <h3>Sistem Embedded - TMJ 3B</h3>
-              <div class="tambah">
-                <a href="view-mhsw.html" class="plus completed"
-                  ><i class="bx bxs-user"></i
-                  ><span>Mahasiswa Tergabung</span></a
-                >
-              </div>
+              <i class="bx bx-data"></i>
+              <h3>{{student.user_fullname}} Attendance Logs</h3>
               <div class="filter-dropdown">
                 <select id="data-filter">
                   <option value="5">5</option>
@@ -128,69 +125,16 @@
             <table>
               <thead>
                 <tr>
-                  <th>Tanggal</th>
-                  <th>Jam Kuliah</th>
-                  <th>Dosen</th>
+                  <th>NIM</th>
+                  <th>Name</th>
+                  <th>Course</th>
+                  <th>Room</th>
+                  <th>Time In</th>
                   <th>Status</th>
-                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Kamis, 21 Sep 2023</td>
-                  <td>12.30 - 17.45</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td class="keterangan terlaksana">Terlaksana</td>
-                  <td class="edit">
-                    <a href="#" class="status completed"
-                      ><i class="bx bx-detail"></i>Detail</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kamis, 28 Sep 2023</td>
-                  <td>12.30 - 17.45</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td class="keterangan terlaksana">Terlaksana</td>
-                  <td class="edit">
-                    <a href="#" class="status completed"
-                      ><i class="bx bx-detail"></i>Detail</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kamis, 5 Okt 2023</td>
-                  <td>12.30 - 17.45</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td class="keterangan terlaksana">Terlaksana</td>
-                  <td class="edit">
-                    <a href="#" class="status completed"
-                      ><i class="bx bx-detail"></i>Detail</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kamis, 12 Okt 2023</td>
-                  <td>12.30 - 17.45</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td class="keterangan terjadwal">Terjadwal</td>
-                  <td class="edit">
-                    <a href="#" class="status completed"
-                      ><i class="bx bx-detail"></i>Detail</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kamis, 19 Okt 2023</td>
-                  <td>12.30 - 17.45</td>
-                  <td>Prihatin Oktivasari</td>
-                  <td class="keterangan terjadwal">Terjadwal</td>
-                  <td class="edit">
-                    <a href="#" class="status completed"
-                      ><i class="bx bx-detail"></i>Detail</a
-                    >
-                  </td>
-                </tr>
+                <!-- The table data will automatically get injected from JS after request to the server is done. -->
               </tbody>
             </table>
             <div class="pagination">
@@ -201,12 +145,15 @@
               <button id="next-page">
                 <i class="bx bx-chevrons-right"></i>
               </button>
+              <a href="" class="status ekspor" id="export-btn">
+                <i class="bx bx-export"></i>Export
+              </a>
             </div>
           </div>
         </div>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
@@ -215,6 +162,74 @@
           toggler.checked = true;
         }
       });
+
+      searchParam = new URLSearchParams(window.location.search);
+      const studentNIM = searchParam.get("nim");
+      const exportURL = `{{url_for('admin_ep.export_attendance', selected_role='STUDENT')}}?nim=${studentNIM}`;
+      const apiURL = `{{url_for('admin_ep.get_attendance_detail', selected_role='STUDENT')}}?nim=${studentNIM}`;
+
+      if (searchParam.has("nim") && studentNIM.length === 10) {
+        getStudentAttendanceData();
+        exportStudentAttendanceData();
+      }
+
+      // Function to change the href link of export-btn
+      function exportStudentAttendanceData() {
+        const exportBtn = document.getElementById("export-btn");
+        if (studentNIM) {
+          exportBtn.href = exportURL;
+        }
+        else {
+          exportBtn.href = "#";
+        }
+      }
+      
+      // Function to populate table body with data that is fetched from the server
+      function populateTable(studentAttendanceData) {
+        const tbody = document.querySelector(
+          ".bottom-data .orders table tbody"
+        );
+        tbody.innerHTML = "";
+
+        if (studentAttendanceData.length === 0) {
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `<td colspan="6">No attendance found</td>`;
+          tbody.appendChild(newRow);
+        }
+        else {
+          studentAttendanceData.forEach((rowData) => {            
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+              <td>${rowData.nim}</td>
+              <td>${rowData.name}</td>
+              <td>${rowData.course}</td>
+              <td>${rowData.room}</td>
+              <td>${rowData.time_in}</td>
+              <td>${rowData.status}</td>
+            `;
+            tbody.appendChild(newRow);
+          });
+        }
+      }
+      
+      // Function to fetch all spesific student attendance logs data from the flask by their nim
+      function getStudentAttendanceData() {
+        if (studentNIM) {
+          fetch(apiURL)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((data) => {
+              populateTable(data.attendance_detail);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      }
 
       const searchButtons = document.querySelectorAll(
         ".bottom-data .orders .header .search-btn"

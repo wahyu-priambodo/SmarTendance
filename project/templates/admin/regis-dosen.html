@@ -15,7 +15,7 @@
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="#" class="logo">
+      <a href="{{url_for('user_ep.dashboard')}}" class="logo">
         <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
@@ -24,19 +24,16 @@
           <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+          <a href="{{url_for('admin_ep.courses')}}"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
           <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
+          <a href="{{url_for('admin_ep.classes')}}"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="rekap_absen.html"><i class="bx bx-data"></i>Attendance Recap</a>
-        </li>
-        <li>
-          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+          <a href="{{url_for('admin_ep.view_attendance')}}"><i class="bx bx-data"></i>Attendance Logs</a>
         </li>
       </ul>
       <ul class="side-menu">
@@ -65,7 +62,7 @@
       <nav>
         <i class="bx bx-menu"></i>
         <form action="#">
-          <div class="form-input">
+          <div class="form-input" style="display: none;">
             <input type="search" placeholder="Search..." />
             <button class="search-btn" type="submit">
               <i class="bx bx-search"></i>
@@ -103,6 +100,23 @@
             <form action="{{url_for('admin_ep.add_lecturer')}}" method="POST" id="registration-form">
               <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
               <h2>Lecturer Registration Form</h2>
+              <div class="show-messages">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <ul 
+                        style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-bottom: 30px;"
+                      >
+                        {% for msg in message %}
+                          {% if category == "danger" %}
+                            <li>{{msg}}</li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </div>
               <div class="form-group">
                 <label for="nama">Lecturer Name</label>
                 <input type="text" id="nama" name="lecturer_name" required />
@@ -159,6 +173,11 @@
         <!-- End of Registration Form -->
       </main>
     </div>
+    <!-- This script is to handle the MQTT connection -->
+    <script src="<https://unpkg.com/mqtt/dist/mqtt.min.js>">
+      console.log(mqtt);
+    </script>
+    <!-- Handle MQTT connection -->
     <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script
       type="module"
@@ -233,7 +252,7 @@
           confirmPasswordInput.setCustomValidity(""); // Password cocok, hapus pesan kesalahan
         } else {
           confirmPasswordInput.setCustomValidity(
-            "Konfirmasi password harus sama dengan password"
+            "Password confirmation not match"
           ); // Password tidak cocok, atur pesan kesalahan
         }
       });

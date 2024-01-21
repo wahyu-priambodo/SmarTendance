@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -43,6 +43,26 @@
 
       <div class="wrapper-login">
         <h2>Login</h2>
+        <div class="show-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == "success" %}
+                  <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px; margin-top: 30px; margin-bottom: 30px;"
+                  >
+                    {{message}}
+                  </span>
+                <!-- category == "danger" -->
+                {% else %}
+                  <span class="alert alert-success" role="alert" style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-top: 30px; margin-bottom: 30px;"
+                  >
+                    {{message}}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
         <form action="{{url_for('user_ep.login')}}" method="POST">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <div class="input-box">
@@ -62,7 +82,6 @@
         </form>
       </div>
     </section>
-
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

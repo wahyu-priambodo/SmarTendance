@@ -15,7 +15,7 @@
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="#" class="logo">
+      <a href="{{url_for('user_ep.dashboard')}}" class="logo">
         <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
@@ -24,19 +24,16 @@
           <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="course.html"><i class="bx bxs-graduation"></i>Course</a>
+          <a href="{{url_for('admin_ep.courses')}}"><i class="bx bxs-graduation"></i>Course</a>
         </li>
         <li class="active">
           <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
         </li>
         <li>
-          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
+          <a href="{{url_for('admin_ep.classes')}}"><i class="bx bxs-door-open"></i>Class</a>
         </li>
         <li>
-          <a href="{{url_for('admin_ep.attendance')}}"><i class="bx bx-data"></i>Attendance Recap</a>
-        </li>
-        <li>
-          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+          <a href="{{url_for('admin_ep.view_attendance')}}"><i class="bx bx-data"></i>Attendance Logs</a>
         </li>
       </ul>
       <ul class="side-menu">
@@ -66,7 +63,7 @@
       <nav>
         <i class="bx bx-menu"></i>
         <form action="#">
-          <div class="form-input">
+          <div class="form-input" style="display: none;">
             <input type="search" placeholder="Search..." />
             <button class="search-btn" type="submit">
               <i class="bx bx-search"></i>
@@ -93,6 +90,20 @@
         </div>
 
         <!-- Insights -->
+        <div class="show-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == "success" %}
+                  <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px;"
+                  >
+                    {{message}}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
         <ul class="insights">
           <a href="{{url_for('admin_ep.add_student')}}" class="regisBar">
             <li>

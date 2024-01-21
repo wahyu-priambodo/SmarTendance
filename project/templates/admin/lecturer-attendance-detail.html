@@ -7,9 +7,9 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/rekap_absen.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='admin/attendance-detail.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
-    <title>Admin | Attendance Logs</title>
+    <title>Admin | Detail {{lecturer.user_fullname}}</title>
   </head>
 
   <body>
@@ -17,7 +17,7 @@
     <div class="sidebar">
       <a href="{{url_for('user_ep.dashboard')}}" class="logo">
         <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
-        <div class="logo-name"><span>Smartendance</span></div>
+        <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
@@ -82,47 +82,29 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Attendance Logs</h1>
+            <h1>Detail</h1>
             <ul class="breadcrumb">
-              <li>
-                <a href="{{url_for('admin_ep.view_attendance')}}" class="active">Attendance Logs</a>
-              </li>
+              <a href="{{url_for('admin_ep.view_attendance')}}">
+                <li>Attendance Logs</li>
+              </a>
               /
+              <a href="">
+                <li>Detail</li>
+              </a>
+              /
+              <li>
+                <a href="" class="active">{{lecturer.user_fullname}}</a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <!-- Select user role -->
-        <div class="select-box">
-          <!-- Role selection -->
-          <label for="select-role">Choose a user role</label>
-          <select name="role" id="select-role">
-            <option value="" selected> <!-- Default option is set to be empty -->
-              {% for role in roles %}
-                <option value="{{role}}">{{role}}</option>
-              {% endfor %}
-            </option>
-          </select>
-          <!-- End of role selection -->
-
-          <!-- Course selection -->
-          <label for="select-course">Select a user course</label>
-          <select name="course" id="select-course">
-            <option value="" selected></option> <!-- Default option is set to be empty -->
-            {% for course in courses %}
-              <option value="{{course.course_id}}">{{course.course_name}}</option>
-            {% endfor %}
-          </select>
-          <!-- End of selection course -->
-        </div>
-
         <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
-          <!-- coba -->
-          <div class="orders" id="attendanceLogsContainer" style="display: none;">
+          <div class="orders">
             <div class="header">
               <i class="bx bx-data"></i>
-              <h3>Attendance Logs</h3>
+              <h3>{{lecturer.user_fullname}} Attendance Logs</h3>
               <div class="filter-dropdown">
                 <select id="data-filter">
                   <option value="5">5</option>
@@ -131,15 +113,25 @@
                 </select>
                 <i class="bx bx-filter"></i>
               </div>
+              <input
+                type="search"
+                placeholder="Search..."
+                class="search-input"
+              />
+              <button class="search-btn" type="submit">
+                <i class="bx bx-search"></i>
+              </button>
             </div>
             <table>
               <thead>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Room</th>
-                <th>Time In</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <tr>
+                  <th>NIP</th>
+                  <th>Name</th>
+                  <th>Course</th>
+                  <th>Room</th>
+                  <th>Time In</th>
+                  <th>Status</th>
+                </tr>
               </thead>
               <tbody>
                 <!-- The table data will automatically get injected from JS after request to the server is done. -->
@@ -153,14 +145,11 @@
               <button id="next-page">
                 <i class="bx bx-chevrons-right"></i>
               </button>
-              <!-- export button -->
               <a href="" class="status ekspor" id="export-btn">
                 <i class="bx bx-export"></i>Export
               </a>
-              <!-- end of export button -->
             </div>
           </div>
-          <!-- end -->
         </div>
       </main>
     </div>
@@ -174,113 +163,71 @@
         }
       });
 
+      searchParam = new URLSearchParams(window.location.search);
+      const lecturerNIP = searchParam.get("nip");
+      const exportURL = `{{url_for('admin_ep.export_attendance', selected_role='LECTURER')}}?nip=${lecturerNIP}`;
+      const apiURL = `{{url_for('admin_ep.get_attendance_detail', selected_role='LECTURER')}}?nip=${lecturerNIP}`;
+      
+      if (searchParam.has("nip") && lecturerNIP.length === 18) {
+        getLecturerAttendanceData();
+        exportLecturerAttendanceData();
+      }
+
       // Function to change the href link of export-btn
-      function exportAttendanceData(selectedRole, selectedCourse) {
+      function exportLecturerAttendanceData() {
         const exportBtn = document.getElementById("export-btn");
-        if (selectedRole === "STUDENT") {
-          exportBtn.href = `{{url_for('admin_ep.export_attendance', selected_role='STUDENT')}}`;
-          if (selectedCourse) {
-            exportBtn.href += `?course_id=${selectedCourse}`;
-          }
-        }
-        else if (selectedRole === "LECTURER") {
-          exportBtn.href = `{{url_for('admin_ep.export_attendance', selected_role='LECTURER')}}`;
-          if (selectedCourse) {
-            exportBtn.href += `?course_id=${selectedCourse}`;
-          }
+        if (lecturerNIP) {
+          exportBtn.href = exportURL;
         }
         else {
           exportBtn.href = "#";
         }
       }
 
-      function getAttendanceData(selectedRole, selectedCourse) {
-        const attendanceLogsContainer = document.getElementById('attendanceLogsContainer');
-
-        // If admin select role and course, then fetch the data with course_id query parameter
-        if (selectedRole && selectedCourse) {
-          const apiURL = `/admin/attendance/${selectedRole}/get?course_id=${selectedCourse}`;
-          fetch(apiURL)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then((data) => {
-              // Panggil fungsi untuk mengisi tabel dengan data
-              populateTable(data.attendance, selectedRole);
-              attendanceLogsContainer.style.display = 'block'; // Show attendance logs container
-            })
-            .catch((error) => {
-              console.error(error);
-              attendanceLogsContainer.style.display = 'none'; // Hide attendance logs container on error
-            });
-        }
-        // If the user only select role, then fetch the data without course_id query parameter
-        else {
-          const apiURL = `/admin/attendance/${selectedRole}/get`;
-          fetch(apiURL)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then((data) => {
-              // Panggil fungsi untuk mengisi tabel dengan data
-              populateTable(data.attendance, selectedRole);
-              attendanceLogsContainer.style.display = 'block'; // Show attendance logs container
-            })
-            .catch((error) => {
-              console.error(error);
-              attendanceLogsContainer.style.display = 'none'; // Hide attendance logs container on error
-            });
-        }
-      }
-    
-      // Fungsi untuk mengisi tabel dengan data absensi
-      function populateTable(attendanceData, selectedRole) {
-        const tableBody = document.querySelector(
+      // Function to populate table body with data that is fetched from the flask
+      function populateTable(lecturerAttendanceData) {
+        const tbody = document.querySelector(
           ".bottom-data .orders table tbody"
         );
-        tableBody.innerHTML = ""; // Kosongkan isi tabel
+        tbody.innerHTML = "";
 
-        if (attendanceData.length === 0) {
-          const newRow = document.createElement("tr");
-          const rowData = `<td colspan="6" style="text-align: center;">No attendance logs found</td>`;
-          newRow.innerHTML += rowData;
-          tableBody.appendChild(newRow);
+        if (lecturerAttendanceData.length === 0) {
+          const newRow = document.createElement("tr"); 
+          newRow.innerHTML = `<td colspan="6" style="text-align: center;">No attendance found</td>`;
+          tbody.appendChild(newRow);
         }
         else {
-          attendanceData.forEach((rowData) => {
+          lecturerAttendanceData.forEach((rowData) => {
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
+              <td>${rowData.nip}</td>
               <td>${rowData.name}</td>
               <td>${rowData.course}</td>
               <td>${rowData.room}</td>
               <td>${rowData.time_in}</td>
               <td>${rowData.status}</td>
             `;
-            if (selectedRole === 'STUDENT') {
-              newRow.innerHTML += `
-                <td class="edit">
-                  <a href="{{url_for('admin_ep.view_attendance_detail', selected_role='STUDENT')}}?nim=${rowData.nim}" class="status view">
-                    <i class="bx bx-detail"></i>Detail
-                  </a>
-                </td>
-              `;
-            } else if (selectedRole === 'LECTURER') {
-              newRow.innerHTML += `
-                <td class="edit">
-                  <a href="{{url_for('admin_ep.view_attendance_detail', selected_role='LECTURER')}}?nip=${rowData.nip}" class="status view">
-                    <i class="bx bx-detail"></i>Detail
-                  </a>
-                </td>
-              `;
-            }
-            tableBody.appendChild(newRow);
+            tbody.appendChild(newRow);
           });
+        }
+      }
+
+      // Function to fetch the lecturer attendance logs detail from the flask by their nip
+      function getLecturerAttendanceData() {
+        if (lecturerNIP) {
+          fetch(apiURL)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((data) => {
+              populateTable(data.attendance_detail);
+            })
+            .catch((error) => {
+              console.error(error);
+            })
         }
       }
 
@@ -310,28 +257,6 @@
           }
         });
       });
-
-      // Function to handle change event of input radio (role)
-      function handleSelectionChange() {
-        const selectedRole = document.getElementById("select-role").value;
-        const selectedCourse = document.getElementById("select-course").value;
-      
-        // Fetch the attendance logs data
-        getAttendanceData(selectedRole, selectedCourse);
-      
-        // Change the href link of export-btn
-        exportAttendanceData(selectedRole, selectedCourse);
-      }
-      
-      function showAttendanceData() {
-        const inputRole = document.getElementById("select-role");
-        inputRole.addEventListener("change", handleSelectionChange);
-      
-        const inputCourse = document.getElementById("select-course");
-        inputCourse.addEventListener("change", handleSelectionChange);
-      }
-      
-      showAttendanceData();
 
       // filter & pagination
       const filterIcon = document.querySelector(".header .filter-dropdown i");

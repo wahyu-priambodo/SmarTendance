@@ -39,7 +39,7 @@
     pointer-events: none;
 }
 
-/* Dropdown radio */
+/* Dropdown select */
 .select-box {
     position: relative;
     display: flex;
@@ -50,118 +50,23 @@
     text-align: left;
     margin-top: 40px; 
   }
-  
-  .select-box #class {
-    display: none;
-    margin-top: -21px;
-    margin-left: 10px;
-    margin-bottom: 4px;
-    color: var(--dark);
-  }
-  
-  .select-box .options-container {
-    background: var(--dark-select); /* --dark-select */
-    color: var(--dark);
-    max-height: 0;
-    width: 100%;
-    opacity: 0;
-    transition: all 0.4s;
-    border-radius: 0 0 8px 8px;
-    overflow: hidden;
-    order: 1;
-  }
-  
-  .selected {
-    background: var(--dark-select); /* --dark-select */
-    border-radius: 8px;
-    margin-bottom: 8px;
-    color: var(--dark);
-    position: relative;
-  
-    order: 0;
-  }
-  
-  .selected::after {
-    content: "";
-    background: url("images/arrow-down.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-  
-    position: absolute;
-    height: 100%;
-    width: 32px;
-    right: 10px;
-    top: 5px;
-  
-    transition: all 0.4s;
-  }
-  
-  .select-box .options-container.active {
-    max-height: 240px;
-    opacity: 1;
-    overflow-y: scroll;
-  }
-  
-  .select-box .options-container.active + .selected::after {
-    transform: rotateX(180deg);
-    top: -6px;
-  }
-  
-  .select-box .options-container::-webkit-scrollbar {
-    width: 8px;
-    background: var(--dark-select); /* --dark-select */
-    border-radius: 0 8px 8px 0;
-  }
-  
-  .select-box .options-container::-webkit-scrollbar-thumb {
-    background: #525861;
-    border-radius: 8x;
-    transition: all 0.4s;
-  }
-  
-  .select-box .option,
-  .selected {
-    padding: 12px 24px;
-    cursor: pointer;
-  }
-  
-  .select-box .option:hover {
-    background: var(--select-hover); /* --select-hover */
-  }
-  
-  .select-box label {
-    cursor: pointer;
-  }
-  
-  .select-box .option .radio {
-    display: none;
-  }
-  
-  /* Searchbox */
-  
-  .search-box input {
-    display: none;
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    position: relative;
-    border-radius: 8px 8px 0 0;
-    z-index: 100;
-    border: 8px solid var(--dark-select); /* --dark-select */
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s;
-  }
-  
-  .search-box input:focus {
-    outline: none;
-  }
-  
-  .select-box .options-container.active ~ .search-box input {
-    opacity: 1;
-    pointer-events: auto;
-  }
 
+.select-box label {
+    color: var(--dark);
+    margin: 5px 0;
+    cursor: pointer;
+}
+  
+.select-box select{
+    background-color: var(--dark-select);
+    border: 1px solid var(--dark-select);
+    height: 30px;
+    width: 68%;
+    border-radius: 8px;
+    color: var(--dark);
+}
+
+ 
   /* end */
 
 .content main .bottom-data{

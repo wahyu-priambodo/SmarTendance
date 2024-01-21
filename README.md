@@ -1,47 +1,47 @@
 # SmarTendance V2
 
-git merge origin/wahyu
-git push -u origin wahyu
-git switch wahyu
-
-List Endpoint:
-admin:
-
-```text
-- admin/<nim>/edit
-- admin/<nip>/edit
-- admin/<course_id>/edit
-- admin/<course_id>/view
-- admin/<nim>/delete
-- admin/<nip>/delete
-- admin/<course_id>/delete
-- admin/new -> admin/new/student
-- admin/new -> admin/new/lecturer
-- admin/new -> admin/new/course
-- admin/show/students
-- admin/show/lecturers
-- admin/show/courses
-```
-
-students
-
-```text
-- student/
-```
-
-Libraries:
-setuptools gunicorn python-dotenv Flask Flask-SQLAlchemy PyMySQL Flask-Migrate Flask-SocketIO Flask-WTF email-validator Flask-Argon2
-
-Kalo gak bisa rename database di phpmyadmin, coba repair table dulu
+## Setup & Installation
 
 ```python
-from flask_argon2 import check_password_hash, generate_password_hash
-db.session.add_all([
-User(user_id='1234567890', user_role='ADMIN', user_fullname='Admin Satu', user_password_hash=generate_password_hash(
-'AdminPassword1!'), user_rfid_hash=generate_password_hash('testadmin1rfid'), user_email_address='admin1@tik.pnj.ac.id')
-])
-from flask_argon2 import check_password_hash, generate_password_hash
-db.session.add_all([User(user_id='2207421048', user_role='ADMIN', user_fullname='Wahyu Priambodo', user_password_hash=generate_password_hash('WahyuPriambodo1!'), user_email_address='wahyu.priambodo.tik22@mhsw.pnj.ac.id'), User(user_id='2207421059', user_role='STUDENT', user_fullname='Cornelius Yuli Rosdianto', user_password_hash=generate_password_hash('CorneliusPassword1!'), user_rfid_hash=generate_password_hash('testcornelrfid'), user_email_address='cornelius.yuli.rosdianto.tik22@mhsw.pnj.ac.id', student_class='TMJ-3B')])
-db.session.commit()
-db.session.commit()
+pip install -r requirements.txt
+flask run
+# or you can create your own venv inside our project by using this command:
+python -m venv .venv
+# or by virtualenv command
+virtualenv .venv 
 ```
+
+## Usage
+
+Coming soon.
+
+## Libraries
+
+- setuptools
+- gunicorn
+- python-dotenv
+- Flask
+- Flask-SQLAlchemy
+- PyMySQL Flask-Migrate
+- Flask-SocketIO
+- Flask-MQTT
+- Flask-WTF
+- email-validator
+- Flask-Argon2
+
+## Notes
+
+If you cannot rename or remove database in phpMyAdmin, you can try to repair the spesific table that may have  problem.
+
+- In the left sidebar, click the name of the database that you want to check,
+- In the navbar (at the top), go to the `Operations`,
+- Scroll down until you find `Table Maintenance` section,
+- And finally, you can click the `Repair` or `Optimize` table.
+
+TODO:
+
+- [ ] Add self-signed SSL certificate (ON PRODUCTION)
+- [X] Remove trailing slash for each routes / endpoints (DONE)
+- [X] Add pop-up confirmation while user want to delete or logout (DONE)
+- [X] Add pop-up notification after admin complete form registration (DONE)
+- [ ] Fetch data from flask over websocket (realtime).
