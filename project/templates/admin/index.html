@@ -15,7 +15,7 @@
       rel="stylesheet"
       href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}"
     />
-    <title>Admin {{admin.user_fullname}} | Dashboard</title>
+    <title>{{admin.user_fullname}} | Dashboard</title>
   </head>
 
   <body>
@@ -153,28 +153,28 @@
             <i class="bx bx-group"></i>
             <span class="info">
               <h3>{{total_students}}</h3>
-              <p>Total Registered Students</p>
+              <p>Total Students</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-user"></i>
             <span class="info">
               <h3>{{total_lecturers}}</h3>
-              <p>Total Registered Lecturers</p>
+              <p>Total Lecturers</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-graduation"></i>
             <span class="info">
               <h3>{{total_courses}}</h3>
-              <p>Total Registered Courses</p>
+              <p>Total Courses</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-door-open"></i>
             <span class="info">
               <h3>{{total_classes}}</h3>
-              <p>Total Registered Classes</p>
+              <p>Total Classes</p>
             </span>
           </li>
         </ul>
@@ -389,7 +389,7 @@
               Update
             </button>
             <button type="button" class="cancel" onclick="closeModalStudent()">
-              Batal
+              Cancel
             </button>
           </div>
         </form>
@@ -431,7 +431,7 @@
               Update
             </button>
             <button type="button" class="cancel" onclick="closeModalLecturer()">
-              Batal
+              Cancel
             </button>
           </div>
         </form>

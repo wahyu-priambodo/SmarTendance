@@ -79,6 +79,34 @@
 
       <!-- End of Navbar -->
       <main>
+        <div class="show-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == "success" %}
+                  <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px; margin-top: 50px; margin-bottom: 50px;"
+                  >
+                    {{message}}
+                  </span>
+                {% else %}
+                  {% if message is not string %}
+                    <ul style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-bottom: 30px;"
+                    >
+                      {% for msg in message %}
+                        <li>{{msg}}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <span class="alert alert-success" role="alert" style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-top: 50px; margin-bottom: 50px;"
+                    >
+                      {{message}}
+                    </span>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
         <div class="header">
           <div class="left">
             <h1>Courses</h1>
@@ -91,11 +119,10 @@
 
         <div class="select-box">
           <label for="select-role">Select a class</label>
-          <!-- <input type="text" id="class-search" placeholder="Search class..."> -->
           <!-- Class selection -->
           <select name="class" id="select-class">
             <!-- Default select class is set to empty -->
-            <option value="" selected></option>
+            <option value="" selected>-- all --</option>
             {% for class in classes %}
               <option value="{{class.class_id}}">{{class.class_id}}</option>
             {% endfor %}
@@ -105,7 +132,7 @@
 
         <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
-          <div class="orders" id="courseListContainer" style="display: none;">
+          <div class="orders">
             <div class="header">
               <i class="bx bxs-door-open"></i>
               <h2>Course List</h2>
@@ -150,30 +177,110 @@
         </div>
       </main>
     </div>
+    <!-- confirmation delete modal -->
+    <div class="confirmation-modal-delete" id="confirmation-modal-delete">
+      <div class="modal-content-delete">
+        <h2>Delete Confirmation</h2>
+        <p>Are you sure you want to delete this course?</p>
+        <div class="modal-buttons">
+          <form id="deleteCourse" method="POST">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+            <button type="submit" class="status completed">
+              Yes
+            </button>
+          </form>
+          <button id="cancel-delete">No</button>
+        </div>
+      </div>
+    </div>
     <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <!-- Fetch course data based on class id -->
+    
+    <!-- Modal Form Update course -->
+    <div class="modal" id="updateModalCourse">
+      <div class="modal-content-update">
+        <span class="close" onclick="closeModalCourse()">&times;</span>
+        <h2 id="titleUpdate">Update Course</h2>
+        <form id="updateCourseForm" method="POST">
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+          <label class="labelUpdate" for="courseName">Course Name:</label>
+          <input class="inputUpdate" type="text" id="courseName" name="course_name" />
+
+          <label class="labelUpdate" for="courseSKS">Course SKS:</label>
+          <input class="inputUpdate" type="number" id="courseSKS" name="course_sks" />
+
+          <label class="labelUpdate" for="courseSemester">Course semester:</label>
+          <input class="inputUpdate" type="number" id="courseSemester" name="course_semester" />
+          
+          <label  class="labelUpdate" for="courseDay">Course Day:</label>
+          <input class="inputUpdate" type="text" id="courseDay" name="course_day" />
+
+          <label  class="labelUpdate" for="timeStart">Time Start:</label>
+          <input class="inputUpdate" type="time" step="1" id="timeStart" name="course_time_start" />
+
+          <label  class="labelUpdate" for="timeEnd">Time End</label>
+          <input class="inputUpdate" type="time" step="1" id="timeEnd" name="course_time_end" />
+
+          <label  class="labelUpdate" for="courseDescription">Course Description:</label>
+          <input class="inputUpdate" type="text" id="courseDescription" name="course_description" />
+
+          <label  class="labelUpdate" for="courseLecturer">Course Lecturer:</label>
+          <input class="inputUpdate" type="text" id="courseLecturer" name="course_lecturer" readonly/>
+
+          <label  class="labelUpdate" for="courseClass">Course Class:</label>
+          <input class="inputUpdate" type="text" id="courseClass" name="course_class" readonly/>
+          
+          <label  class="labelUpdate" for="courseRoom">Course Room:</label>
+          <input class="inputUpdate" type="text" id="courseRoom" name="course_room" readonly/>
+
+          <div class="buttons">
+            <button type="submit" class="update">
+              Update
+            </button>
+            <button type="button" class="cancel" onclick="closeModalCourse()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script>
       function getCoursesData(classID) {
-        const dataContainer = document.getElementById("courseListContainer");
-        const apiURL = `/admin/courses/${classID}/get`;
-        fetch(apiURL)
-          .then( (response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then( (data) => {
-            populateTable(data.courses, classID);
-            dataContainer.style.display = "block";
-          })
-          .catch( (error) => {
-            console.error(error);
-            dataContainer.style.display = "none";
-          })
+        if (classID) {
+          const apiURL = `{{url_for('admin_ep.get_courses')}}?class_id=${classID}`;
+          fetch(apiURL)
+            .then( (response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then( (data) => {
+              populateTable(data.courses, classID);
+            })
+            .catch( (error) => {
+              console.error(error);
+            });
+        }
+        else {
+          const apiURL = `{{url_for('admin_ep.get_courses')}}`;
+          fetch(apiURL)
+            .then( (response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then( (data) => {
+              populateTable(data.courses);
+            })
+            .catch( (error) => {
+              console.error(error);
+            });
+        }
       }
 
-      function populateTable(coursesData, classID) {
+      function populateTable(coursesData) {
         const tbody = document.querySelector(
           ".bottom-data .orders table tbody"
         );
@@ -181,7 +288,7 @@
 
         if (coursesData.length === 0) {
           const newRow = document.createElement("tr");
-          const rowData = `<td colspan="5" style="text-align: center;">No courses found in ${classID}</td>`;
+          const rowData = `<td colspan="5" style="text-align: center;">No courses found</td>`;
           newRow.innerHTML = rowData;
           tbody.appendChild(newRow);
         }
@@ -194,12 +301,28 @@
             <td>${rowData.lecturer}</td>
             <td>${rowData.total_students}</td>
             <td class="action">
-              <a href="/admin/courses/${rowData.course_id}/edit" class="status completed">
-                <i class="bx bxs-edit ed"></i>edit
-              </a>
-              <a href="/admin/courses/${rowData.course_id}/delete" class="status delete">
-                <i class="bx bx-trash ed"></i>delete
-              </a>
+              <div class = "status completed editButton" onclick="openModalCourse(
+                '${rowData.course_id}',
+                '${rowData.course_name}',
+                '${rowData.at_semester}',
+                '${rowData.course_sks}',
+                '${rowData.day}',
+                '${rowData.time_start}',
+                '${rowData.time_end}',
+                '${rowData.course_description}',
+                '${rowData.lecturer}',
+                '${rowData.class_id}',
+                '${rowData.room_id}'
+              )">
+                <i class="bx bxs-edit ed"></i>
+                <a href="#">edit
+                </a>
+              </div>
+              <div class = "status delete deleteButton" onclick=confirmDelete('${rowData.course_id}') >
+                <i class="bx bx-trash ed"></i>
+                <a href="#" >delete
+                </a>
+              </div>
             </td>
             `;
             tbody.appendChild(newRow);
@@ -209,12 +332,13 @@
 
       function handleSelectionChange() {
         const selectedClassID = document.getElementById("select-class").value.trim();
-        getCoursesData(selectedClassID);
+        getCoursesData(selectedClassID); // Show all courses by classID
       }
 
       function showCoursesData() {
         const selectClass = document.getElementById("select-class");
         selectClass.addEventListener("change", handleSelectionChange);
+        getCoursesData(); // Show all courses
       }
 
       showCoursesData();
@@ -333,34 +457,43 @@
         }
       });
 
-      updatePagination();
+      updatePagination();   
 
-      // search option
-      document.addEventListener('DOMContentLoaded', function() {
-        // Ambil elemen input search dan select
-        var searchInput = document.getElementById('class-search');
-        var selectElement = document.getElementById('select-class');
-        
-        // Ambil semua option untuk keperluan filter
-        var options = selectElement.options;
-      
-        // Tambahkan event listener pada input search
-        searchInput.addEventListener('input', function() {
-          var searchValue = searchInput.value.toLowerCase();
-      
-          // Iterasi semua option
-          for (var i = 0; i < options.length; i++) {
-            var optionText = options[i].text.toLowerCase();
-            
-            // Tampilkan atau sembunyikan option sesuai dengan pencarian
-            if (optionText.includes(searchValue)) {
-              options[i].style.display = '';
-            } else {
-              options[i].style.display = 'none';
-            }
-          }
-        });
-      });      
+      function confirmDelete(courseID) {
+        const confirmationModal = document.getElementById(`confirmation-modal-delete`);
+        confirmationModal.style.display = "block";
+    
+        const cancelBtn = document.getElementById(`cancel-delete`);
+        cancelBtn.onclick = function () {
+          confirmationModal.style.display = "none";
+        };
+    
+        const deleteForm = document.getElementById(`deleteCourse`);
+        deleteForm.action = `/admin/${courseID}/delete/course`;
+      }
+
+      function openModalCourse(courseID, courseName, courseSemester, courseSKS, courseDay, timeStart, timeEnd, courseDescription, courseLecturer, courseClass, courseRoom) {
+        document.getElementById("courseName").value = courseName;
+        document.getElementById("courseSemester").value = courseSemester;
+        document.getElementById("courseSKS").value = courseSKS;
+        document.getElementById("courseDay").value = courseDay;
+        document.getElementById("timeStart").value = timeStart;
+        document.getElementById("timeEnd").value = timeEnd;
+        document.getElementById("courseDescription").value = courseDescription;
+        document.getElementById("courseLecturer").value = courseLecturer;
+        document.getElementById("courseClass").value = courseClass;
+        document.getElementById("courseRoom").value = courseRoom;
+        document.getElementById("updateModalCourse").style.display = "block";
+
+        // Add action attribute to lecturer edit form
+        editCourseForm = document.getElementById('updateCourseForm');
+        editCourseURL = `/admin/${courseID}/edit/course`;
+        editCourseForm.action = editCourseURL;
+      }
+
+      function closeModalCourse() {
+        document.getElementById("updateModalCourse").style.display = "none";
+      }
     </script>
   </body>
 </html>

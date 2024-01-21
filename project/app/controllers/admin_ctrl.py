@@ -130,14 +130,26 @@ def is_valid_time(time: str) -> bool:
 def validate_course_form(
   course_id:str, course_name:str, course_sks:int, at_semester:int,
   day:str, time_start:str, time_end:str, course_description:str,
-  lecturer_nip:str, class_id:str, room_id:str
+  lecturer_nip:str, class_id:str, room_id:str, edit_mode:bool=False
 ) -> bool:
   is_valid = False
-  if not (course_id and course_name and course_sks and at_semester 
-          and day and time_start and time_end
-          and lecturer_nip and class_id and room_id
-  ):
-    error_course_msg.append('Please fill all the form!')
+  if not edit_mode:
+    if not (course_id and course_name and course_sks and at_semester 
+            and day and time_start and time_end
+            and lecturer_nip and class_id and room_id
+    ):
+      error_course_msg.append('Please fill all the form!')
+    # Check if course already registered
+    course_exist = Course.query.filter_by(course_id=course_id).first()
+    if course_exist:
+      error_course_msg.append('Course already registered!')
+  else:
+    # Check if course already registered except the course that want to be edited
+    courses =  [
+      course.course_id for course in Course.query.all() if course.course_id != course_id
+    ]
+    if course_id in courses:
+      error_course_msg.append('Course already registered. Use different course ID!')
   # Check if course_id contain space
   if (" " in course_id):
     error_course_msg.append('Course ID must not contain space!')
@@ -155,8 +167,9 @@ def validate_course_form(
     error_course_msg.append('Time start and time end must be different!')
   if not (is_valid_time(time_start) or is_valid_time(time_end)):
     error_course_msg.append('Time start or time end must be in format HH:MM AM/PM!')
-  if len(course_description) > 256:
-    error_course_msg.append('Course description must be less than 256 characters!')
+  if course_description:
+    if len(course_description) > 256:
+      error_course_msg.append('Course description must be less than 256 characters!')
   # Check for lecturer NIP
   lecturer_exist = User.query.filter_by(
     user_id=lecturer_nip,
@@ -164,10 +177,6 @@ def validate_course_form(
   ).first()
   if not lecturer_exist:
     error_course_msg.append('Lecturer NIP is not valid!')
-  # Check if course already registered
-  course_exist = Course.query.filter_by(course_id=course_id).first()
-  if course_exist:
-    error_course_msg.append('Course already registered!')
   # Check for class ID
   class_exist = Class.query.filter_by(class_id=class_id).first()
   if not class_exist:
@@ -368,48 +377,76 @@ def add_course():
 """ End of registration """
 
 """ Courses """
-def serialized_course(class_id:str):
+def serialized_course(class_id:str = None):
   """
   This function is to serialize course data based on class_id.
   Required param: class_id (str)
   """
   serialized_courses = [] # Empty list to store serialized courses
-  # Query to get all the courses data based on class_id
-  courses = (
-    db.session.query(Course)
-    .join(User, User.user_id == Course.lecturer_nip)
-    .options(joinedload(Course.class_course))
-    .filter(Course.class_id == class_id)
-    .all()
-  )
-  # Serialize courses to JSON format
-  serialized_courses = [
-    {
-      'course_id': course.course_id,
-      'course_name': course.course_name,
-      'lecturer': course.user_course.user_fullname,
-      'total_students': len(course.class_course.courses)
+  # Check if class id param is passed
+  if class_id:
+    # Query to get all the courses data based on class_id
+    courses = (
+      db.session.query(Course)
+      .join(User, User.user_id == Course.lecturer_nip)
+      .options(joinedload(Course.class_course))
+      .filter(Course.class_id == class_id)
+      .all()
+    )
+    # Serialize courses to JSON format
+    serialized_courses = [
+      {
+        'course_id': course.course_id,
+        'course_name': course.course_name,
+        'lecturer': course.user_course.user_fullname,
+        'total_students': len(course.class_course.courses),
+        'course_sks': course.course_sks,
+        'at_semester': course.at_semester,  # Added comma here
+        'day': course.day,
+        'time_start': str(course.time_start),
+        'time_end': str(course.time_end),
+        'course_description': course.course_description,
+        'class_id': course.class_id,
+        'room_id': course.room_id
       }
-    for course in courses
-  ]
+      for course in courses
+    ]
+  else:
+    courses = (
+    db.session.query(Course)
+      .join(User, User.user_id == Course.lecturer_nip)
+      .options(joinedload(Course.class_course))
+    ).all()
+    # Serialize all courses to JSON format
+    serialized_courses = [
+      {
+        'course_id': course.course_id,
+        'course_name': course.course_name,
+        'lecturer': course.user_course.user_fullname,
+        'total_students': len(course.class_course.courses),
+        'course_sks': course.course_sks,
+        'at_semester': course.at_semester,  # Added comma here
+        'day': course.day,
+        'time_start': str(course.time_start),
+        'time_end': str(course.time_end),
+        'course_description': course.course_description,
+        'class_id': course.class_id,
+        'room_id': course.room_id
+      }
+      for course in courses
+    ]
   # Return the serialized courses
   return serialized_courses
 
-def get_courses(class_id:str):
+def get_courses():
   sess_user_id = session.get('user_id')
   sess_user_role = session.get('user_role')
   if not (sess_user_id and sess_user_role):
     return redirect(url_for('user_ep.login'))
   if sess_user_role != 'ADMIN':
     return abort(403)
-  # Check if class_id is passed in url path
-  if not class_id:
-    return jsonify({'message': 'Class ID is required!'}), 400
-  # Query to get all the list class
-  list_classes = [c.class_id for c in Class.query.all()]
-  # Check if the class_id is in the list of class 
-  if class_id not in list_classes:
-    return jsonify({'message': 'Class ID is not valid!'}), 400
+  # Get class id from query param
+  class_id = request.args.get('class_id', type=str)
   # Serialized course
   courses = serialized_course(class_id=class_id)
   # courses list to store serialized courses
@@ -795,7 +832,7 @@ def edit_lecturer(nip:str):
   return redirect(url_for('user_ep.dashboard'))
 
 def edit_course(course_id:str):
-  global error_user_msg
+  global error_course_msg
   sess_user_id = session.get('user_id')
   sess_user_role = session.get('user_role')
   if not (sess_user_id and sess_user_role):
@@ -809,8 +846,8 @@ def edit_course(course_id:str):
   form = request.form
   if request.method == 'POST':
     course_name = form['course_name']
-    course_sks = form['course_sks']
-    course_semester = form['course_semester']
+    course_sks = int(form['course_sks'])
+    course_semester = int(form['course_semester'])
     course_day = form['course_day']
     course_time_start = form['course_time_start']
     course_time_end = form['course_time_end']
@@ -818,11 +855,14 @@ def edit_course(course_id:str):
     course_lecturer = form['course_lecturer']
     course_class = form['course_class']
     course_room = form['course_room']
+    # Get nim of course lecturer
+    lecturer_nip = User.query.filter_by(user_fullname=course_lecturer).first().user_id
     # Validate the course edit form
     is_valid_course_form = validate_course_form(
       course_id=course_id, course_name=course_name, course_sks=course_sks, at_semester=course_semester, day=course_day, 
       time_start=course_time_start, time_end=course_time_end, course_description=course_description,
-      lecturer_nip=course_lecturer, class_id=course_class, room_id=course_room
+      lecturer_nip=lecturer_nip, class_id=course_class, room_id=course_room,
+      edit_mode=True
     )
     # Check if the form is valid
     if not is_valid_course_form:
@@ -839,7 +879,7 @@ def edit_course(course_id:str):
       found_course.time_start = course_time_start
       found_course.time_end = course_time_end
       found_course.course_description = course_description
-      found_course.lecturer_nip = course_lecturer 
+      found_course.lecturer_nip = lecturer_nip
       found_course.class_id = course_class
       found_course.room_id = course_room
       db.session.commit()

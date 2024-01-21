@@ -191,7 +191,7 @@
               <div class="form-group">
                 <label for="uid" id="label-uid">Student Card UID</label>
                 <input
-                  type="text"
+                  type="password"
                   id="uid"
                   placeholder="Student Card UID"
                   name="student_uid"
@@ -248,9 +248,10 @@
         </div>
         <div class="scan-success">Student Card UID Successfully Read</div>
         <input
-          type="text"
+          type="password"
           id="uid-input"
           placeholder="Please tap the student id card"
+          readonly
         />
         <div class="popup-button" align-self="flex-end">
           <button id="close-popup" class="cancel">Cancel</button>
@@ -258,11 +259,6 @@
         </div>
       </div>
     </div>
-    <!-- This script is to handle the MQTT connection -->
-    <script src="<https://unpkg.com/mqtt/dist/mqtt.min.js>">
-      console.log(mqtt);
-    </script>
-    <!-- Handle MQTT connection -->
     <script src="{{url_for('static', filename='admin/index.js')}}"></script>
     <script
       type="module"
@@ -272,6 +268,9 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
+    <!-- MQTT JS Library -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
     <script>
       const formGroups = document.querySelectorAll(".form-group input");
 
@@ -458,33 +457,67 @@
         }
       });
 
-      const wifiLoader = document.getElementById("wifi-loader");
-      const completeMark = document.querySelector(".complete-mark");
-      const scanSuccess = document.querySelector(".scan-success");
-      const uidInputt = document.getElementById("uid-input");
+      // Handle MQTT Connection
+      // Create MQTT conenction
+      const host = 'ws://broker.emqx.io:8083/mqtt';
+      const clientId = 'js_mqtt_client';
+      const subTopic = 'SmarTendance/ESP8266/Register';
+      const inputUID = document.getElementById("uid-input");
+      const options = {
+        keepalive: 60,
+        clientId: clientId,
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        will: {
+          topic: 'WillMsg',
+          payload: 'Connection Closed abnormally..!',
+          qos: 0,
+          retain: false
+        },
+      };
+      console.log('Connecting mqtt client');
 
-      uidInputt.addEventListener("input", function () {
-        if (uidInputt.value) {
+      // Create MQTT Client
+      const mqttClient = mqtt.connect(host, options);
+      
+      // Get MQTT message
+      mqttClient.on('connect', () => {
+        // Print the message to the console
+        console.log(`Client connected: ${clientId}`)
+        mqttClient.subscribe(subTopic, {'qos': 0});
+      });
+      mqttClient.on('message', (topic, msg, packet) => {
+        console.log(`Received Message: ${msg.toString()} On topic: ${topic}`);
+
+        inputUID.value = msg.toString();
+        console.log(inputUID.value);
+        if (inputUID.value) {
           wifiLoader.style.display = "none";
           completeMark.style.display = "block";
           scanSuccess.style.display = "block";
           completeMark.classList.add("success");
+          console.log(inputUID.value);
         } else {
           wifiLoader.style.display = "flex";
           completeMark.style.display = "none";
           scanSuccess.style.display = "none";
           completeMark.classList.remove("success");
         }
-      });
+      })
+      mqttClient.on('error', (err) => {
+        console.log('Connection error: ', err)
+        mqttClient.end()
+      })
+      mqttClient.on('reconnect', () => {
+        console.log('Reconnecting...')
+      })
 
-      uidInputt.addEventListener("focus", function () {
-        if (!uidInputt.value) {
-          wifiLoader.style.display = "flex";
-          completeMark.style.display = "none";
-          scanSuccess.style.display = "none";
-          completeMark.classList.remove("success");
-        }
-      });
+      const wifiLoader = document.getElementById("wifi-loader");
+      const completeMark = document.querySelector(".complete-mark");
+      const scanSuccess = document.querySelector(".scan-success");
 
       // cek form
       // Fungsi untuk memeriksa apakah data RFID telah diterima

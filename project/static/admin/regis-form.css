@@ -109,6 +109,19 @@ input[type="time"]::-webkit-clear-button {
     filter: invert(50%) 
 }
 
+.form-group select {
+    background-color: var(--dark-select);
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--dark-select);
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    color: var(--dark);
+}
+
+
 
   /* CSS untuk mengubah tampilan dropdown list */
 
@@ -371,7 +384,7 @@ input:disabled {
   color: var(--dark);
 }
 
-.popup input[type="text"] {
+.popup input[id="uid-input"] {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
@@ -380,7 +393,6 @@ input:disabled {
   background-color: var(--grey);
   cursor: not-allowed;
 }
-
 #uid {
   cursor: not-allowed;
   background-color: var(--grey);

@@ -25,7 +25,7 @@ admin_ep.add_url_rule('/add/lecturer', endpoint="add_lecturer", view_func=add_le
 admin_ep.add_url_rule('/add/course', endpoint="add_course", view_func=add_course, methods=['GET', 'POST'])
 
 # Action for view course
-admin_ep.add_url_rule('/courses/<string:class_id>/get', endpoint="get_courses", view_func=get_courses, methods=['GET'])
+admin_ep.add_url_rule('/courses/get', endpoint="get_courses", view_func=get_courses, methods=['GET'])
 admin_ep.add_url_rule('/courses', endpoint="courses", view_func=courses, methods=['GET'])
 
 # Action for view class
