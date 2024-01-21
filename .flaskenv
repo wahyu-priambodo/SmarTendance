@@ -1,0 +1,8 @@
+FLASK_APP = project/main
+FLASK_DEBUG = True
+FLASK_RUN_HOST = 127.0.0.1
+FLASK_RUN_PORT = 5000
+FLASK_USE_RELOADER = True
+
+SECRET_KEY = #K3L2-PBL-SM4RT3ND4NC3#
+DATABASE_URL = mysql+pymysql://root:@localhost/smartendance-v2

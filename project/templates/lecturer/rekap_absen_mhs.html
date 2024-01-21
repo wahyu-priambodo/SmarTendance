@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='lecturer/rekap_absen_mhs.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='lecturer/SideMenu_Navbar.css')}}"
+    />
+    <title>Student Attendance Recap</title>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="#" class="logo">
+        <img
+          src="{{url_for('static', filename='images/logo.png')}}"
+          alt="Logo SmarTandance"
+        />
+        <div class="logo-name"><span>Smart</span>endance</div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a href="{{url_for('user_ep.dashboard')}}"
+            ><i class="bx bxs-dashboard"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="#"><i class="bx bxs-door-open"></i>Class</a>
+        </li>
+        <li>
+          <a href="{{url_for('lecturer_ep.view_lecturer_logs')}}"
+            ><i class="bx bx-data"></i>My Logs</a
+          >
+        </li>
+        <li class="active">
+          <a href="{{url_for('lecturer_ep.student_recap')}}"
+            ><i class="bx bx-data"></i>Student Logs</a
+          >
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a
+            href="#"
+            class="logout"
+            id="logout-button"
+            data-logout-url="{{url_for('user_ep.logout')}}"
+          >
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+          <div class="confirmation-modal" id="confirmation-modal">
+            <div class="modal-content">
+              <h2>Logout Confirmation</h2>
+              <p>You sure want to logout?</p>
+              <div class="modal-buttons">
+                <button id="confirm-logout">Yes</button>
+                <button id="cancel-logout">No</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button class="search-btn" type="submit">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="theme-toggle" hidden />
+        <label for="theme-toggle" class="theme-toggle"> </label>
+        <a href="#" class="profile">
+          <img
+            src="{{url_for('static', filename='images/profile_logo.png')}}"
+          />
+        </a>
+      </nav>
+
+      <!-- End of Navbar -->
+
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Rekap Absensi</h1>
+            <ul class="breadcrumb">
+              <li><a href="" class="active">Rekap Absensi</a></li>
+              /
+            </ul>
+          </div>
+        </div>
+
+        <div class="select-box">
+          <!-- Course selection -->
+          <label for="select-course">Select a course</label>
+          <select name="course" id="select-course">
+            <option value="" selected></option>
+            <!-- Default option is set to be empty -->
+            {% for course in courses %}
+            <option value="{{course.course_id}}" id="{{course.course_id}}">
+              {{course.course_name}}
+            </option>
+            {% endfor %}
+          </select>
+          <!-- End of selection course -->
+        </div>
+
+        <!-- Tabel Course Terdaftar -->
+        <div class="bottom-data">
+          <!-- coba -->
+          <div
+            class="orders"
+            id="attendanceLogsContainer"
+            style="display: none"
+          >
+            <div class="header">
+              <i class="bx bx-calendar"></i>
+              <h3>Student Logs</h3>
+              <div class="filter-dropdown">
+                <select id="data-filter">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+                <i class="bx bx-filter"></i>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>NIM</th>
+                  <th>Course</th>
+                  <th>Time In</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Auto inserted by the JS -->
+              </tbody>
+            </table>
+            <div class="pagination">
+              <button id="prev-page" disabled>
+                <i class="bx bx-chevrons-left"></i>
+              </button>
+              <span id="current-page">Page 1</span>
+              <button id="next-page">
+                <i class="bx bx-chevrons-right"></i>
+              </button>
+              <!-- export button -->
+              <a href="" class="status ekspor" id="export-btn">
+                <i class="bx bx-export"></i>Export
+              </a>
+              <!-- end of export button -->
+            </div>
+          </div>
+          <!-- end -->
+        </div>
+      </main>
+    </div>
+    <script src="{{url_for('static', filename='admin/index.js')}}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark");
+          toggler.checked = true;
+        }
+      });
+
+      const searchButtons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn"
+      );
+      const searchButtonIcons = document.querySelectorAll(
+        ".bottom-data .orders .header .search-btn .bx"
+      );
+      const searchInputs = document.querySelectorAll(
+        ".bottom-data .orders .header .search-input"
+      );
+
+      searchButtons.forEach((searchButton, index) => {
+        const searchButtonIcon = searchButtonIcons[index];
+        const searchInput = searchInputs[index];
+
+        searchButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          searchInput.classList.toggle("show");
+
+          if (searchInput.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+            searchInput.focus(); // Fokuskan input textfield setelah ditampilkan
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        });
+      });
+
+      // filter & pagination
+      const filterIcon = document.querySelector(".header .filter-dropdown i");
+      const filterDropdown = document.querySelector(".header .filter-dropdown");
+      const dataFilterSelect = document.getElementById("data-filter");
+      const tableRows = document.querySelectorAll(
+        ".bottom-data .orders table tbody tr"
+      );
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
+      const currentPageSpan = document.getElementById("current-page");
+
+      let currentPage = 1;
+      let itemsPerPage = parseInt(dataFilterSelect.value);
+
+      function updatePagination() {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        currentPageSpan.textContent = `Page ${currentPage}`;
+
+        if (currentPage === 1) {
+          prevPageButton.disabled = true;
+        } else {
+          prevPageButton.disabled = false;
+        }
+
+        if (currentPage === totalPages) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+
+        tableRows.forEach((row, index) => {
+          if (
+            index >= (currentPage - 1) * itemsPerPage &&
+            index < currentPage * itemsPerPage
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      filterIcon.addEventListener("click", function () {
+        filterDropdown.classList.toggle("active");
+      });
+
+      dataFilterSelect.addEventListener("change", function () {
+        itemsPerPage = parseInt(dataFilterSelect.value);
+        currentPage = 1;
+        updatePagination();
+      });
+
+      prevPageButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+        }
+      });
+
+      nextPageButton.addEventListener("click", function () {
+        const totalPages = Math.ceil(tableRows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+        }
+      });
+
+      updatePagination();
+
+      // Function to change the href link of export-btn
+      function exportAttendanceData(selectedCourse, selectedClass) {
+        const exportBtn = document.getElementById("export-btn");
+        if (selectedCourse) {
+          exportBtn.href = `{{url_for('lecturer_ep.export_students_attendance', selected_course=selectedCourse)}}`;
+          if (selectedClass) {
+            exportBtn.href += `?class_id=${selectedClass}`;
+          }
+        } else {
+          exportBtn.href = "#";
+        }
+      }
+
+      function getAttendanceData(selectedCourse) {
+        const attendanceLogsContainer = document.getElementById(
+          "attendanceLogsContainer"
+        );
+
+        // If admin select role and course, then fetch the data with course_id query parameter
+        if (selectedCourse) {
+          const apiURL = `/attendance_students/${selected_course}/student_data`;
+          fetch(endpointUrl)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((data) => {
+              // Panggil fungsi untuk memperbarui tabel dengan data mahasiswa
+              updateStudentTable(data.students);
+              attendanceLogsContainer.style.display = "block";
+            })
+            .catch((error) => {
+              console.error("Fetch error:", error);
+              // Handle error, misalnya, dengan menampilkan pesan kepada pengguna
+              attendanceLogsContainer.style.display = "none";
+            });
+        }
+      }
+
+      function updateStudentTable(students) {
+        const tableBody = document.querySelector("#student-table-body"); // Sesuaikan ID dengan ID tbody di template Anda
+
+        // Bersihkan isi tabel
+        tableBody.innerHTML = "";
+
+        // Loop melalui data mahasiswa dan tambahkan baris ke tabel
+        students.forEach((student) => {
+          const row = tableBody.insertRow();
+          const cellNIM = row.insertCell(0);
+          const cellName = row.insertCell(1);
+          const cellEmail = row.insertCell(2);
+
+          // Sesuaikan dengan properti data mahasiswa yang ingin Anda tampilkan
+          cellNIM.textContent = student.user_id;
+          cellName.textContent = student.user_fullname;
+          cellEmail.textContent = student.user_email_address;
+        });
+      }
+
+      // Function to handle change event of input radio (role)
+      function handleSelectionChange() {
+        const selectedCourse = document.getElementById("select-course").value;
+        // Fetch the attendance logs data
+        getAttendanceData(selectedCourse);
+
+        // Change the href link of export-btn
+        exportAttendanceData(selectedCourse);
+      }
+
+      function showAttendanceData() {
+        const inputCourse = document.getElementById("select-course");
+        inputCourse.addEventListener("change", handleSelectionChange);
+      }
+
+      showAttendanceData();
+    </script>
+  </body>
+</html>
