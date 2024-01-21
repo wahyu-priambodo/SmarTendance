@@ -218,7 +218,7 @@ def add_student():
     student_pw = form['student_pw']
     student_confirm_pw = form['student_confirm_pw']
     student_email_address = form['student_email_address']
-    student_home_address = form['student_home_address']
+    student_home_address = form['student_home_address'] or None
     student_uid = form['student_uid']
     # Validate user form
     is_form_valid = validate_user_form(
@@ -271,9 +271,9 @@ def add_lecturer():
     lecturer_pw = form['lecturer_pw']
     lecturer_confirm_pw = form['lecturer_confirm_pw']
     lecturer_email_address = form['lecturer_email_address']
-    lecturer_home_address = form['lecturer_home_address']
+    lecturer_home_address = form['lecturer_home_address'] or None
     lecturer_uid = form['lecturer_uid']
-    print(lecturer_name, lecturer_major, lecturer_nip, lecturer_pw, lecturer_confirm_pw, lecturer_email_address, lecturer_home_address, lecturer_uid)
+    # Validate the user form
     is_form_valid = validate_user_form(
       user_id=lecturer_nip, user_role='LECTURER', user_fullname=lecturer_name, user_pw=lecturer_pw, user_confirm_pw=lecturer_confirm_pw, user_email_address=lecturer_email_address, user_uid=lecturer_uid, user_home_address=lecturer_home_address, lecturer_major=lecturer_major
     )
@@ -323,7 +323,7 @@ def add_course():
     course_day = form['course_day']
     course_start = form['time_start']
     course_end = form['time_end']
-    course_description = form['course_description']
+    course_description = form['course_description'] or None
     lecturer_nip = form['lecturer_nip']
     class_id = form['class_id']
     room_id = form['room_id']
@@ -712,7 +712,7 @@ def edit_student(nim:str):
     student_confirm_pw = form['student_confirm_pw']
     student_uid = form['student_uid']
     student_email_address = form['student_email_address']
-    student_home_address = form['student_home_address']
+    student_home_address = form['student_home_address'] or None
     # Validate edit student form
     is_valid_form = validate_user_form(
       user_id=student_nim, user_role='STUDENT', user_fullname=student_name, user_pw=student_pw, user_confirm_pw=student_confirm_pw, user_email_address=student_email_address, user_uid=student_uid, user_home_address=student_home_address, student_class=student_class,
@@ -726,9 +726,11 @@ def edit_student(nim:str):
       return redirect(url_for('user_ep.dashboard'))
     try:
       found_student.user_fullname = student_name
-      if student_pw != "":
+      # If the field student_pw is not empty, then generate the password hash
+      if (student_pw != "") or (student_pw != None):
         found_student.user_password_hash = generate_password_hash(student_pw)
-      if student_uid != "":
+      # Same thing with the student_uid
+      if (student_uid != "") or (student_uid != None):
         found_student.user_rfid_hash = generate_password_hash(student_uid)
       found_student.user_email_address = student_email_address
       found_student.user_home_address = student_home_address
@@ -764,7 +766,7 @@ def edit_lecturer(nip:str):
     lecturer_confirm_pw = form['lecturer_confirm_pw']
     lecturer_uid = form['lecturer_uid']
     lecturer_email_address = form['lecturer_email_address']
-    lecturer_home_address = form['lecturer_home_address']
+    lecturer_home_address = form['lecturer_home_address'] or None
     # Validate edit student form
     is_valid_form = validate_user_form(
       user_id=lecturer_nip, user_role='LECTURER', user_fullname=lecturer_name, user_pw=lecturer_pw, user_confirm_pw=lecturer_confirm_pw, user_email_address=lecturer_email_address, user_uid=lecturer_uid, user_home_address=lecturer_home_address, lecturer_major=lecturer_major,
@@ -778,9 +780,11 @@ def edit_lecturer(nip:str):
       return redirect(url_for('user_ep.dashboard'))
     try:
       found_lecturer.user_fullname = lecturer_name
-      if lecturer_pw != "":
+      # If the field lecturer_pw is not empty, then generate the password hash
+      if (lecturer_pw != "") or (lecturer_pw != None):
         found_lecturer.user_password_hash = generate_password_hash(lecturer_pw)
-      if lecturer_pw != "":
+      # Same thing with the lecturer_uid
+      if (lecturer_uid != "") or (lecturer_uid != None):
         found_lecturer.user_rfid_hash = generate_password_hash(lecturer_uid)
       found_lecturer.user_email_address = lecturer_email_address
       found_lecturer.user_home_address = lecturer_home_address
@@ -789,6 +793,60 @@ def edit_lecturer(nip:str):
     except Exception as err:
       flash(f'Update lecturer data error. {err}', 'danger')
   return redirect(url_for('user_ep.dashboard'))
+
+def edit_course(course_id:str):
+  global error_user_msg
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  found_course = Course.query.filter_by(course_id=course_id).first()
+  if not found_course:
+    flash('Course not found', 'danger')
+    return redirect(url_for('admin_ep.courses'))
+  form = request.form
+  if request.method == 'POST':
+    course_name = form['course_name']
+    course_sks = form['course_sks']
+    course_semester = form['course_semester']
+    course_day = form['course_day']
+    course_time_start = form['course_time_start']
+    course_time_end = form['course_time_end']
+    course_description = form['course_description'] or None
+    course_lecturer = form['course_lecturer']
+    course_class = form['course_class']
+    course_room = form['course_room']
+    # Validate the course edit form
+    is_valid_course_form = validate_course_form(
+      course_id=course_id, course_name=course_name, course_sks=course_sks, at_semester=course_semester, day=course_day, 
+      time_start=course_time_start, time_end=course_time_end, course_description=course_description,
+      lecturer_nip=course_lecturer, class_id=course_class, room_id=course_room
+    )
+    # Check if the form is valid
+    if not is_valid_course_form:
+      flash(error_course_msg, 'danger')
+      # Clear the error messages after flashing
+      error_course_msg = []
+      return redirect(url_for('admin_ep.courses'))
+    # If the form valid, then update the course data based on the form input
+    try:
+      found_course.course_name = course_name
+      found_course.course_sks = course_sks
+      found_course.at_semester = course_semester
+      found_course.day = course_day
+      found_course.time_start = course_time_start
+      found_course.time_end = course_time_end
+      found_course.course_description = course_description
+      found_course.lecturer_nip = course_lecturer 
+      found_course.class_id = course_class
+      found_course.room_id = course_room
+      db.session.commit()
+      flash('Update course data success!', 'success')
+    except Exception as err:
+      flash(f'Update course data failed. {err}!', 'danger')
+  return redirect(url_for('admin_ep.courses'))
 """ End of edit action """
 
 
@@ -838,4 +896,25 @@ def delete_lecturer(nip:str):
     except Exception as err:
       flash(f'Delete lecturer data failed. {err}!', 'danger')
   return redirect(url_for('user_ep.dashboard'))
+
+def delete_course(course_id:str):
+  global error_user_msg
+  sess_user_id = session.get('user_id')
+  sess_user_role = session.get('user_role')
+  if not (sess_user_id and sess_user_role):
+    return redirect(url_for('user_ep.login'))
+  if sess_user_role != 'ADMIN':
+    return abort(403)
+  found_course = Course.query.filter_by(course_id=course_id).first()
+  if not found_course:
+    flash('Course not found', 'danger')
+    return redirect(url_for('admin_ep.courses'))
+  if request.method == 'POST':
+    try:
+      db.session.delete(found_course)
+      db.session.commit()
+      flash('Delete course data success!', 'success')
+    except Exception as err:
+      flash(f'Delete course data failed. {err}!', 'danger')
+  return redirect(url_for('admin_ep.courses'))
 """ End of delete action """

@@ -38,14 +38,18 @@ admin_ep.add_url_rule('/attendance/<string:selected_role>/export', endpoint="exp
 admin_ep.add_url_rule('/attendance/<string:selected_role>/get_detail', endpoint="get_attendance_detail", view_func=get_attendance_detail, methods=['GET'])
 admin_ep.add_url_rule('/attendance/<string:selected_role>/detail', endpoint="view_attendance_detail", view_func=view_attendance_detail, methods=['GET'])
 
-# Action for edit user
+# Action for edit
 # edit student
 admin_ep.add_url_rule('/<string:nim>/edit/student', endpoint="edit_student", view_func=edit_student, methods=['GET', 'POST'])
 # edit lecturer
 admin_ep.add_url_rule('/<string:nip>/edit/lecturer', endpoint="edit_lecturer", view_func=edit_lecturer, methods=['GET', 'POST'])
+# edit course
+admin_ep.add_url_rule('/<string:course_id>/edit/course', endpoint="edit_course", view_func=edit_course, methods=['GET', 'POST'])
 
-# Action for delete user
+# Action for delete
 # delete student
 admin_ep.add_url_rule('/<string:nim>/delete/student', endpoint="delete_student", view_func=delete_student, methods=['GET', 'POST'])
 # delete lecturer
 admin_ep.add_url_rule('/<string:nip>/delete/lecturer', endpoint="delete_lecturer", view_func=delete_lecturer, methods=['GET', 'POST'])
+# delete course
+admin_ep.add_url_rule('/<string:course_id>/delete/course', endpoint="delete_course", view_func=delete_course, methods=['GET', 'POST'])
