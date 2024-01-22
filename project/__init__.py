@@ -1,102 +1,124 @@
 from flask import Flask
-from datetime import timedelta
+from datetime import datetime, timedelta, time
+import pytz
 
 from .config import TestingConfig, ProductionConfig
 from .extensions import argon2, db, migrate, csrf, mqtt
 from .app.views import user_ep, admin_ep, lecturer_ep, student_ep
-from .app.models import User, Course
+from .app.models import *
 
-from pytz import timezone
-from datetime import datetime
+LOCAL_TZ = 'Asia/Jakarta'
+SUB_TOPIC = 'SmarTendance/ESP32/Attendance'
+PUB_TOPIC = 'SmarTendance/ESP32/Attendance/Response'
 
-topic = "SmarTendance/ESP32/Attendance"
-topicfallback = "SmarTendance/ESP32/AttendanceFallback"
+def curr_time():
+  local_timezone = pytz.timezone(LOCAL_TZ)
+  localized_time = datetime.now(local_timezone)
+  return localized_time.strftime("%H:%M:%S")
 
-
-def current_time():
-  curr_time = datetime.now(timezone("Asia/Jakarta")).strftime("%H:%M:%S")
-  print(curr_time)
-  return curr_time
-
-def current_day():
-  curr_day = datetime.now(timezone("Asia/Jakarta")).strftime("%A")
-  print(curr_day)
-  return curr_day
-
+def curr_day():
+  jakarta_timezone = pytz.timezone(LOCAL_TZ)
+  localized_time = datetime.now(jakarta_timezone)
+  return localized_time.strftime("%A")
 
 def create_app(testing: bool = True):
-	app = Flask(__name__)
-	app.permanent_session_lifetime = timedelta(hours=1)
-	app.url_map.strict_slashes = False
-	# Check for testing parameter value.
-	if testing:
-		app.config.from_object(TestingConfig)
-	else:
-		app.config.from_object(ProductionConfig)
-	# Connecting extensions to flask app
-	argon2.init_app(app)
-	db.init_app(app)
-	migrate.init_app(app, db)
-	csrf.init_app(app)
-	mqtt.init_app(app)
+  app = Flask(__name__)
+  app.permanent_session_lifetime = timedelta(hours=1)
+  app.url_map.strict_slashes = False
+  # Check for testing parameter value.
+  if testing:
+    app.config.from_object(TestingConfig)
+  else:
+    app.config.from_object(ProductionConfig)
+  # Connecting extensions to flask app
+  argon2.init_app(app)
+  db.init_app(app)
+  migrate.init_app(app, db)
+  csrf.init_app(app)
+  mqtt.init_app(app)
+  # Handle MQTT connection
+  @mqtt.on_connect()
+  def handle_connect(client, userdata, flags, rc):
+    if rc == 0:
+      print("Connected to broker")
+      mqtt.subscribe(SUB_TOPIC)
+    else:
+      print("Failed to connect, return code %d\n", rc)
 
-	@mqtt.on_connect()
-	def handle_connect(client, userdata, flags, rc):
-		if rc == 0:
-			print("Connected to broker")
-			mqtt.subscribe(topic)
-		else:
-			print("Failed to connect, return code %d\n", rc)
 
-	def do_attendance(uid: str):
-		with app.app_context():
-			found_user = User.query.filter_by(user_rfid_hash=uid).first()
-			print(found_user)
-			if found_user is None:
-				print(f"User with id {uid} not found")
-				mqtt.publish(topicfallback, "101")
-			print(found_user.user_role)
-			student_courses = []
-			lecturer_courses = []
-			# Check the user's class id
-			if found_user.user_role.value == "STUDENT":
-				found_course = Course.query.filter_by(
-					class_id=found_user.student_class,
-					day=current_day(),
-				).first()
-				student_courses = found_course
-			elif found_user.user_role.value == "LECTURER":
-				found_course = Course.query.filter_by(
-					lecturer_nip=found_user.user_id,
-					day=current_day(),
-					time_start=current_time(),
-					time_end=current_time(),
-				).first()
-				lecturer_courses = found_course
-			else:
-				print(f"Role unknown")
+  # Function to take attendance (store attendance to db)
+  def do_attendance(uid: str) -> bool:
+    current_time = datetime.now().time()
+    found_user = User.query.filter_by(user_rfid_hash=uid).first()
+    if not found_user:
+      mqtt.publish(PUB_TOPIC, payload=f"User with id {uid} not found")
+      return False
+    # Empty list to store student and lecturer courses
+    found_course = []
+    # Check the user's class id
+    if found_user.user_role.value == "STUDENT":
+      found_course = Course.query.filter_by(
+        class_id=found_user.student_class,
+        day=curr_day()
+      ).first()
+      found_room = found_course.room_id
+      print(found_course)
+      status = ""
+      # PRESENT if under 30 minutes after time_start
+      if current_time > found_course.time_start and current_time < found_course.time_end and current_time < (found_course.time_start + timedelta(minutes=30)):
+        status = "PRESENT"
+      elif current_time > found_course.time_start and current_time < found_course.time_end and current_time < (found_course.time_start + timedelta(minutes=60)):
+        status = "LATE"
+      else:
+        status = "ALPHA"
+      mqtt.publish(PUB_TOPIC, payload="Success")
 
-			if not (student_courses or lecturer_courses):
-				print(f"User with id {uid} not found in any course")
-				mqtt.publish(topicfallback, "102")
-			else:
-				if found_user.user_role.value == "STUDENT":
-					print(f"User with id {uid} found in course {student_courses}")
-				elif found_user.user_role.value == "LECTURER":
-					print(f"User with id {uid} found in course {lecturer_courses}")
+      print("Test")
+      print(datetime.now().time() > found_course.time_start)
 
-	@mqtt.on_message()
-	def handle_mqtt_message(client, userdata, message):
-		uid = message.payload.decode("utf-8")
-		print("Received message: " + uid)
-		print("Received message topic: " + message.topic)
+      new_student_log = StudentAttendanceLogs (
+        student_nim=found_user.user_id,
+        course_id=found_course.course_id,
+        room_id=found_room,
+        time_in=datetime.now(),
+        status=status
+      )
+      db.session.add(new_student_log)
+      db.session.commit()
+    elif found_user.user_role.value == "LECTURER":
+      found_course = Course.query.filter_by(
+        lecturer_nip=found_user.user_id,
+        day=curr_day()
+      ).first()
+      print(found_course)
+    else:
+      mqtt.publish(PUB_TOPIC, payload="Role unknown")
+      return False
 
-		do_attendance(uid)
+    # Insert attendance to db
 
-	# Registering route or endpoint blueprints
-	app.register_blueprint(user_ep)
-	app.register_blueprint(admin_ep)
-	app.register_blueprint(lecturer_ep)
-	app.register_blueprint(student_ep)
-
-	return app
+    
+  # Handle MQTT message
+  @mqtt.on_message()
+  def handle_mqtt_message(client, userdata, msg):
+    uid = msg.payload.decode("utf-8")
+    print("Received message: " + uid)
+    print("Received message topic: " + msg.topic)
+    # Do attendanec based on the user rfid
+    with app.app_context():
+      do_attendance(uid)
+  # Handle MQTT disconnect
+  @mqtt.on_disconnect()
+  def handle_disconnect(client, userdata, rc):
+    print("Disconnected from broker")
+  # Handle MQTT error
+  @mqtt.on_log()
+  def handle_logging(client, userdata, level, buf):
+    print("MQTT log: " + buf)
+  # Registering route or endpoint blueprints
+  app.register_blueprint(user_ep)
+  app.register_blueprint(admin_ep)
+  app.register_blueprint(lecturer_ep)
+  app.register_blueprint(student_ep)
+  
+  return app
