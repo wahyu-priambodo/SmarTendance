@@ -218,7 +218,7 @@
               <div class="form-group">
                 <label for="uid" id="label-uid">Lecturer Card UID</label>
                 <input
-                  type="password"
+                  type="text"
                   id="uid"
                   placeholder="Lecturer Card UID"
                   name="Lecturer_uid"
@@ -277,10 +277,9 @@
         </div>
         <div class="scan-success">Lecturer Card UID Successfully Read</div>
         <input
-          type="password"
+          type="text"
           id="uid-input"
           placeholder="Please tap the Lecturer id card"
-          readonly
         />
         <div class="popup-button" align-self="flex-end">
           <button id="close-popup" class="cancel">Cancel</button>
@@ -373,6 +372,36 @@
 
       labelUid.style.display = "none";
 
+      registerUidButton.addEventListener("click", () => {
+        const uidInputValue = uidInputField.value;
+        uidInputField.value = "";
+        wifiLoader.style.display = "flex";
+        completeMark.style.display = "none";
+        scanSuccess.style.display = "none";
+        completeMark.classList.remove("success");
+
+        if (uidInputValue.trim() === "") {
+          const uidInputVal = uidInput.value;
+          // Set value untuk input dengan id "uid"
+          uidInput.value = uidInputValue;
+
+          // const uidHiddenVal = hiddenInput.value;
+          if (uidInputVal.trim() !== "") {
+            uidInput.value = uidInputValue;
+          }
+        } else {
+          uidInput.value = uidInputValue;
+        }
+
+        if (uidInputValue) {
+          labelUid.style.display = "block";
+        } else {
+          labelUid.style.display = "none";
+        }
+
+        popup.style.display = "none";
+      });
+
       // cek konfirmasi password
 
       const passwordInput = document.getElementById("password");
@@ -457,6 +486,13 @@
       const wifiLoader = document.getElementById("wifi-loader");
       const completeMark = document.querySelector(".complete-mark");
       const scanSuccess = document.querySelector(".scan-success");
+
+      const deleteUID = document.querySelector(".delete button");
+
+      deleteUID.addEventListener("click", () => {
+        uidInput.value = "";
+        labelUid.style.display = "none";
+      });
     </script>
   </body>
 </html>

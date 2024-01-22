@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='user/login.css')}}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='user/login.css')}}"
+    />
     <title>SmarTendance</title>
   </head>
   <body>
@@ -34,9 +38,8 @@
       <div class="content">
         <h2>Welcome to SmarTendance</h2>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos error
-          sed asperiores tempore obcaecati magni vitae, quasi eveniet? Libero,
-          hic!
+          If you don't have account, please contact admin to register your
+          account to login
         </p>
         <a href="#">Get Started</a>
       </div>
@@ -44,24 +47,40 @@
       <div class="wrapper-login">
         <h2>Login</h2>
         <div class="show-messages">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                {% if category == "success" %}
-                  <span class="alert alert-success" role="alert" style="background-color: rgb(209,231,221); border-radius: 10px; text-align: left; padding: 10px; margin-top: 30px; margin-bottom: 30px;"
-                  >
-                    {{message}}
-                  </span>
-                <!-- category == "danger" -->
-                {% else %}
-                  <span class="alert alert-success" role="alert" style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-top: 30px; margin-bottom: 30px;"
-                  >
-                    {{message}}
-                  </span>
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %} {% if category ==
+          "success" %}
+          <span
+            class="alert alert-success"
+            role="alert"
+            style="
+              background-color: rgb(209, 231, 221);
+              border-radius: 10px;
+              text-align: left;
+              padding: 10px;
+              margin-top: 30px;
+              margin-bottom: 30px;
+            "
+          >
+            {{message}}
+          </span>
+          <!-- category == "danger" -->
+          {% else %}
+          <span
+            class="alert alert-success"
+            role="alert"
+            style="
+              background-color: rgb(248, 215, 218);
+              border-radius: 10px;
+              text-align: left;
+              padding: 10px;
+              margin-top: 30px;
+              margin-bottom: 30px;
+            "
+          >
+            {{message}}
+          </span>
+          {% endif %} {% endfor %} {% endif %} {% endwith %}
         </div>
         <form action="{{url_for('user_ep.login')}}" method="POST">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

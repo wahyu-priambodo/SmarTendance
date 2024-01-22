@@ -7,8 +7,14 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/regis-form.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/regis-form.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='admin/SideMenu_Navbar.css')}}"
+    />
     <title>Admin | Student Registration</title>
   </head>
 
@@ -16,29 +22,47 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <a href="{{url_for('user_ep.dashboard')}}" class="logo">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo SmarTandance" />
+        <img
+          src="{{url_for('static', filename='images/logo.png')}}"
+          alt="Logo SmarTandance"
+        />
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
         <li>
-          <a href="{{url_for('user_ep.dashboard')}}"><i class="bx bxs-dashboard"></i>Dashboard</a>
+          <a href="{{url_for('user_ep.dashboard')}}"
+            ><i class="bx bxs-dashboard"></i>Dashboard</a
+          >
         </li>
         <li>
-          <a href="{{url_for('admin_ep.courses')}}"><i class="bx bxs-graduation"></i>Course</a>
+          <a href="{{url_for('admin_ep.courses')}}"
+            ><i class="bx bxs-graduation"></i>Course</a
+          >
         </li>
         <li class="active">
-          <a href="{{url_for('admin_ep.add')}}"><i class="bx bx-group"></i>Registration</a>
+          <a href="{{url_for('admin_ep.add')}}"
+            ><i class="bx bx-group"></i>Registration</a
+          >
         </li>
         <li>
-          <a href="{{url_for('admin_ep.classes')}}"><i class="bx bxs-door-open"></i>Class</a>
+          <a href="{{url_for('admin_ep.classes')}}"
+            ><i class="bx bxs-door-open"></i>Class</a
+          >
         </li>
         <li>
-          <a href="{{url_for('admin_ep.view_attendance')}}"><i class="bx bx-data"></i>Attendance Logs</a>
+          <a href="{{url_for('admin_ep.view_attendance')}}"
+            ><i class="bx bx-data"></i>Attendance Logs</a
+          >
         </li>
       </ul>
       <ul class="side-menu">
         <li>
-          <a href="#" class="logout" id="logout-button" data-logout-url="{{url_for('user_ep.logout')}}">
+          <a
+            href="#"
+            class="logout"
+            id="logout-button"
+            data-logout-url="{{url_for('user_ep.logout')}}"
+          >
             <i class="bx bx-log-out-circle"></i>
             Logout
           </a>
@@ -62,7 +86,7 @@
       <nav>
         <i class="bx bx-menu"></i>
         <form action="#">
-          <div class="form-input" style="display: none;">
+          <div class="form-input" style="display: none">
             <input type="search" placeholder="Search..." />
             <button class="search-btn" type="submit">
               <i class="bx bx-search"></i>
@@ -72,7 +96,9 @@
         <input type="checkbox" id="theme-toggle" hidden />
         <label for="theme-toggle" class="theme-toggle"></label>
         <a href="#" class="profile">
-          <img src="{{url_for('static', filename='images/profile_logo.png')}}" />
+          <img
+            src="{{url_for('static', filename='images/profile_logo.png')}}"
+          />
         </a>
       </nav>
       <!-- End of Navbar -->
@@ -97,25 +123,30 @@
         <!-- Registration Form -->
         <div class="container">
           <div class="registration-form">
-            <form action="{{url_for('admin_ep.add_student')}}" method="POST" id="registration-form">
+            <form
+              action="{{url_for('admin_ep.add_student')}}"
+              method="POST"
+              id="registration-form"
+            >
               <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
               <h2>Student Registration Form</h2>
               <div class="show-messages">
                 {% with messages = get_flashed_messages(with_categories=true) %}
-                  {% if messages %}
-                    {% for category, message in messages %}
-                      <ul 
-                        style="background-color: rgb(248,215,218); border-radius: 10px; text-align: left; padding: 10px; margin-bottom: 30px;"
-                      >
-                        {% for msg in message %}
-                          {% if category == "danger" %}
-                            <li>{{msg}}</li>
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-                    {% endfor %}
-                  {% endif %}
-                {% endwith %}
+                {% if messages %} {% for category, message in messages %}
+                <ul
+                  style="
+                    background-color: rgb(248, 215, 218);
+                    border-radius: 10px;
+                    text-align: left;
+                    padding: 10px;
+                    margin-bottom: 30px;
+                  "
+                >
+                  {% for msg in message %} {% if category == "danger" %}
+                  <li>{{msg}}</li>
+                  {% endif %} {% endfor %}
+                </ul>
+                {% endfor %} {% endif %} {% endwith %}
               </div>
               <div class="form-group">
                 <label for="nama">Student Name</label>
@@ -131,19 +162,17 @@
                 <label for="options-container" id="class">Student Class</label>
                 <div class="options-container" id="options-container">
                   {% for class in student_class %}
-                    <div class="option">
-                      <input
-                        type="radio"
-                        class="radio"
-                        id="{{class.class_id}}"
-                        name="student_class"
-                        value="{{class.class_id}}"
-                        required
-                      />
-                      <label for="{{class.class_id}}">
-                        {{class.class_id}}
-                      </label>
-                    </div>
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="{{class.class_id}}"
+                      name="student_class"
+                      value="{{class.class_id}}"
+                      required
+                    />
+                    <label for="{{class.class_id}}"> {{class.class_id}} </label>
+                  </div>
                   {% endfor %}
                 </div>
 
@@ -157,7 +186,12 @@
               <!-- END -->
               <div class="form-group">
                 <label for="password">Student Password</label>
-                <input type="password" id="password" name="student_pw" required />
+                <input
+                  type="password"
+                  id="password"
+                  name="student_pw"
+                  required
+                />
                 <span
                   class="show-password"
                   onclick="togglePasswordVisibility('password')"
@@ -165,10 +199,13 @@
                 ></span>
               </div>
               <div class="form-group">
-                <label for="confirm-pass">
-                  Confirm Student Password
-                </label>
-                <input type="password" id="confirm-pass" name="student_confirm_pw" required />
+                <label for="confirm-pass"> Confirm Student Password </label>
+                <input
+                  type="password"
+                  id="confirm-pass"
+                  name="student_confirm_pw"
+                  required
+                />
                 <span
                   class="show-password"
                   onclick="togglePasswordVisibility('confirm-pass')"
@@ -177,11 +214,20 @@
               </div>
               <div class="form-group">
                 <label for="email">Student Email Address</label>
-                <input type="email" id="email" name="student_email_address" required />
+                <input
+                  type="email"
+                  id="email"
+                  name="student_email_address"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="home-address">Student Home Address</label>
-                <input type="text" id="home-address" name="student_home_address" />
+                <input
+                  type="text"
+                  id="home-address"
+                  name="student_home_address"
+                />
               </div>
               <div class="form-uid" id="uid-btn">
                 <button type="button" id="show-uid-popup">
@@ -205,7 +251,9 @@
                   <span>Delete Student Card UID</span>
                 </button>
               </div>
-              <button type="submit" class="btn-register">Register Student</button>
+              <button type="submit" class="btn-register">
+                Register Student
+              </button>
             </form>
           </div>
         </div>
@@ -459,37 +507,37 @@
 
       // Handle MQTT Connection
       // Create MQTT conenction
-      const host = 'ws://broker.emqx.io:8083/mqtt';
-      const clientId = 'js_mqtt_client';
-      const subTopic = 'SmarTendance/ESP8266/Register';
+      const host = "ws://broker.emqx.io:8083/mqtt";
+      const clientId = "js_mqtt_client";
+      const subTopic = "SmarTendance/ESP8266/Register";
       const inputUID = document.getElementById("uid-input");
       const options = {
         keepalive: 60,
         clientId: clientId,
-        protocolId: 'MQTT',
+        protocolId: "MQTT",
         protocolVersion: 4,
         clean: true,
         reconnectPeriod: 1000,
         connectTimeout: 30 * 1000,
         will: {
-          topic: 'WillMsg',
-          payload: 'Connection Closed abnormally..!',
+          topic: "WillMsg",
+          payload: "Connection Closed abnormally..!",
           qos: 0,
-          retain: false
+          retain: false,
         },
       };
-      console.log('Connecting mqtt client');
+      console.log("Connecting mqtt client");
 
       // Create MQTT Client
       const mqttClient = mqtt.connect(host, options);
-      
+
       // Get MQTT message
-      mqttClient.on('connect', () => {
+      mqttClient.on("connect", () => {
         // Print the message to the console
-        console.log(`Client connected: ${clientId}`)
-        mqttClient.subscribe(subTopic, {'qos': 0});
+        console.log(`Client connected: ${clientId}`);
+        mqttClient.subscribe(subTopic, { qos: 0 });
       });
-      mqttClient.on('message', (topic, msg, packet) => {
+      mqttClient.on("message", (topic, msg, packet) => {
         console.log(`Received Message: ${msg.toString()} On topic: ${topic}`);
 
         inputUID.value = msg.toString();
@@ -506,14 +554,14 @@
           scanSuccess.style.display = "none";
           completeMark.classList.remove("success");
         }
-      })
-      mqttClient.on('error', (err) => {
-        console.log('Connection error: ', err)
-        mqttClient.end()
-      })
-      mqttClient.on('reconnect', () => {
-        console.log('Reconnecting...')
-      })
+      });
+      mqttClient.on("error", (err) => {
+        console.log("Connection error: ", err);
+        mqttClient.end();
+      });
+      mqttClient.on("reconnect", () => {
+        console.log("Reconnecting...");
+      });
 
       const wifiLoader = document.getElementById("wifi-loader");
       const completeMark = document.querySelector(".complete-mark");
@@ -541,7 +589,9 @@
           registrationForm.submit();
           return true;
         } else {
-          alert("Please select the class and wait for the RFID data to be received");
+          alert(
+            "Please select the class and wait for the RFID data to be received"
+          );
           return false;
         }
       }
