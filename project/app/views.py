@@ -55,6 +55,31 @@ admin_ep.add_url_rule('/<string:nip>/delete/lecturer', endpoint="delete_lecturer
 admin_ep.add_url_rule('/<string:course_id>/delete/course', endpoint="delete_course", view_func=delete_course, methods=['GET', 'POST'])
 
 """ List of lecturer endpoints (lecturer routes) """
+
+# lecturer attendance logs
 lecturer_ep.add_url_rule('/logs', endpoint="view_lecturer_logs", view_func=view_lecturer_logs, methods=['GET'])
 lecturer_ep.add_url_rule('/logs/get', endpoint="get_lecturer_logs", view_func=get_lecturer_logs, methods=['GET'])
 lecturer_ep.add_url_rule('/logs/export', endpoint="export_lecturer_attendance", view_func=export_lecturer_logs, methods=['GET'])
+# edit lecturer attendance
+# lecturer_ep.add_url_rule('/logs/<string:log_id>/edit')
+
+# student attendance logs
+lecturer_ep.add_url_rule('/student_logs', endpoint="view_student_data", view_func=view_student_data, methods=['GET'])
+lecturer_ep.add_url_rule('/student_logs/<string:course_id>/students_data', endpoint="get_student_data", view_func=get_student_data, methods=['GET'])
+lecturer_ep.add_url_rule('/students_logs/<string:selected_course>/get', endpoint="get_data_student", view_func=get_student_data, methods=['GET'])
+
+lecturer_ep.add_url_rule('/logs/<string:course_id>/student/get', endpoint='get_student_logs', view_func=get_student_logs, methods=['GET'])
+
+lecturer_ep.add_url_rule('/logs/<string:course_id>/student', endpoint="view_student_logs", view_func=view_student_logs, methods=['GET'])
+
+
+# List of student endpoints (student routes)
+# Student only can view their attendance
+student_ep.add_url_rule('/course', endpoint="course", view_func=course, methods=['GET', 'POST'])
+student_ep.add_url_rule('/dashboard', endpoint="dashboard", view_func=student_dashboard, methods=['GET', 'POST'])
+
+# Action student for attendance
+student_ep.add_url_rule('/attendance', endpoint="view_attendance", view_func=view_attendance_student, methods=['GET'])
+student_ep.add_url_rule('/attendance/<string:selected_course>/get', endpoint="get_attendance", view_func=get_attendance_student, methods=['GET'])
+student_ep.add_url_rule('/attendance/<string:selected_course>/get_detail', endpoint="get_attendance_detail", view_func=get_attendance_detail_student, methods=['GET'])
+student_ep.add_url_rule('/attendance/<string:selected_course>/detail', endpoint="view_attendance_detail", view_func=view_attendance_detail_student, methods=['GET'])

@@ -9,13 +9,13 @@
     />
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='student/style.css')}}"
+      href="{{url_for('static', filename='student/course.css')}}"
     />
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='student/SideMenu_Navbar.css')}}"
     />
-    <title>Student | Dashboard</title>
+    <title>Smartendance</title>
   </head>
 
   <body>
@@ -29,12 +29,12 @@
         <div class="logo-name"><span>SmarTendance</span></div>
       </a>
       <ul class="side-menu">
-        <li class="active">
+        <li>
           <a href="{{url_for('student_ep.dashboard')}}"
             ><i class="bx bxs-dashboard"></i>Dashboard</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="{{url_for('student_ep.course')}}"
             ><i class="bx bxs-graduation"></i>Course</a
           >
@@ -99,96 +99,52 @@
       <main>
         <div class="header">
           <div class="left">
-            <h1>Welcome, {{ student.user_fullname }}</h1>
+            <h1>My Course</h1>
             <ul class="breadcrumb">
-              <li><a href="" class="active">Dashboard</a></li>
+              <li><a href="" class="active">Course</a></li>
+              /
             </ul>
           </div>
         </div>
 
-        <!-- Insights -->
-        <ul class="insights">
-          <li>
-            <i class="bx bxs-graduation"></i>
-            <span class="info">
-              <h3>{{ total_courses }}</h3>
-              <p>Total Courses</p>
-            </span>
-          </li>
-        </ul>
-        <!-- End of Insights -->
-
-        <!-- Tabel Kelas Saya -->
+        <!-- Tabel Course Terdaftar -->
         <div class="bottom-data">
-          <div class="orders" data-table="course">
-            <div class="header" data-table="course">
-              <i class="bx bxs-book" data-table="course"></i>
+          <div class="orders">
+            <div class="header">
+              <i class="bx bxs-book"></i>
               <h3>Courses</h3>
-              <div class="filter-dropdown">
-                <select id="course-data-filter">
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                </select>
-                <i class="bx bx-filter bx-filter-course"></i>
-              </div>
+              <i class="bx bx-filter"></i>
+              <i class="bx bx-search"></i>
             </div>
-
             <table>
               <thead>
                 <tr>
-                  <th>Course Name</th>
-                  <th>Lecturer Name</th>
-                  <th>Time Start</th>
-                  <th>Time End</th>
-                  <th>Room</th>
-                  <th>Status</th>
+                  <th class="data">Course Name</th>
+                  <th class="data">Lecturer</th>
+                  <th class="data">Day</th>
+                  <th class="data">Time Start</th>
+                  <th class="data">Time End</th>
+                  <th class="data">Room</th>
+                  <th class="data">SKS</th>
                 </tr>
               </thead>
               <tbody>
-                {% for course in student_courses %}
                 <tr>
-                  <td>{{ course.course_name }}</td>
-                  <td>{{ lecturer.user_fullname }}</td>
-                  <td>{{ course.time_start }}</td>
-                  <td>{{ course.time_end }}</td>
-                  <td>{{ course.room_id }}</td>
-                  <td>
-                    {% if course.course_id in attendance_data %} {% for log in
-                    attendance_data[course.course_id] %} {{ log.status.value }}
-                    <br />
-                    {% endfor %} {% else %} No attendance data available {%
-                    endif %}
-                  </td>
+                  <td>Sistem Embedded-TMJ3B</td>
+                  <td>Prihatin Oktivasari</td>
+                  <td>Wednesday</td>
+                  <td>13:00:00</td>
+                  <td>16:30:00</td>
+                  <td>AA204</td>
+                  <td>4</td>
                 </tr>
-                {% endfor %}
               </tbody>
             </table>
-
-            <div class="pagination">
-              <button id="mahasiswa-prev-page" disabled>
-                <i class="bx bx-chevrons-left"></i>
-              </button>
-              <span id="mahasiswa-current-page">Page 1</span>
-              <button id="mahasiswa-next-page">
-                <i class="bx bx-chevrons-right"></i>
-              </button>
-            </div>
           </div>
         </div>
       </main>
     </div>
-
     <script src="{{url_for('static', filename='student/index.js')}}"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-          document.body.classList.add("dark");
-          toggler.checked = true;
-        }
-      });
-    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");

@@ -250,7 +250,6 @@
     color: #fff;
     border-radius: 20px;
     font-weight: 700;
-    background-color: var(--success);
 }
 
 .content main .bottom-data .orders table tr th, .content main .bottom-data .orders table tr td {
@@ -266,6 +265,15 @@
 .edit .status{
     display: flex;
     align-items: center;
+    margin: 0 7px;
+}
+
+.edit .ekspor {
+    background-color: var(--primary);
+}
+
+.edit .view {
+    background-color: var(--success);
 }
 
 .edit .bx {

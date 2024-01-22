@@ -113,7 +113,8 @@ def dashboard():
         student_courses=student_courses
     )
   else:
-    return render_template('student/index.html')
+    student = User.query.filter_by(user_id=sess_user_id).first()
+    return render_template('student/index.html', student=student)
 
 def logout():
   session.pop('user_id', None)
