@@ -67,6 +67,7 @@ def create_app(testing: bool = True):
     if not found_user:
       message = f"101 - User not found"
       mqtt.publish(PUB_TOPIC, payload=message, qos=0)
+      print(message)
       return False
     
     # Empty list to store student and lecturer courses
@@ -213,15 +214,16 @@ def create_app(testing: bool = True):
       db.session.add(new_lecturer_log)
       db.session.commit()
 
-      message = f"100 - {status}"
-      mqtt.publish(PUB_TOPIC, payload=message, qos=0)
-      print(message)
-
     else:
       message = f"104 - Invalid user role"
       mqtt.publish(PUB_TOPIC, payload=message, qos=0)
       print(message)
       return False
+    
+    message = f"100 - Success"
+    mqtt.publish(PUB_TOPIC, payload=message, qos=0)
+    print(message)
+
 
 
   # Handle MQTT message
