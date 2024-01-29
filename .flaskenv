@@ -3,6 +3,8 @@ FLASK_DEBUG = True
 FLASK_RUN_HOST = 127.0.0.1
 FLASK_RUN_PORT = 5000
 FLASK_USE_RELOADER = True
+MQTT_BROKER_URL = broker.emqx.io
+MQTT_BROKER_PORT = 1883
 
 SECRET_KEY = #K3L2-PBL-SM4RT3ND4NC3#
 DATABASE_URL = mysql+pymysql://root:@localhost/smartendance-v2

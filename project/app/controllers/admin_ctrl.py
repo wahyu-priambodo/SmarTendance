@@ -246,7 +246,7 @@ def add_student():
       user_role = 'STUDENT',
       user_fullname = student_name,
       user_password_hash = generate_password_hash(student_pw),
-      user_rfid_hash = generate_password_hash(student_uid),
+      user_rfid_hash = student_uid,
       user_email_address = student_email_address,
       user_home_address = student_home_address,
       student_class = student_class
@@ -297,7 +297,7 @@ def add_lecturer():
       user_role = 'LECTURER',
       user_fullname = lecturer_name,
       user_password_hash = generate_password_hash(lecturer_pw),
-      user_rfid_hash = generate_password_hash(lecturer_uid),
+      user_rfid_hash = lecturer_uid,
       user_email_address = lecturer_email_address,
       user_home_address = lecturer_home_address,
       lecturer_major = lecturer_major
