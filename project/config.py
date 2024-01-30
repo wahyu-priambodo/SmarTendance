@@ -30,7 +30,7 @@ class TestingConfig(DbConfig):
   MQTT_BROKER_URL = str(environ.get("MQTT_BROKER_URL"))
   MQTT_BROKER_PORT = int(environ.get("MQTT_BROKER_PORT"))
   MQTT_TLS_ENABLED = False
-  MQTT_LAST_WILL_QOS = 1
+  MQTT_LAST_WILL_QOS = 0
   MQTT_KEEPALIVE = 180
 
 
@@ -44,5 +44,5 @@ class ProductionConfig(DbConfig):
   MQTT_BROKER_URL = str(environ.get("MQTT_BROKER_URL"))
   MQTT_BROKER_PORT = int(environ.get("MQTT_BROKER_PORT"))
   MQTT_TLS_ENABLED = False
-  MQTT_LAST_WILL_QOS = 1
+  MQTT_LAST_WILL_QOS = 0
   MQTT_KEEPALIVE = 180

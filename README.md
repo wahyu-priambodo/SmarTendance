@@ -13,7 +13,10 @@ virtualenv .venv
 
 ## Usage
 
-Coming soon.
+- Visit `http://localhost:9898/login` for login.
+- In your dashboard, you can do many things, for example if you're a admin you can (create, edit, delete, view) **course, lecturer, and student data**.
+- For lecturer and admin also can export attendance logs to excel file.
+- Finally, you can logout by click the `Logout` button at the sidemenu bar.
 
 ## Libraries
 
@@ -22,7 +25,8 @@ Coming soon.
 - python-dotenv
 - Flask
 - Flask-SQLAlchemy
-- PyMySQL Flask-Migrate
+- PyMySQL
+- Flask-Migrate
 - Flask-SocketIO
 - Flask-MQTT
 - Flask-WTF
@@ -38,7 +42,7 @@ If you cannot rename or remove database in phpMyAdmin, you can try to repair the
 - Scroll down until you find `Table Maintenance` section,
 - And finally, you can click the `Repair` or `Optimize` table.
 
-TODO:
+## TODO
 
 - [ ] Add self-signed SSL certificate (ON PRODUCTION)
 - [X] Remove trailing slash for each routes / endpoints (DONE)
