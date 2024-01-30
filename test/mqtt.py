@@ -4,8 +4,8 @@ import time
 # Set your MQTT broker details
 broker_url = "broker.emqx.io"  # Replace with your broker URL
 broker_port = 1883  # Replace with your broker port
-publish_topic = "SmarTendance/ESP32/AttendanceTest1"  # Replace with the topic you want to publish to
-subscribe_topic = "SmarTendance/ESP32/AttendanceTest1/Response"  # Replace with the topic you want to subscribe for the reply
+publish_topic = "SmarTendance/ESP32/AttendanceFinal"  # Replace with the topic you want to publish to
+subscribe_topic = "SmarTendance/ESP32/AttendanceFinal/Response"  # Replace with the topic you want to subscribe for the reply
 message_received = False
 
 def on_connect(client, userdata, flags, rc):
