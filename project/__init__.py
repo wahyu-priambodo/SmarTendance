@@ -47,9 +47,7 @@ def create_app(testing: bool = True):
   def handle_connect(client, userdata, flags, rc):
     if rc == 0:
       print("Connected to broker")
-      # Check if the app is restarted
-      if environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        mqtt.subscribe(SUB_TOPIC, qos=0)
+      mqtt.subscribe(SUB_TOPIC, qos=0)
     else:
       print("Failed to connect, return code %d\n", rc)
 
