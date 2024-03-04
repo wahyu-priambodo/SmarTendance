@@ -764,10 +764,10 @@ def edit_student(nim:str):
     try:
       found_student.user_fullname = student_name
       # If the field student_pw is not empty, then generate the password hash
-      if (student_pw != "") or (student_pw != None):
+      if student_pw != "":
         found_student.user_password_hash = generate_password_hash(student_pw)
       # Same thing with the student_uid
-      if (student_uid != "") or (student_uid != None):
+      if student_uid != "":
         found_student.user_rfid_hash = generate_password_hash(student_uid)
       found_student.user_email_address = student_email_address
       found_student.user_home_address = student_home_address
@@ -818,10 +818,10 @@ def edit_lecturer(nip:str):
     try:
       found_lecturer.user_fullname = lecturer_name
       # If the field lecturer_pw is not empty, then generate the password hash
-      if (lecturer_pw != "") or (lecturer_pw != None):
+      if lecturer_pw != "":
         found_lecturer.user_password_hash = generate_password_hash(lecturer_pw)
       # Same thing with the lecturer_uid
-      if (lecturer_uid != "") or (lecturer_uid != None):
+      if lecturer_uid != "":
         found_lecturer.user_rfid_hash = generate_password_hash(lecturer_uid)
       found_lecturer.user_email_address = lecturer_email_address
       found_lecturer.user_home_address = lecturer_home_address
